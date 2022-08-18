@@ -2,6 +2,10 @@
 <html>
 <body style="background-color: YellowGreen">
 <style>
+.main {
+  margin-left: 100px; /* Same as the width of the sidenav */
+}
+
 .sans {
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
@@ -29,8 +33,33 @@ p.quote {
 	font-style: italic	
 }
 
+.sidenav {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: DarkGreen;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 0px 1px 0px 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: Lime;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
 
 </style>
+<div class="main">
+
 <h1  style="background-color: Olive;">Johanathang Woijoitaj's Epic Fabric Modpack</h1>
 <h2 >The only mod pack your ever going to need.</h2>
 <!-- https://www.wordsaregod.com/product_images/adolf_hitler_motivational_quote1.png -->
@@ -61,7 +90,13 @@ p.quote {
 	<li>Extract/move the all the mods in the zip to the mods folder</li>
 	
 </ol>
+  <div class="sidenav">
+  <a href="./index.html">Home</a>
+  <a href="./page.html">Test</a>
+</div>
+
 	<p><i>PRO GAMER TIP - Use CTRL + A to select all files<i/></p>
 	<p><a href="./page.html">test</a></p>
+</div>
 </body>
 </html>
