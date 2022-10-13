@@ -141,12 +141,14 @@ p.quote {
 
 
     var randomDiv = document.getElementById("myRandomDiv");
-	var randomDiv = document.getElementById("myRandomDiv");
+	var randomDiv2 = document.getElementById("myRandomDiv");
 
     
     document.getElementById("button").addEventListener("click", function() {
           randomIndex = Math.ceil((Math.random()*questionStrings.length-1));
-          newQuestion = randomStrings[randomIndex];
+          newQuestion = questionStrings[randomIndex];
+          newAnswer = "Answer: " + answerStrings[randomIndex];
           spencerQuestion.innerHTML = newQuestion;
+          spencerAnswer.innerHTML = newAnswer;
     });
 </script>    
