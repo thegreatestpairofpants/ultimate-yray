@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body style="background-color: #33f46f ">
+<style>
+.main {
+  margin-left: 100px; /* Same as the width of the sidenav */
+}
+
+.sans {
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+h2 {
+	color: #D9AAE8;
+    font-family: "Curlz Mt";
+    font-size: 40px;
+
+
+}
+
+h3 {
+	color: #ff0fcd;
+    font-family: "Jokerman";
+
+
+}
+
+button {
+	color: #ff0fcd;
+    font-family: "Jokerman";
+
+}
+
+h1 {
+	color: #5b32d2;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+}
+p {
+	color: #da8019;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+li {
+	color: #458627;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+div {
+	color:  #f7dc6f;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 14px;
+
+}
+
+p.quote {
+	font-style: italic	
+}
+
+.sidenav {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #3c6718;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 0px 1px 0px 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #f7dc6f;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #12c9dc;
+}
+.button {
+  padding: 12px 16px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 2px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+</style>
+  <div class="sidenav">
+  <a href="./spencer.html">Home</a>
+  <a href="./triva.html">Trivia</a>
+</div>
+
+<div class="main">
+<h1>Spencer Howell Fan Site</h1>
+<p><br></p>
+<div id="spencerQuestion"></div>
+<p><br></p>
+
+<button class="button" id="button">New FACT</button>
+
+</div>
+
+
+</body>
+</html>
+
+<script type="text/javascript" charset="utf-8">
+    var randomStrings = [
+        "hello 1",
+        "hello 2",
+        "hello 3", 
+        "hello 4",
+        "hello 5",
+    ];
+
+
+
+    var randomDiv = document.getElementById("myRandomDiv");
+
+    document.getElementById("button").addEventListener("click", function() {
+          randomIndex = Math.ceil((Math.random()*randomStrings.length-1));
+          newText = randomStrings[randomIndex];
+          spencerQuestion.innerHTML = newText;
+    });
+</script>    
