@@ -111,6 +111,8 @@ p.quote {
 <h1>Spencer Howell Fan Site</h1>
 <p><br></p>
 <div id="spencerQuestion"></div>
+<div id="spencerAnswer"></div>
+
 <p><br></p>
 
 <button class="button" id="button">New FACT</button>
@@ -122,8 +124,15 @@ p.quote {
 </html>
 
 <script type="text/javascript" charset="utf-8">
-    var randomStrings = [
-        "hello 1",
+    var questionStrings = [
+        "What is Spencer's favorite color?",
+        "hello 2",
+        "hello 3", 
+        "hello 4",
+        "hello 5",
+    ];
+	var answerStrings = [
+        "Green",
         "hello 2",
         "hello 3", 
         "hello 4",
@@ -131,12 +140,13 @@ p.quote {
     ];
 
 
-
     var randomDiv = document.getElementById("myRandomDiv");
+	var randomDiv = document.getElementById("myRandomDiv");
 
+    
     document.getElementById("button").addEventListener("click", function() {
-          randomIndex = Math.ceil((Math.random()*randomStrings.length-1));
-          newText = randomStrings[randomIndex];
-          spencerQuestion.innerHTML = newText;
+          randomIndex = Math.ceil((Math.random()*questionStrings.length-1));
+          newQuestion = randomStrings[randomIndex];
+          spencerQuestion.innerHTML = newQuestion;
     });
 </script>    
