@@ -102,6 +102,27 @@ p.quote {
   transform: translateY(4px);
 }
 
+.buttonanswer {
+  padding: 12px 16px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 2px #999;
+}
+
+.buttonanswer:hover {background-color: #3e8e41}
+
+.buttonanswer:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 </style>
   <div class="sidenav">
   <a href="./spencer.html">Home</a>
@@ -112,11 +133,12 @@ p.quote {
 <h1>Spencer Howell Fan Site</h1>
 <p><br></p>
 
-<p style="background-color: #1021B0;" style="font-size: 20px;" id="spencerQuestion"></p>
-<p style="background-color: #1021B0;" style="font-size: 20px;" id="spencerAnswer"></p>
+<p  style="font-size: 20px;" id="spencerQuestion"></p>
+<p  style="font-size: 20px;" id="spencerAnswer"></p>
 <p><br></p>
 
 <button class="button" id="button">New FACT</button>
+<button class="buttonanswer" id="buttonanswer">Get answer</button>
 
 </div>
 
@@ -127,14 +149,14 @@ p.quote {
 <script type="text/javascript" charset="utf-8">
     var questionStrings = [
         "What is Spencer's favorite color?",
-        "hello 2",
+        "What is Spencer's favorite movie?",
         "hello 3", 
         "hello 4",
         "hello 5",
     ];
 	var answerStrings = [
         "Green",
-        "hello 2",
+        "Deadpool",
         "hello 3", 
         "hello 4",
         "hello 5",
@@ -148,8 +170,12 @@ p.quote {
     document.getElementById("button").addEventListener("click", function() {
           randomIndex = Math.ceil((Math.random()*questionStrings.length-1));
           newQuestion = questionStrings[randomIndex];
-          newAnswer = "Answer: " + answerStrings[randomIndex];
           spencerQuestion.innerHTML = newQuestion;
+          spencerAnswer.innerHTML = "";
+    });
+        document.getElementById("buttonanswer").addEventListener("click", function() {
+          newAnswer = "Answer: " + answerStrings[randomIndex];
           spencerAnswer.innerHTML = newAnswer;
     });
+
 </script>    
