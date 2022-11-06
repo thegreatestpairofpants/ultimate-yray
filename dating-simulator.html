@@ -16,10 +16,19 @@
 
     #output {
         position: relative;
-        top: -110px;
+        top: -85px;
         left: 15px;
         font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
+
+    #speakerName {
+        position: absolute;
+       
+        top: 10px;
+        left: 15px;
+        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
 
     #nextLine {
         position: relative;
@@ -67,11 +76,12 @@
             "scenes": [
                 {
                     "sceneid": "start",
-                    "actors": ["spencer"],
+                    "actors": ["Spencer"],
+                    "background": "bedroom",
                     "message": [
 
-                        { "spencer": "jonathan has good hair" },
-                        { "spencer": "would you agree?" }
+                        { "Spencer": "jonathan has good hair" },
+                        { "Spencer": "would you agree?" }
 
                     ],
                     "choice": ["you're lying", "I agree very much"],
@@ -79,13 +89,15 @@
                 },
                 {
                     "sceneid": "bad",
-                    "message": [ { "spencer": "you are delusional" } ]
+                    "background": "bedroom",
+                    "message": [ { "Spencer": "you are delusional" } ]
 
                 },
                 {
                     "sceneid": "right",
+                    "background": "bedroom",
                     "message": [
-                        { "spencer": "you are a sane person" }
+                        { "Spencer": "you are a sane person" }
                     ]
                 }
 
@@ -166,7 +178,11 @@
 
             );
             
-
+            var background = f.background;
+            switch (background) {
+                case "bedroom":
+                    document.getElementById("background").innerHTML = '<img src="assets/bedroom.png" alt="image" width="500">'
+            }
 
             var newChoice = f.choice;
             document.getElementById("output").innerHTML = "";
@@ -185,7 +201,8 @@
 </head>
 <body>
     <div id="body">
-        <img src="assets/bedroom.png" alt="image" width="500">
+        <div id="background">
+        </div>
         <div class="leftspeaker">
             <img src="https://cdn.discordapp.com/attachments/682774892512673867/1033760305123176629/SpencerIdle.png" alt="image" width="170">
         </div>
