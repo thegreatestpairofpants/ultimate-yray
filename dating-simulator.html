@@ -1,0 +1,207 @@
+<style>
+    #body {
+        position: relative;
+        left: 20px;
+    }
+    .leftspeaker {
+        position: relative;
+        left: 15px;
+        top: -190px;
+        
+    }
+    .textbox {
+        position: relative;
+        top: -160px;
+    }
+
+    #output {
+        position: relative;
+        top: -110px;
+        left: 15px;
+        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    #nextLine {
+        position: relative;
+        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -55px;
+        color: darkslategray;
+        left: 330px;
+        display: none;
+    }
+
+    button {
+        padding: 12px 16px;
+        font-size: 15px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #04AA6D;
+        border: none;
+        border-radius: 7px;
+        box-shadow: 0 5px #999;
+        position: relative;
+        top: -155px;
+        margin-bottom: 5px;
+    }
+
+        button:hover {
+            background-color: #97b688
+        }
+
+        button:active {
+            background-color: #97b688;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+</style>
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+    <script>
+        var continueLine = "";
+
+        const sourceJson = {
+            "scenes": [
+                {
+                    "sceneid": "start",
+                    "actors": ["spencer"],
+                    "message": [
+
+                        { "spencer": "jonathan has good hair" },
+                        { "spencer": "would you agree?" }
+
+                    ],
+                    "choice": ["you're lying", "I agree very much"],
+                    "choiceoutcome": ["right", "bad"]
+                },
+                {
+                    "sceneid": "bad",
+                    "message": [ { "spencer": "you are delusional" } ]
+
+                },
+                {
+                    "sceneid": "right",
+                    "message": [
+                        { "spencer": "you are a sane person" }
+                    ]
+                }
+
+            ]
+        };
+        var typeWriterID = undefined;
+        function typeWriter(message, delay, repetition) {
+            if (repetition == undefined) {
+               var repetition = -1;
+            } 
+            /*if (message == undefined) {
+                message = String(message);
+            }*/
+            if (repetition < message.length) {
+                document.getElementById("output").innerHTML += message.charAt(repetition);
+                repetition++;
+                typeWriterID = setTimeout(typeWriter, delay, message, 50 , repetition);
+            } else {
+                typewriterFinished = message;
+                document.getElementById("nextLine").style.display = 'inherit';
+
+            }
+        }
+
+
+
+        jQuery(function () { //runs at the very beginning of the game to start everything
+            newScene("start");
+
+        });
+        
+        function nextLine() {
+            document.getElementById('nextLine').style.display = 'none';
+            if (true) {
+                console.log("click");
+                continueLine = typewriterFinished;
+            }
+        }
+        
+        function newScene(nextScene) { //code for starting new scenes
+            if (nextScene == undefined) { //if called from button, get the scene name
+                var nextScene = event.target.id;
+            }
+            //document.getElementById("output").innerHTML = nextScene; actually useless code i think
+            var f = "";
+            jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
+                if (output.sceneid == nextScene) {
+                    f = output;
+                }
+            });
+
+            var lastMessage = "";
+            typewriterFinished = undefined;
+            jQuery.each(f.message, function (i, chatPair) { //loop
+                jQuery.each(chatPair, function (actor, message) {
+                    console.log(actor);
+                    console.log(message);
+                    function waitForTypewriter() {
+                        if (continueLine == lastMessage || typewriterFinished == undefined) {
+                            console.log(actor + "-" + message);
+                            typewriterFinished = "";
+                            clearTimeout(typeWriterID);
+                            newMessage = message;
+                            document.getElementById("speakerName").innerHTML = actor;
+                            document.getElementById("output").innerHTML = "";
+                            typeWriter(newMessage, 50);
+
+                            lastMessage = message;
+                        }
+                        else {
+                            setTimeout(waitForTypewriter, 250);
+                        }
+                    }
+                    waitForTypewriter();
+                });
+
+            }
+
+            );
+            
+
+
+            var newChoice = f.choice;
+            document.getElementById("output").innerHTML = "";
+
+            var buttonList = "";
+            if (f.choice != null) {
+                jQuery.each(f.choice, function (i2, f2) {
+                    buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[i2]}" >${f2}</button> <br>`);
+                });
+            }
+            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+
+
+        }
+    </script>
+</head>
+<body>
+    <div id="body">
+        <img src="assets/bedroom.png" alt="image" width="500">
+        <div class="leftspeaker">
+            <img src="https://cdn.discordapp.com/attachments/682774892512673867/1033760305123176629/SpencerIdle.png" alt="image" width="170">
+        </div>
+        <div class="textbox">
+            <img src="assets/untitled.png" onclick = nextLine() alt="image" width="500" />
+            <div onclick = nextLine() id="output">
+                <p>test</p>
+            </div>
+            <div onclick = nextLine() id="nextLine" ><i>~click to continue~</i></div>
+            <div id="speakerName"></div>
+
+        </div>
+        <div class="buttonOutput">
+            <button type="button">asdfasdf</button>
+        </div>
+
+    </div>
+</body>
+</html>
