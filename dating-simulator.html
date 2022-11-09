@@ -1,58 +1,84 @@
 <style>
     #body {
         position: relative;
-        left: 20px;
+        left: 30px;
     }
-    .leftspeaker {
-        position: relative;
-        left: 15px;
-        top: -190px;
-        
+    #downleft {
+        position: absolute;
+        left: 0px;
+        top: 300px;
     }
+
+    #upleft {
+        position: absolute;
+        left: 180px;
+        top: 225px;
+    }
+
+    #center {
+        position: absolute;
+        left: 255px;
+        top: 300px;
+    }
+
+    #upright {
+        position: absolute;
+        left: 405px;
+        top: 225px;
+    }
+
+    #downright {
+        position: absolute;
+        left: 502px;
+        top: 300px;
+    }
+
+
     .textbox {
-        position: relative;
-        top: -160px;
+        position: absolute;
+       
+        top: 562px;
     }
 
     #output {
         position: relative;
-        top: -85px;
-        left: 15px;
-        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -127px;
+        left: 22px;
+        font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
     }
 
     #speakerName {
         position: absolute;
-       
-        top: 10px;
-        left: 15px;
-        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 22px;
+        top: 15px;
+        left: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
 
 
     #nextLine {
         position: relative;
-        font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
-        top: -55px;
+        font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -82px;
         color: darkslategray;
-        left: 330px;
+        left: 495px;
         display: none;
     }
 
     button {
-        padding: 12px 16px;
-        font-size: 15px;
+        padding: 15px 18px;
+        font-size: 16px;
         text-align: center;
         cursor: pointer;
         outline: none;
         color: #fff;
         background-color: #04AA6D;
         border: none;
-        border-radius: 7px;
-        box-shadow: 0 5px #999;
+        border-radius: 35px;
         position: relative;
-        top: -155px;
-        margin-bottom: 5px;
+        top: 220px;
+        margin-bottom: 10px;
     }
 
         button:hover {
@@ -61,7 +87,7 @@
 
         button:active {
             background-color: #97b688;
-            box-shadow: 0 5px #666;
+            box-shadow: 0 10px #666;
             transform: translateY(4px);
         }
 </style>
@@ -76,12 +102,20 @@
             "scenes": [
                 {
                     "sceneid": "start",
-                    "actors": ["Spencer"],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "Spencer" },
+                        { "center": "Spencer" },
+                        { "upright": "Spencer" },
+                        { "downright" : "Spencer" }
+                    ],
                     "background": "bedroom",
                     "message": [
 
-                        { "Spencer": "jonathan has good hair" },
-                        { "Spencer": "would you agree?" }
+                        { "": "You wake up in the soft morning light" },
+                        { "": "As your alarm rings you realize" },
+                        { "": "YOU HAVE A DATE WITH SPENCER TODAY!" },
+                        { "" : "As you scramble to wake up, you realize you've forgotten what you look like!"}
 
                     ],
                     "choice": ["you're lying", "I agree very much"],
@@ -128,11 +162,17 @@
             newScene("start");
 
         });
-        
+        var continueButton = false;
+        var dialogueLocation = 0;
+
         function nextLine() {
             document.getElementById('nextLine').style.display = 'none';
             if (true) {
                 console.log("click");
+                console.log(dialogueLocation);
+                if (dialogueLocation == -1) {
+                    continueButton = true;
+                }
                 continueLine = typewriterFinished;
             }
         }
@@ -150,13 +190,15 @@
             });
 
             var lastMessage = "";
-            typewriterFinished = undefined;
+            dialogueLocation = 0;
+            typewriterFinished = undefined; //code for displaying dialogue
             jQuery.each(f.message, function (i, chatPair) { //loop
                 jQuery.each(chatPair, function (actor, message) {
                     console.log(actor);
                     console.log(message);
                     function waitForTypewriter() {
                         if (continueLine == lastMessage || typewriterFinished == undefined) {
+                            dialogueLocation++;
                             console.log(actor + "-" + message);
                             typewriterFinished = "";
                             clearTimeout(typeWriterID);
@@ -164,7 +206,12 @@
                             document.getElementById("speakerName").innerHTML = actor;
                             document.getElementById("output").innerHTML = "";
                             typeWriter(newMessage, 50);
-
+                            console.log(dialogueLocation);
+                            console.log(f.message.length)
+                            if (dialogueLocation == f.message.length) {
+                                dialogueLocation = -1;
+                                console.log(dialogueLocation);
+                            }
                             lastMessage = message;
                         }
                         else {
@@ -177,23 +224,52 @@
             }
 
             );
-            
+
+         
+
+
+            jQuery.each(f.actors, function (i, actorPair) {
+                jQuery.each(actorPair, function (actorLocation, actorName) {
+                    var actorImage;
+                    switch (actorName) {
+                        case "Spencer":
+                            actorImage = '<img src="assets/SpencerIdle.png" alt="image" width="255">';
+                        default:
+                            actorImage = '<img src="assets/SpencerIdle.png" alt="default" width="255">';
+                    }       
+                    document.getElementById(actorLocation).innerHTML = actorImage;
+                });
+
+            });
+
             var background = f.background;
-            switch (background) {
+            switch (background) { //code for changing backgrounds
                 case "bedroom":
-                    document.getElementById("background").innerHTML = '<img src="assets/bedroom.png" alt="image" width="500">'
+                    document.getElementById("background").innerHTML = '<img src="assets/bedroom.png" alt="image" width="750">'
             }
 
-            var newChoice = f.choice;
+            var newChoice = f.choice; 
             document.getElementById("output").innerHTML = "";
 
-            var buttonList = "";
-            if (f.choice != null) {
-                jQuery.each(f.choice, function (i2, f2) {
-                    buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[i2]}" >${f2}</button> <br>`);
-                });
+            var buttonList = ""; //creates buttons
+            function showButtons() {
+                if (continueButton) {
+                    console.log('it work');
+                    continueButton = false;
+                    if (f.choice != null) {
+                        if (f.choice.length > 1) {
+                            jQuery.each(f.choice, function (i2, f2) {
+                                buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[i2]}" >${f2}</button> <br>`);
+                               
+                            });
+                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                        }
+                    }
+                } else {
+                    setTimeout(showButtons, 250);
+                }
             }
-            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+            showButtons();
 
 
         }
@@ -201,23 +277,27 @@
 </head>
 <body>
     <div id="body">
-        <div id="background">
-        </div>
-        <div class="leftspeaker">
-            <img src="https://cdn.discordapp.com/attachments/682774892512673867/1033760305123176629/SpencerIdle.png" alt="image" width="170">
-        </div>
+        <div id="background"></div>
         <div class="textbox">
-            <img src="assets/Untitled.png" onclick = nextLine() alt="image" width="500" />
-            <div onclick = nextLine() id="output">
+            <img src="assets/Untitled.png" onclick=nextLine() alt="image" width="750" />
+            <div onclick=nextLine() id="output">
                 <p>test</p>
             </div>
-            <div onclick = nextLine() id="nextLine" ><i>~click to continue~</i></div>
+            <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
             <div id="speakerName"></div>
 
         </div>
         <div class="buttonOutput">
-            <button type="button">asdfasdf</button>
         </div>
+        <div id="actors">
+            <div id="upleft"> </div>
+            <div id="upright"></div>
+            <div id="center"></div>
+            <div id="downright"></div>
+            <div id="downleft"></div>
+
+        </div>
+
 
     </div>
 </body>
