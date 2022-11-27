@@ -77,7 +77,9 @@
         border: none;
         border-radius: 35px;
         position: relative;
-        top: 220px;
+        top: -440px;
+        left: 330px;
+        z-index: 17;
         margin-bottom: 10px;
     }
 
@@ -97,43 +99,577 @@
 
     <script>
         var continueLine = "";
+        var avatar;
+        var points = 0;
+        var bigmacs = 0;
+        var minions = "false";
 
         const sourceJson = {
             "scenes": [
                 {
                     "sceneid": "start",
-                    "actors": [
-                        { "downleft": "Spencer" },
-                        { "upleft": "Spencer" },
-                        { "center": "Spencer" },
-                        { "upright": "Spencer" },
-                        { "downright" : "Spencer" }
-                    ],
                     "background": "bedroom",
                     "message": [
 
                         { "": "You wake up in the soft morning light" },
                         { "": "As your alarm rings you realize" },
                         { "": "YOU HAVE A DATE WITH SPENCER TODAY!" },
-                        { "" : "As you scramble to wake up, you realize you've forgotten what you look like!"}
+                        { "": "As you scramble to wake up, you realize you've forgotten what you look like!" },
 
                     ],
-                    "choice": ["you're lying", "I agree very much"],
-                    "choiceoutcome": ["right", "bad"]
+                    "choice": ["stickman","stick woman","Jake from State Farm","Alternate Universe Spencer","Mikhail Gorbachev"],
+                    "choiceoutcome": ["avatar_stickman", "avatar_stickwoman","avatar_jake","avatar_auspencer","avatar_gorbachev"]
                 },
                 {
-                    "sceneid": "bad",
+                    "sceneid": "avatar_stickman",
                     "background": "bedroom",
-                    "message": [ { "Spencer": "you are delusional" } ]
+                    "newvars": [
+                        { "avatar" : "Stickman" }
+                    ],
+                    "actors": [
+                        { "upleft":"avatar"}
+                    ],
+                    "message": [ { "You": "Oh yeah, I look just like a Stickman" } ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_stickwoman",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar" : "Stickwoman" }
+                    ],
+                    "actors": [
+                        { "upleft":"avatar"}
+                    ],
+                    "message": [ { "You": "Oh yeah, I look just like a Stick woman" } ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_jake",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar" : "Jake" }
+                    ],
+                    "actors": [
+                        { "upleft":"avatar"}
+                    ],
+                    "message": [ { "You": "Oh yeah, I look just Jake from State Farm, in fact I am Jake from State Farm" } ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_auspencer",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar" : "SpencerInverted" }
+                    ],
+                    "actors": [
+                        { "upleft":"avatar"}
+                    ],
+                    "message": [ { "You": "Oh yeah, I look like Spencer but with inverted colors" } ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_gorbachev",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar" : "Gorbachev" }
+                    ],
+                    "actors": [
+                        { "upleft":"avatar"}
+                    ],
+                    "message": [ { "You": "Oh yeah, I look just Mikhail Gorbachev, last leader of the ussr before it dissolved in 1991" } ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "datelocation",
+                    "background": "bedroom",
+                    "actors": [
+                        {"upleft":"avatar"}
+                    ],
+                    "message": [
+                        { "You": "Blimey! Its almost time for me to get leaving" },
+                        { "You": "Wait I forgot where our date is taking place" },
+                        { "You": "Lets see if I can remember where"}
+                    ],
+                    "choice": ["McDonalds","Mr. Daw's office","Anime Club Meeting","A cliff", "An actual fancy restaurant"],
+                    "choiceoutcome" :["datelocation_mcdonalds", "datelocation_mrdaw", "datelocation_animeclub","datelocation_cliff","datelocation_fancyrestaurant"]
 
                 },
                 {
-                    "sceneid": "right",
+                    "sceneid": "datelocation_mcdonalds",
                     "background": "bedroom",
+                    "actors": [
+                        {"upleft": "avatar"}
+                    ],
                     "message": [
-                        { "Spencer": "you are a sane person" }
+                        { "You": "It was at the McDonalds down the street wasn't it!" },
+                        { "You" : "I need to get leaving right away"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_outside"]
+                },
+                {
+                    "sceneid": "mcdonalds_outside",
+                    "background": "mcdonalds_outside",
+                    "actors": [
+                        {"center":"avatar"}
+                    ],
+                    "message": [
+                        { "You": "Wow this is such a fancy restraunt" },
+                        {"You":"I wonder what it looks like on the side"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_inside_start"]
+                },
+                {
+                    "sceneid": "mcdonalds_inside_start",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        {"upleft":"avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "You're late :(" },
+                        { "You": "Well atleast I showed up" },
+                        { "Spencer": "Anyways, what do you want to order?" },
+                        { "Spencer": "And because I feel like it, I'll get the same order as you"}
+                    ],
+                    "choice": ["Big Mac","Chocolate Shake","Happy Meal","McRib","Spicy Deluxe Crispy Chicken Sandwich without Pickles and Tomatoes plus Extra Cheese"],
+                    "choiceoutcome": ["mcdonalds_food_bigmac","mcdonalds_food_shake","mcdonalds_food_happymeal","mcdonalds_food_mcrib","mcdonalds_food_sandwich"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_bigmac",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "bigmacs": "+1"}
+                    ],
+                    "message": [
+                        { "Spencer":"A big mac?"},
+                        { "Spencer": "That might be a bit difficult for me to handle" },
+                        { "You": "I'm sure you'll be fine" },
+                        { "Spencer": "Our order is here already?" },
+                        { "Spencer": "It's even bigger than I thought!" },
+                        { "Spencer": "Well I guess i have to finish it" },
+                        { "": "Spencer attempts to shove the entire burger down his mouth in one large bite" },
+                        { "" : "He then swallows the whole big mac in one large gulp"},
+                        { "You": "please don't do that again" },
+                        { "Spencer" : "sorry"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_shake",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+3"}
+                    ],
+                    "message": [
+                        { "Spencer":"Oooh! I love chocolate, and milkshakes too"},
+                        { "Spencer": "Oh, hey! Our order is already here" },
+                        { "You": "This shake is amazing" },
+                        { "Spencer": "I've never had anything better!"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_happymeal",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+7"}
+                    ],
+                    "message": [
+                        { "Spencer":"A happy meal? That's uhh"},
+                        { "Spencer": "..." },
+                        { "Spencer": "interesting? " },
+                        { "You" : "Do you have a problem?" },
+                        { "Spencer": "Oh no, absolutely not!"},
+                        { "Spencer": "Huh, our order is ready already?" },
+                        { "": "Spencer takes a little bite" },
+                        { "Spencer" : "It actually isn't too bad"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonald_minions"]
+                },
+                {
+                    "sceneid": "mcdonald_minions",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" },
+                        { "center": "Minion" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "newvars": [
+                        {"minions" : "true"}
+                    ],
+                    "message": [
+                        { "": "Suddenly a large horde of minions enter the building" },
+                        { "Spencer": "Hey what are those minions doing here?" },
+                        { "Minion #2": "i want banana pancake" },
+                        { "Minion #6": "Give banana" },
+                        { "Minion #1": "banana pancake! NOW!" },
+                        { "Spencer": "Just ignore them" },
+                        { "Minion #4": "we order banana pancake" },
+                        { "": "As soon as the horde gets its banana pancakes, they suddenly leave" },
+                        { "Spencer": "That was weird"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+
+                },
+                {
+                    "sceneid": "mcdonalds_food_mcrib",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "-5" }
+                    ],
+                    "message": [
+                        { "Spencer": "Sorry, you want what now?" },
+                        { "You": "I want a mcrib for us both" },
+                        { "Spencer": "Is this some sort of joke?" },
+                        { "You": "No, I'm serious" },
+                        { "Spencer" : "You're actually crazy"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_sandwich",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "-3" }
+                    ],
+                    "message": [
+                        { "Spencer": "That's a very complicated order" },
+                        { "You": "Its my favorite, trust me it'll taste amazing" },
+                        { "Spencer": "Oh hey, our order is here!" },
+                        { "Spencer": "Oh wait..." },
+                        { "Spencer": "..." },
+                        { "Spencer": "They messed up our order" },
+                        { "Spencer": "How though? This isn't even close. We ordered a sandwich not a salad!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Anyways, do you think you can guess my favorite color? " },
+                        { "You": "I think I might know this one" },
+                        { "You" : "Let me think"}
+                    ],
+                    "choice": ["Green","Red", "Blue", "Black" ],
+                    "choiceoutcome": ["mcdonalds_favcolor_green","mcdonalds_favcolor_wrong","mcdonalds_favcolor_wrong","mcdonalds_favcolor_wrong"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor_green",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        {"points": "+4"}
+                    ],
+                    "message": [
+                        { "You": "Is it green?" },
+                        { "Spencer": "Wow! You actually got it right" },
+                        { "Spencer" : "That's kind of impressive!"}
+                    ],
+                    "choice": ["auto" ],
+                    "choiceoutcome": ["mcdonalds_trivia"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor_wrong",
+                    "background": "mcdonalds_inside",
+                    "newvars": [
+                        {"points": "-2"}
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm actually disappointed" },
+                        { "Spencer": "That's not even close" },
+                        { "Spencer": "You've made me unbelievablely upset right now" },
+                        { "Spencer": "I am so dissatisfied with you" },
+                        { "Spencer": "Seriously, you've made me aggrieved like I've never been before" },
+                        { "Spencer": "I am incredibly displeased with your stupidity" },
+                        { "Spencer": "Your total idiocracy" },
+                        { "Spencer": "Is it actually that hard to answer a question right?" },
+                        { "Spencer" : "I am disconsolate all because of you now!"}
+
+                    ],
+                    "choice": ["auto" ],
+                    "choiceoutcome": ["mcdonalds_trivia"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "*maybe i should tell spencer a trivia fact about himself" },
+                        { "You": "*what would be a good idea" }
+                    ],
+                    "overrideVar": "minions",
+                    "overrideRequirement": "true",
+                    "overrideRedirect":"mcdonalds_playplace",
+                    "choice": ["You're 5 feet tall","You were born 2/26/2009", "You own 27 pairs of socks", "You're naturally blonde" ],
+                    "choiceoutcome": ["mcdonalds_trivia_height","mcdonalds_trivia_birthday","mcdonalds_trivia_socks","mcdonalds_trivia_blonde"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_height",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You" : "You're exactly 5 feet tall or 60 inches"}
+                        { "Spencer": "WOW" },
+                        { "Spencer": "OF COURSE YOU PUT THAT UP" },
+                        { "Spencer" : "I HATE YOU"}
+                    ],
+                    "newvars": [
+                        {"points" : "-20"}
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome" : ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_birthday",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You were born on Febuary 26th, 2009" },
+                        { "Spencer": "Wow, you know a lot about me" }
+                    ],
+                    "newvars": [
+                        {"points" : "+2"}
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome" : ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_socks",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You own exactly 27 pairs of socks" },
+                        { "Spencer": "Wow, you really do know a lot about me" }
+                    ],
+                    "newvars": [
+                        {"points" : "+5"}
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome" : ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_blonde",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You're naturally blonde, arent' you" },
+                        { "Spencer": "Wow, you know a lot about me" }
+                    ],
+                    "newvars": [
+                        {"points" : "+2"}
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome" : ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Say, do you think we should order something else" },
+                        { "You": "Sure, why not!" },
+                        { "Spencer" : "lets see whats on the menu"}
+                    ],
+                    "choice": ["Big Mac","Fries","Soda"],
+                    "choiceoutcome" : ["mcdonalds_reorder_bigmac","mcdonalds_reorder_fries","mcdonalds_reorder_soda"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_bigmac",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "A big mac! I think I'll be able to handle this" },
+                        { "": "You can see the worry on Spencer's face as the order arrives" },
+                        { "Spencer": "Here goes nothing!" },
+                        { "" : "Spencer's face is more worried than it was before the burger"}
+                    ],
+                    "choice": ["We should order another big mac", "I think Spencer has had enough"],
+                    "choiceoutcome" : ["mcdonalds_bigmac2","mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_fries",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm fine with that" },
+                        { "You": "Hey, they're already here" },
+                        { "Spencer": "There aren't too bad!" }
+                    ],
+                    "newvars": [
+                        {"points" : "+2"}
+                    ],
+                    "choice": ["We should order another big mac"],
+                    "choiceoutcome" : ["mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_soda",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm fine with that" },
+                        { "You": "Hey, the soda is already here" },
+                        { "Spencer": "Huh! It tastes sugary" }
+                    ],
+                    "newvars": [
+                        {"points" : "+2"}
+                    ],
+                    "choice": ["We should order another big mac"],
+                    "choiceoutcome" : ["mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_purpose",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Wait ..." },
+                        { "Spencer": "Why are we even in a McDonalds?" }
+                    ],
+                    "choice": ["We should order another big mac"],
+                    "choiceoutcome" : ["mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_bigmac2",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Another?" },
+                        { "Spencer": "I don't know about this one" },
+                        { "You": "Too late now, the burger is already here" },
+                        { "": "Spencer struggles to eat the big mac" },
+                        { "Spencer" : "I don't feel that well anymore"}
+                    ],
+                    "newvars": [
+                        { "points" : "-2"}
+                    ],
+                    "choice": ["How about another?", "Maybe that's a bit too much"],
+                    "choiceoutcome" : ["mcdonalds_bigmac3", "mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_bigmac3",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Are you trying to kill me or something?" },
+                        { "": "You can start to see tears form from Spencer's eyes" },
+                        { "You": "Guess what's already arriving" },
+                        { "": "Spencer can barely manage to swallow more than a few bites" },
+                        { "Spencer": "I'm not sure if I can finish this" },
+                        { "You": "Don't worry about it" },
+                        { "Spencer": "..." },
+                        { "Spencer": "..." },
+                        { "Spencer": "..." },
+                        { "": "Spencer's body drops dead on the floor" },
+                        { "" : "Eating such an absurd amount of big macs lead to cardiac arrest"}
+                    ],
+                    "newvars": [
+                        { "points" : "-2"}
+                    ],
+                    "choice": ["How about another?"],
+                    "choiceoutcome" : ["mcdonalds_bigmac3"]
+                },
+                {
+                    "sceneid": "mcdonalds_playplace",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        {"Spencer" : "Say, should we head to the play place?"}
                     ]
                 }
+
+
+
+
+
+
+
+
 
             ]
         };
@@ -148,7 +684,7 @@
             if (repetition < message.length) {
                 document.getElementById("output").innerHTML += message.charAt(repetition);
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 50 , repetition);
+                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition);
             } else {
                 typewriterFinished = message;
                 document.getElementById("nextLine").style.display = 'inherit';
@@ -168,8 +704,6 @@
         function nextLine() {
             document.getElementById('nextLine').style.display = 'none';
             if (true) {
-                console.log("click");
-                console.log(dialogueLocation);
                 if (dialogueLocation == -1) {
                     continueButton = true;
                 }
@@ -189,28 +723,73 @@
                 }
             });
 
+            jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
+                //loops for each entry in a list
+                jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
+                    if (newVal[0] == '+') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points + newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs + newValDifference;
+                                break;
+                        }
+                    }
+                    if (newVal[0] == '-') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points - newValDifference;
+                                console.log("points: "+newVal);
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs - newValDifference;
+                                break;
+                        }
+                    }
+
+
+
+                    switch (newVar) {
+                        case "avatar":
+                            avatar = newVal;
+                            break;
+                        case "points":
+                            points = newVal;
+                            break;
+                        case "bigmacs":
+                            bigmacs = newVal;
+                            break;
+                        case "minions":
+                            minions = newVal;
+                    }
+                });
+
+
+            });
+
             var lastMessage = "";
             dialogueLocation = 0;
             typewriterFinished = undefined; //code for displaying dialogue
             jQuery.each(f.message, function (i, chatPair) { //loop
                 jQuery.each(chatPair, function (actor, message) {
-                    console.log(actor);
-                    console.log(message);
                     function waitForTypewriter() {
                         if (continueLine == lastMessage || typewriterFinished == undefined) {
                             dialogueLocation++;
-                            console.log(actor + "-" + message);
                             typewriterFinished = "";
                             clearTimeout(typeWriterID);
                             newMessage = message;
                             document.getElementById("speakerName").innerHTML = actor;
                             document.getElementById("output").innerHTML = "";
                             typeWriter(newMessage, 50);
-                            console.log(dialogueLocation);
-                            console.log(f.message.length)
                             if (dialogueLocation == f.message.length) {
                                 dialogueLocation = -1;
-                                console.log(dialogueLocation);
                             }
                             lastMessage = message;
                         }
@@ -226,16 +805,70 @@
             );
 
          
+            if (f.overrideVar != null) {
+                console.log("it happened");
+                switch (f.overrideVar) {
+                    case "bigmacs":
+                        if (bigmacs == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                    case "minions":
+                        console.log("how could it happen");
+                        if (minions == f.overrideRequirement) {
+                            console.log("did it happen");
+                            console.log("banana")
+                            newScene(f.overrideRedirect);
+                            console.log(f.overrideRedirect)
+                            return;
+                        }
+                        break;
+
+                }
+            }
 
 
-            jQuery.each(f.actors, function (i, actorPair) {
+            document.getElementById("upleft").innerHTML = ""; //reset current actors
+            document.getElementById("downleft").innerHTML = "";
+            document.getElementById("center").innerHTML = "";
+            document.getElementById("upright").innerHTML = "";
+            document.getElementById("downright").innerHTML = "";
+
+
+            jQuery.each(f.actors, function (i, actorPair) { //code for updating for new actors
                 jQuery.each(actorPair, function (actorLocation, actorName) {
                     var actorImage;
+                    if (actorName == "avatar") {
+                        actorName = avatar;
+                    }
                     switch (actorName) {
                         case "Spencer":
-                            actorImage = '<img src="assets/SpencerIdle.png" alt="image" width="255">';
+                            actorImage = '<img src="assets/characters/spencer.png" alt="image" width="100">';
+                            break;
+                        case "Stickman":
+                            actorImage = '<img src="assets/characters/stickman.png" alt="you" width="100">';
+                            break;
+                        case "Stickwoman":
+                            actorImage = '<img src="assets/characters/stickwoman.png" alt="you" width="100">';
+                            break;
+                        case "Gorbachev":
+                            actorImage = '<img src="assets/characters/gorbachev.png" alt="you" width="100">';
+                            break;
+                        case "Minion":
+                            actorImage = '<img src="assets/characters/minion.png" alt="you" width="100">';
+                            break;
+                        case "SpencerInverted":
+                            actorImage = '<img src="assets/characters/spencerinverted.png" alt="image" width="100">';
+                            break;
+                        case "Jake":
+                            actorImage = '<img src="assets/characters/jake.png" alt="image" width="100">';
+                            break;
+
+
+
                         default:
-                            actorImage = '<img src="assets/SpencerIdle.png" alt="default" width="255">';
+                            actorImage = '<img src="assets/characters/spencer.png" alt="default" width="100">';
                     }       
                     document.getElementById(actorLocation).innerHTML = actorImage;
                 });
@@ -245,34 +878,51 @@
             var background = f.background;
             switch (background) { //code for changing backgrounds
                 case "bedroom":
-                    document.getElementById("background").innerHTML = '<img src="assets/bedroom.png" alt="image" width="750">'
-            }
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/bedroom.png" alt="image" width="750">'
+                    break;
+                case "mcdonalds_outside":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/mcdonalds_outside.png" alt="image" width="750" height="562.5">'
+                    break;
+                case "mcdonalds_inside":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/mcdonalds_inside.png" alt="image" width="750" height="562.5">'
 
-            var newChoice = f.choice; 
-            document.getElementById("output").innerHTML = "";
+             }
+                    var newChoice = f.choice;
+                    document.getElementById("output").innerHTML = "";
 
-            var buttonList = ""; //creates buttons
-            function showButtons() {
-                if (continueButton) {
-                    console.log('it work');
-                    continueButton = false;
-                    if (f.choice != null) {
-                        if (f.choice.length > 1) {
-                            jQuery.each(f.choice, function (i2, f2) {
-                                buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[i2]}" >${f2}</button> <br>`);
-                               
-                            });
-                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                    var buttonList = ""; //creates buttons
+
+                    function showButtons() {
+                        document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+
+                        if (continueButton) {
+                            continueButton = false;
+                            if (f.choice != null) {
+                                if (f.choice.length > 1) {
+                                    var repetition = 0;
+                                    function displayButtons() {
+                                        if (repetition < f.choice.length) {
+                                            buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                            repetition++;
+                                            setTimeout(displayButtons, 250);
+                                        }
+                                    }
+                                    displayButtons();
+                                } else {
+                                    newScene(f.choiceoutcome[0]);
+                                }
+                            }
+
+
+                        } else {
+                            setTimeout(showButtons, 250);
                         }
                     }
-                } else {
-                    setTimeout(showButtons, 250);
-                }
+                    showButtons();
+
             }
-            showButtons();
-
-
-        }
+        
     </script>
 </head>
 <body>
