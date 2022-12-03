@@ -36,8 +36,15 @@
 
     .textbox {
         position: absolute;
-       
-        top: 562px;
+        top: 472px;
+    }
+
+    #endingtext {
+        position: absolute;
+        top: 225px;
+        left: 425px;
+        font-size: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
 
     #output {
@@ -51,7 +58,7 @@
     #speakerName {
         position: absolute;
         font-size: 22px;
-        top: 15px;
+        top: 57px;
         left: 22px;
         font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
@@ -120,6 +127,7 @@
                     "choice": ["stickman","stick woman","Jake from State Farm","Alternate Universe Spencer","Mikhail Gorbachev"],
                     "choiceoutcome": ["avatar_stickman", "avatar_stickwoman","avatar_jake","avatar_auspencer","avatar_gorbachev"]
                 },
+              
                 {
                     "sceneid": "avatar_stickman",
                     "background": "bedroom",
@@ -565,6 +573,7 @@
                     "message": [
                         { "Spencer": "I'm fine with that" },
                         { "You": "Hey, they're already here" },
+                        { "" : "Both of you take small bites out of the fries"},
                         { "Spencer": "There aren't too bad!" }
                     ],
                     "newvars": [
@@ -602,8 +611,8 @@
                         { "Spencer": "Wait ..." },
                         { "Spencer": "Why are we even in a McDonalds?" }
                     ],
-                    "choice": ["We should order another big mac"],
-                    "choiceoutcome" : ["mcdonalds_purpose"]
+                    "choice": ["For fun", "We're on a budget", "To checkout the restrooms"],
+                    "choiceoutcome" : ["mcdonalds_purpose_fun","mcdonalds_purpose_budget","mcdonalds_purpose_restrooms"]
                 },
                 {
                     "sceneid": "mcdonalds_bigmac2",
@@ -659,9 +668,28 @@
                         { "upleft": "avatar" }
                     ],
                     "message": [
-                        {"Spencer" : "Say, should we head to the play place?"}
+                        { "Spencer": "Say, should we head to the play place?" },
+                        { "You" : "You want to head to the what?" }
                     ]
-                }
+                },
+                {
+                    "sceneid": "mcdonalds_purpose_fun",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "For fun?" },
+                        { "You": "Yes, for fun" },
+                        { "Spencer": "You find this fun?" },
+                        { "You": "Yes, I do" },
+                        { "Spencer": "..." },
+                        { "Spencer" : "Well, ok"}
+                    ],
+                    "choice": ["For fun", "We're on a budget", "To checkout the restrooms"],
+                    "choiceoutcome" : ["mcdonalds_purpose_fun","mcdonalds_purpose_budget","mcdonalds_purpose_restrooms"]
+                },
 
 
 
@@ -774,6 +802,8 @@
 
             });
 
+            
+
             var lastMessage = "";
             dialogueLocation = 0;
             typewriterFinished = undefined; //code for displaying dialogue
@@ -787,6 +817,11 @@
                             newMessage = message;
                             document.getElementById("speakerName").innerHTML = actor;
                             document.getElementById("output").innerHTML = "";
+                            if (actor == "" || actor == " ") {
+                                document.getElementById('textbox').innerHTML = '<img src="assets/textboxempty.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            } else {
+                                document.getElementById("textbox").innerHTML = '<img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            }
                             typeWriter(newMessage, 50);
                             if (dialogueLocation == f.message.length) {
                                 dialogueLocation = -1;
@@ -803,10 +838,14 @@
             }
 
             );
+            if (f.ending != null) { //code for dealing with endings
 
+            }
+            if (f.endingtext != null) {
+                document.getElementById("endingtext").innerHTML = f.endingtext;
+            }
          
-            if (f.overrideVar != null) {
-                console.log("it happened");
+            if (f.overrideVar != null) { //handles the override stuff
                 switch (f.overrideVar) {
                     case "bigmacs":
                         if (bigmacs == f.overrideRequirement) {
@@ -815,12 +854,8 @@
                         }
                         break;
                     case "minions":
-                        console.log("how could it happen");
                         if (minions == f.overrideRequirement) {
-                            console.log("did it happen");
-                            console.log("banana")
                             newScene(f.overrideRedirect);
-                            console.log(f.overrideRedirect)
                             return;
                         }
                         break;
@@ -844,7 +879,7 @@
                     }
                     switch (actorName) {
                         case "Spencer":
-                            actorImage = '<img src="assets/characters/spencer.png" alt="image" width="100">';
+                            actorImage = '<img src="assets/characters/spencer.png" alt="image" width="120">';
                             break;
                         case "Stickman":
                             actorImage = '<img src="assets/characters/stickman.png" alt="you" width="100">';
@@ -859,7 +894,7 @@
                             actorImage = '<img src="assets/characters/minion.png" alt="you" width="100">';
                             break;
                         case "SpencerInverted":
-                            actorImage = '<img src="assets/characters/spencerinverted.png" alt="image" width="100">';
+                            actorImage = '<img src="assets/characters/spencerinverted.png" alt="image" width="120">';
                             break;
                         case "Jake":
                             actorImage = '<img src="assets/characters/jake.png" alt="image" width="100">';
@@ -885,6 +920,8 @@
                     break;
                 case "mcdonalds_inside":
                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/mcdonalds_inside.png" alt="image" width="750" height="562.5">'
+                case "ending":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending.png" alt="image" width="750">'
 
              }
                     var newChoice = f.choice;
@@ -929,9 +966,11 @@
     <div id="body">
         <div id="background"></div>
         <div class="textbox">
-            <img src="assets/Untitled.png" onclick=nextLine() alt="image" width="750" />
+            <div id="textbox">
+            <img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>
+            </div>
             <div onclick=nextLine() id="output">
-                <p>test</p>
+            <p>test</p>
             </div>
             <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
             <div id="speakerName"></div>
@@ -947,6 +986,7 @@
             <div id="downleft"></div>
 
         </div>
+        <div id="endingtext"> </div>
 
 
     </div>
