@@ -81,23 +81,23 @@ p.quote {
 .sidenav a:hover {
   color: #12c9dc;
 }
-.button {
+button {
   padding: 12px 16px;
   font-size: 15px;
   text-align: center;
   cursor: pointer;
   outline: none;
   color: #fff;
-  background-color: #04AA6D;
+  background-color: #aaaaaa;
   border: none;
   border-radius: 7px;
   box-shadow: 0 2px #999;
 }
 
-.button:hover {background-color: #3e8e41}
+button:hover {background-color: #999999}
 
-.button:active {
-  background-color: #3e8e41;
+button:active {
+  background-color: #888888;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
@@ -116,7 +116,9 @@ p.quote {
 }
 
 .buttonanswer:hover {background-color: #3e8e41}
-
+.button {
+  background-color:#6666ff;
+}
 .buttonanswer:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
@@ -136,9 +138,9 @@ p.quote {
 <p  style="font-size: 20px;" id="spencerQuestion"></p>
 <p  style="font-size: 20px;" id="spencerAnswer"></p>
 <p><br></p>
+<div id="choices"></div>
 
 <button class="button" id="button">New FACT</button>
-<button class="buttonanswer" id="buttonanswer">Get answer</button>
 
 </div>
 
@@ -146,101 +148,274 @@ p.quote {
 </body>
 </html>
 
-<script type="text/javascript" charset="utf-8">
-  var questionStrings = [
-      "What is Spencer\'s favorite colour?",
-      "What is Spencer\'s favorite movie?",
-      "How tall is spencer?",
-      "How much does Spencer weigh?",
-      "When is Spencer\'s birthday?",
-      "What is Spencer\'s zodiac sign?",
-      "If Spencer were to describe his hair colour as a hex code what would it be?",
-      "What color is Spencer\'s favorite shirt.",
-      "What is Spencer\'s favorite place to eat at",
-      "Does Spencer miss Virginia?",
-      "What is Spencer\'s mom\'s maiden name?",
-      "How did Spencer describe Tom Hanks?",
-      "Is Spencer naturally blonde?",
-      "How many pairs of socks does Spencer own?",
-      "What colour is Spencer\'s eyes?",
-      "What colour is Spencer\'s favorite sock?",
-      "Does Spencer have a nutritionist?",
-      "What is Spencer\'s favorite pet?",
-      "What is Spencer\'s shoe size?",
-      "How many siblings does Spencer have?",
-      "Where did Spencer\'s mom graduate?",
-      "What is Spencer\'s favorite number?",
-      "What size shirt does Spencer wear?",
-      "How many bathrooms are in Spencer\'s house?",
-      "Do the curtains match the drapes in Spencer\'s house?",
-      "What is Spencer\'s favorite tree?",
-      "Does Spencer still have his baby teeth?",
-      "Does Spencer prefer Coke or Pepsi?",
-      "Does Spencer use the Oxford Comma?",
-      "What is Spencer\'s favorite font?",
-      "Who is Spencer\'s favorite stage manager?",
-      "Do Spencer\'s parent's love each other?",
-      "How much money did Spencer get from being in Ithaca?",
-      "What is Spencer\'s height in Fathoms",
-      "Is Spencer a fan of the tech crew?",
-      "Does Spencer like baked potatoes?"
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+  const sourceJson = {
+    "questions": [
+    {
+      "question":"What is Spencer's favorite color?",
+      "right":"Green",
+      "wrong": ["Red","Black","Orange", "Grey", "Brown","Pink","Blue","Yellow"]
+    },
+    {
+      "question": "What is Spencer's favorite movie?",
+      "right":"Deadpool",
+      "wrong": ["Ithaca","Deadpool 2","Shrek 2","Shrek","Shrek 4", "Shrek 3", "Avatar: The Way of Water", "Back to the Future Part II"]
+    },
+    {
+      "question":"How tall is Spencer?",
+      "right":"5 feet",
+      "wrong": ["4 feet 11 inches", "5 feet 1 inch", "3 feet 23 inches", "1.252 meters", "0.00149 kilometers"]
+      
+    },
+    {
+      "question": "How much does Spencer weigh?",
+      "right": "96 pounds",
+      "wrong": ["0  pounds","99 pounds", "252 kilograms","94 pounds"]
+    },
+    {
+      "question": "When is Spencer's birthday?",
+      "right": "Febuary 26, 2009",
+      "wrong": ["Febuary 29, 2008", "September 11, 2001", "December 25,2008","March 4, 2009","April 20, 2009", "July 4, 2009", "April 1, 2008"]
+    },
+    {
+      "question": "What is Spencer's zodiac sign?",
+      "right":"Pisces",
+      "wrong": ["Scorpio","Sagittarius","Libra","Virgo","Gemini","Leo","Capricorn"]
+    },
+    {
+      "question": "If Spencer were to describe his hair colour as a hex code, what would it be?",
+      "right": "#F7DC6F",
+      "wrong": ["#FF0000", "#E7EA89","#78272FA", "#S93NC3R"]
+    },
+    {
+      "question": "What colour is Spencer's favorite shirt?",
+      "right": "Teal",
+      "wrong": ["Brown","Gray","Grey","Orange","White","Red","#0000FF","Green","Yellow"]
+    },
+    {
+      "question":"What is Spencer's favorite place to eat at?",
+      "right": "You mom's house",
+      "wrong": ["Arbys","McDonalds","Taco Bell", "Olive Garden", "Knox Cafeteria"]
+    },
+    {
+      "question": "Does Spencer miss Virginia?",
+      "right": "Yes",
+      "wrong": ["No"]
+    },
+    {
+      "question":"What is Spencer's Mom's maiden name",
+      "right": "We don't know for now",
+      "wrong": ["Howell","Smith","Jozwiak","Reeves","Blanco"]
+    },
+    {
+      "question": "How would Spencer describe Tom Hanks?",
+      "right": "Nice",
+      "wrong": ["Terrible","Narcissistic", "Egotistical", "Sus","Cool as beans","Tall"]
+    },
+    {
+      "question": "Is Spencer naturally blonde?",
+      "right": "Yes",
+      "wrong": ["No"]
+    },
+    {
+      "question": "How many pairs of socks does Spencer own?",
+      "right": "27 pairs",
+      "wrong": ["He doesn't wear socks","22 pairs", "36 pairs", "5 pairs"]
+    },
+    {
+      "question": "What colour is Spencer's eyes?",
+      "right": "Blue",
+      "wrong": ["Brown","Green","He doesn't have eyes","Hazel"]
+    },
+    {
+      "question": "What colour is Spencer's favorite sock?",
+      "right": "White and Neon Green",
+      "wrong": ["White","Black","Gray"]
+    },
+    {
+        "question":"Does Spencer have a nutritionist?",
+        "right":"No",
+        "wrong": ["Yes"]
+    },
+    {
+        "question":"What is Spencer's favorite pet?",
+        "right": "His dog",
+        "wrong": ["His cat","His goldfish","A banana","His raccoon"]
+    },
+    {
+        "question": "What is Spencer's shoe size?",
+        "right": "Size 7",
+        "wrong": ["Size 5.5","Size 10","2 Inches","Size 6.25","Size 2","Size 9"]
+    },
+    {
+        "question": "How many siblings does Spencer have?",
+        "right": "Just 1",
+        "wrong": ["He's an only child", "2 siblings"]
+    },
+    {
+        "question": "Where did Spencer's mom graduate",
+        "right": "Auburn",
+        "wrong": ["Harvard","University of Florida","Virginia Tech"]
+    },
+    {
+        "question": "What is Spencer's favorite number?",
+        "right": "3",
+        "wrong": ["2","7","9","11","13","29","77","1.2421","-2"]
+    },
+    {
+        "question": "What size shirt does Spencer wear?",
+        "right": "Size 12-14 or Adult Small",
+        "wrong": ["Size 8-9","Adult Large","Youth Large","Size 25-28"]
+    },
+    {
+        "question": "How many bathrooms are in Spencer's house?",
+        "right": "3 full, 1 half",
+        "wrong": ["4 full", "2 full, 2 half", "5 full", "4 full 1 half"]
+    },
+    {
+        "question": "What is Spencer's favorite tree?",
+        "right": "Maple",
+        "wrong": ["Oak","Spruce","Fir","Elm","Birch","Pine","Hickney"]
+    },
+    {
+        "question": "Does Spencer still have his baby teeth?",
+        "right": "No",
+        "wrong": ["Yes"]
+    },
+    {
+        "question": "Does Spencer prefer Coke or Pepsi?",
+        "right": "Coke",
+        "wrong": ["Pepsi"]
+    },
+    {
+        "question": "Does Spencer use the Oxford Comma?",
+        "right": "Yes",
+        "wrong": ["No"]
+    },
+    {
+        "question": "What is Spencer's favorite font?",
+        "right": "The goofy lookin' one",
+        "wrong": ["Comic sans","Times New Romans","Arial","Helvetica","Garamond","Franklin Gothic"]
+    },
+    {
+        "question": "Who is Spencer's favorite stage manager?",
+        "right": "None, he hates them all",
+        "wrong": ["Rylee","Emma","Jacey"]
+    },
+    {
+        "question": "Do Spencer's parents love each other?",
+        "right": "Yes",
+        "wrong": ["No"]
+    },
+    {
+        "question":"How much money did Spencer get from being in Ithaca?",
+        "right": "Its a secret, for now atleast",
+        "wrong": ["2.1 million", "52 thousand", "42 thousand", "92 thousand","$2.52"]
+    },
+    {
+        "question": "What is Spencer's height in Fathoms",
+        "right": "0.83333 Fathoms",
+        "wrong": ["1 fathom", "What's a fathom?","2 fathoms","Half a fathom",".75 fathoms"]
+    },
+    {
+        "question": "Is Spencer a fan of the tech crew?",
+        "right": "Yes",
+        "wrong": ["He hates them with all his heart"]
+    },
+    {
+        "question": "Does Spencer like baked potatoes?",
+        "right": "He loves them",
+        "wrong": ["NO"]
+    }
+  ]
+  };
+  var oldIndex = 1;
 
-
-  ];
-
-  var answerStrings = [
-      "Green",
-      "Deadpool",
-      "5 feet",
-      "96 Pounds",
-      "February 26, 2009",
-      "Pisces",
-      "#F7DC6F",
-      "Teal",
-      "Your mom's house",
-      "Yes",
-      "We don't know for now.",
-      "Nice",
-      "Yes",
-      "27 pairs",
-      "Blue",
-      "White and Neon green",
-      "No",
-      "His dog",
-      "Size 7",
-      "1",
-      "Auburn",
-      "3",
-      "Size 12-14 or Adult Small",
-      "3 full 1 half",
-      "Yes",
-      "Maple",
-      "No",
-      "Coke",
-      "Yes",
-      "The goofy lookin\' one",
-      "None he hates them all",
-      "Yes",
-      "Its a secret for now atleast",
-      "0.83333 Fathoms",
-      "Yes",
-      "He loves them"
-  ];
 
 
     var randomDiv = document.getElementById("myRandomDiv");
 	var randomDiv2 = document.getElementById("myRandomDiv");
 
     
+    
     document.getElementById("button").addEventListener("click", function() {
-          randomIndex = Math.ceil((Math.random()*questionStrings.length-1));
-          newQuestion = questionStrings[randomIndex];
-          spencerQuestion.innerHTML = newQuestion;
-          spencerAnswer.innerHTML = "";
+    document.getElementById("button").style.display = 'none';
+    console.log(document.getElementById('button').style.display);
+    randomIndex = Math.ceil((Math.random()*sourceJson.questions.length-1));
+    	if (randomIndex == oldIndex) {
+        	while (randomIndex == oldIndex) {
+              randomIndex = Math.ceil((Math.random()*sourceJson.questions.length-1));
+    
+            }
+        }
+        oldIndex = randomIndex;
+        
+    	newQuestion = sourceJson.questions[randomIndex].question;
+        spencerQuestion.innerHTML = newQuestion;
+        spencerAnswer.innerHTML = "";
+        var buttonList = "";
+        var buttonMax = 2;
+        if (sourceJson.questions[randomIndex].wrong.length < 4) {
+            buttonMax = sourceJson.questions[randomIndex].wrong.length;
+        } else {
+            buttonMax = 3;
+        }
+        answerLocation = Math.ceil((Math.random()*buttonMax-1));
+        console.log(buttonMax);
+        var wrongList = sourceJson.questions[randomIndex].wrong;
+        for (var i = wrongList.length - 1; i > 0; i--) {
+           // Generate random number
+           var j = Math.floor(Math.random() * (i + 1));
+                         
+           var temp = wrongList[i];
+           wrongList[i] = wrongList[j];
+           wrongList[j] = temp;
+        }
+        
+        for (let i =0; i<buttonMax; i++) {
+            if (i == answerLocation) {
+                answerLocation = 252;
+                buttonList += `<button id="right"> ${sourceJson.questions[randomIndex].right}  </button> `;
+                document.getElementById("choices").innerHTML = buttonList;
+    
+                i--;
+            } else {
+    	        buttonList += `<button class="wrong"> ${wrongList[i]}  </button> `;
+                document.getElementById("choices").innerHTML = buttonList;
+                
+                
+            }
+        }
+        document.getElementById("right").addEventListener("click", function(event) {
+            var target = event.target;
+            document.getElementById("right").style.backgroundColor = "green";
+            document.getElementById("button").style.display = 'inherit';
+
+        });
+        const wrongButtons = document.querySelectorAll('.wrong');
+    
+        wrongButtons.forEach(wrong => {
+            wrong.addEventListener('click', function handleClick(event) {
+                wrong.setAttribute('style', 'background-color: red;');
+                document.getElementById('right').style.backgroundColor = 'green';
+                document.getElementById("button").style.display = 'inherit';
+            });
+        });
+        
     });
-        document.getElementById("buttonanswer").addEventListener("click", function() {
-          newAnswer = "Answer: " + answerStrings[randomIndex];
-          spencerAnswer.innerHTML = newAnswer;
-    });
+    
 
 </script>    
+
+
+
+
+
+
+
+
+
+
+
+
