@@ -1,0 +1,1176 @@
+<style>
+    #body {
+        position: relative;
+        left: 30px;
+    }
+    #downleft {
+        position: absolute;
+        left: 0px;
+        top: 300px;
+    }
+
+    #upleft {
+        position: absolute;
+        left: 180px;
+        top: 225px;
+    }
+
+    #center {
+        position: absolute;
+        left: 255px;
+        top: 300px;
+    }
+
+    #upright {
+        position: absolute;
+        left: 405px;
+        top: 225px;
+    }
+
+    #downright {
+        position: absolute;
+        left: 502px;
+        top: 300px;
+    }
+
+
+    .textbox {
+        position: absolute;
+        top: 472px;
+    }
+
+    #endingtext {
+        position: absolute;
+        top: 225px;
+        left: 425px;
+        font-size: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    #output {
+        position: relative;
+        top: -127px;
+        left: 22px;
+        font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+        color: white;
+    }
+
+    #speakerName {
+        position: absolute;
+        font-size: 22px;
+        top: 57px;
+        left: 22px;
+        color: white;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+    #nextLine {
+        position: relative;
+        font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -82px;
+        color: azure;
+        left: 495px;
+        display: none;
+    }
+
+    button {
+        padding: 15px 18px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #04AA6D;
+        border: none;
+        border-radius: 35px;
+        position: relative;
+        top: -440px;
+        left: 330px;
+        z-index: 17;
+        margin-bottom: 10px;
+    }
+
+        button:hover {
+            background-color: #97b688
+        }
+
+        button:active {
+            background-color: #97b688;
+            box-shadow: 0 10px #666;
+            transform: translateY(4px);
+        }
+</style>
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        var continueLine = "";
+        var avatar;
+        var points = 0;
+        var bigmacs = 0;
+        var minions = "false";
+        var stopDialogue = undefined;
+
+
+        const sourceJson = {
+            "scenes": [
+                {
+                    "sceneid": "start",
+                    "background": "house",
+                    "message": [
+
+                        { "Isaac": "I sure do love living in Africa" },
+                        { "Isaac": "There's so many monkeys here!" },
+                        { "Isaac": "Oh wait " },
+                        { "Isaac": "I need to convert more monkeys to Christianity!" },
+                        { "Isaac": "I'M SUPER BEHIND ON MY QUOTAS"},
+                        { "Isaac": "If I'm going to get back to converting monkeys, I'm gonna need to <find somewhere with lots of monkeys!"},
+                        { "Isaac": "Where should I try heading to?"}
+
+                    ],
+                    "actors": [
+                        {"upleft": "isaac"}
+                    ],
+                    "choice": ["My Backyard", "Local Prison", "My Basement"],
+                    "choiceoutcome": ["backyard","prison","basement"]
+                },
+                {
+                    "sceneid": "backyard",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Oh Wow, that's a lot of monkeys!"},
+                        {"Isaac": "Who would've thought there would be so many monkeys here in Africa?"},
+                        {"Monkey #1": "OOH OOH AAH AAH *hic* OOH AAH"},
+                        {"Isaac": "Uh, I don't know what you're saying"},
+                        {"Monkey #2":"AAHH AAHHH *hic EEECH"},
+                        {"Isaac" : "Do you speak english?"},
+                        {"Monkey #4": "Yeah, we *hic* speak english"},
+                        {"Isaac": "Yo, dats dope"},
+                        {"Isaac": "*thinking* What should I say next?"}
+                    ],
+                    "choice":["Have you accepted Jesus as your savior?","Do I smell Alcohol on your breath?"],
+                    "choiceoutcome": ["backyard_jesus","backyard_alcohol"]
+                },
+                {
+                    "sceneid": "backyard_jesus",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Have you accepted Jesus as your savior?"},
+                        {"Monkey #2": "No *hic*"},
+                        {"Isaac": "Well you should totally accept him"},
+                        {"Monkey #1": "Really? Why should we?"},
+                        {"Isaac": "*thinking* I need to think of something to say!"}
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays","It's better than being a jew"],
+                    "choiceoutcome": ["backyard_food","backyard_jew"]
+                },
+                {
+                    "sceneid": "backyard_jew",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "It's better than being a jew"},
+                        {"Monkey #17": "What's a jew *hic*"},
+                        {"Monkey #3": "Is it like somesort of eldritch beast or demon?"},
+                        {"Isaac": "Uhh... Somewhat"},
+                        {"Isaac": "*thinking* I need to think of something else to say!"}
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays","Start singing German war songs"],
+                    "choiceoutcome": ["backyard_food","backyard_jew2"]
+                },
+                {
+                    "sceneid": "backyard_jew2",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Auf der Heide blüht ein kleines Blümelein"},
+                        {"Monkey #1": "und *hic* das heißt"},
+                        {"Monkey #2": "Erika"},
+                        {"Isaac": "Heiß von hunderttausend kleinen Bienelein"},
+                        {"Monkey #5": "wird *hic* umschwärmt!"},
+                        {"Isaac": "Those were good times, were they not?"},
+                        {"Monkey #1": "Ever since the war ended we had to flee here"},
+                        {"Monkey #5": "We were lucky to escape prosecution at the Nuremberg trials <No one really expected a group of monkeys to be involed with the atrocities"},
+                        {"Monkey #1": "You know what, we'll convert to Christianity"},
+                        {"Isaac": "Well that's great news!"}
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["backyard_jew3"]
+                },
+                {
+                    "sceneid": "backyard_jew3",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "smoke"},
+                        {"center": "smoke"},
+                        {"upright": "smoke"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        { "": "*poof*"},
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["backyard_jew4"]
+                },
+                {
+                    "sceneid": "backyard_jew4",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "white1"},
+                        {"center": "white3"},
+                        {"upright": "white1"},
+                        {"downright": "white2"}
+                    ],
+                    "message": [
+                        { "Isaac": "Yay, now I finished my job!"},
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["ending_good_jew"]
+                },
+                {
+                    "sceneid": "backyard_food",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "There's free food at the local church if you go there on sundays"},
+                        {"Monkey #2": "Wow, that's worth it"},
+                        {"Monkey #1": "Yeah, we'll convert now"}
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["backyard_food2"]
+                },
+                {
+                    "sceneid": "backyard_food2",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "smoke"},
+                        {"center": "smoke"},
+                        {"upright": "smoke"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        { "": "*poof*"},
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["backyard_food3"]
+                },
+                {
+                    "sceneid": "backyard_food3",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "white1"},
+                        {"center": "white3"},
+                        {"upright": "white1"},
+                        {"downright": "white2"}
+                    ],
+                    "message": [
+                        { "Isaac": "Yay, now I did my job!"},
+                    ],
+                    "choice":["Theres free food if you go to the local church on sundays"],
+                    "choiceoutcome": ["ending_good"]
+                },
+                {
+                    "sceneid": "ending_good",
+                    "background": "ending",
+                    "actors": [],
+                    "endingtext":"You converted monkeys!"
+                },
+                {
+                    "sceneid": "ending_good_jew",
+                    "background": "ending",
+                    "actors": [],
+                    "endingtext":"This path is based off a true story"
+                },
+                {
+                    "sceneid": "ending_good_alcohol",
+                    "background": "ending",
+                    "actors": [],
+                    "endingtext":"Yoo gotsher job done ann <br>zzzrunk a lot uhf branny"
+                },
+                {
+                    "sceneid": "backyard_alcohol",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Hold on, is that Alcohol that I smell on your breath?!"},
+                        { "Monkey #1": "Oh yeah, you caught us"},
+                        {"Monkey #3": "We have some really good brandy, you want some?"}
+                    ],
+                    "choice":["I'll take a swig","You dare ask me that?"],
+                    "choiceoutcome": ["backyard_alcohol_yes","backyard_alcohol_no"]
+                },
+                {
+                    "sceneid": "backyard_alcohol_yes",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Oh Brandy's my favorite! I'll take a swig"},
+                        { "Monkey #17": "Go ahead, take *hic* the bottle!"},
+                        {"": "Isaac chugs down the entire bottle"},
+                        {"Isaac":"OH GOD!"},
+                        {"Isaac":"*cough"},
+                        {"Isaac":"Thadduzz *hic* gooond, d'you havve more?"},
+                        {"Monkey #17":"Yeah, here have this bottle"},
+                        {"":"Isaac chugs another bottle of brandy"},
+                        {"Isaac":"Oh yeah, arr yoo guys ssill innerestssed in converting?"},
+                        {"Monkey #17": "Yeah, we are still *hic* interested "}
+                    ],
+                    "choice":["I'll take a swig"],
+                    "choiceoutcome": ["backyard_alcohol_yes2"]
+                },
+                {
+                    "sceneid": "backyard_alcohol_yes2",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "smoke"},
+                        {"center": "smoke"},
+                        {"upright": "smoke"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        { "": "*poof*"}
+                    ],
+                    "choice":["I'll take a swig"],
+                    "choiceoutcome": ["backyard_alcohol_yes3"]
+                },
+                {
+                    "sceneid": "backyard_alcohol_yes3",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "white1"},
+                        {"center": "white3"},
+                        {"upright": "white2"},
+                        {"downright": "white3"}
+                    ],
+                    "message": [
+                        { "Isaac": "I c'n stell yoo guys alrenny feel benner"}
+                    ],
+                    "choice":["I'll take a swig"],
+                    "choiceoutcome": ["ending_good_alcohol"]
+                },
+                {
+                    "sceneid": "backyard_alcohol_no",
+                    "background": "backyard",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "What do you think you're trying to do?"},
+                        {"Isaac":"You know what, you belong in hell!"},
+                        {"Isaac":"YOU'RE ALL GOING TO HELL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"}
+                    ],
+                    "choice":["I'll take a swig"],
+                    "choiceoutcome": ["backyard_alcohol_no2"]
+                },
+                {
+                    "sceneid": "backyard_alcohol_no2",
+                    "background": "hell",
+                    "actors": [
+                        {"upleft": "monkey"},
+                        {"center": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "This is where you all belong!"},
+                        {"Monkey #2":"Wow he was serious!"},
+                        {"Monkey #1":"Why is it really hot down here?"}
+                    ],
+                    "choice":["I'll take a swig"],
+                    "choiceoutcome": ["ending_bad_alcohol"]
+                },
+                {
+                    "sceneid": "ending_bad_alcohol",
+                    "background": "ending_red",
+                    "actors": [],
+                    "endingtext":"You sent monkeys to hell<br><br>Isaac can do this irl<br>Be warned!"
+                },
+                {
+                    "sceneid": "prison",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Wow! Why are there so many monkeys in this prison"},
+                        {"Monkey #2":"We were framed!"},
+                        {"Monkey #1":"We don't belong here!"},
+                        {"Isaac":"Hey, if I help you monkeys get out of prison, will you all convert to Christianity?"},
+                        {"Monkey #7":"Yeah, that'll work"},
+                        {"Isaac":"Oh wait, now I need to think about how to get these monkeys out of prison"}
+                    ],
+                    "choice":["Break them out","Take it to court"],
+                    "choiceoutcome": ["prison_escape","prison_court"]
+                },
+                {
+                    "sceneid": "prison_escape",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "How about I break you monkeys out of prison"},
+                        {"Monkey #2":"Yeah, we'd like that"},
+                        {"Isaac":"Great, luckily I already smuggled some stuff into this prison"},
+                        {"Isaac":"What should be my first move?"}
+                    ],
+                    "choice":["Shoot Guard","Improvised Explosive","Break open a vent"],
+                    "choiceoutcome": ["prison_guard","prison_bomb","prison_vent"]
+                },
+                {
+                    "sceneid": "prison_guard",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Brb I'm gonna shoot that guard"},
+                        {"Monkey #2":"Wait, you're gonna what?"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_guard2"]
+                },
+                {
+                    "sceneid": "prison_guard2",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "*BAM BAM BAM"},
+                        {"Guard":"AAHGHGHHGHGHHHHH!!!!!!!"},
+                        {"Monkey #2":"Oh god"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_guard3"]
+                },
+                {
+                    "sceneid": "prison_guard3",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Yeah, he's dead now"},
+                        {"Monkey #16":"What's next?"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_vent"]
+                },
+                {
+                    "sceneid": "prison_bomb",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Time to try out my new improvised explosive!"},
+                        {"Monkey #2":"Wait, you have a bomb?"},
+                        {"Monkey #16":"Is it even safe to use it in here?"},
+                        {"Isaac":"Well we're about to find out!"},
+                        {"Isaac":"This sucker explodes with the equivalent of 50 megatons of TNT"},
+                        {"Monkey #1":"Wait, you should definitely not do that in here!!!!"},
+                        {"Isaac":"Well its too late"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_bomb2"]
+                },
+                {
+                    "sceneid": "prison_bomb2",
+                    "background": "bomb",
+                    "message": [
+                        { "Isaac": "I think we're dead now"},
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["ending_bomb"]
+                },
+                {
+                    "sceneid":"ending_bomb",
+                    "background":"ending_red",
+                    "endingtext":"That ended with a bang"
+                },
+                {
+                    "sceneid": "prison_vent",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "I'm gonna break open that vent now<Great thing I have a crowbar!"},
+                        {"Monkey #3":"How did you hide that from the guards?"},
+                        {"Isaac":"A magician never reveals his secrets"},
+                        {"":"*Isaac prys the vent open"},
+                        {"Isaac":"Everyone, get in!"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_vent2"]
+                },
+                {
+                    "sceneid": "prison_vent2",
+                    "background": "vent",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "So we're gonna take a left, then a right, then turn around."},
+                        {"Monkey #3":"Oh alright"},
+                        {"Isaac":"Now turn around 3 times"},
+                        {"Monkey #1":"3 times?"},
+                        {"Isaac":"You got it"},
+                        {"Isaac":"Take a right, and now we're there"},
+                        {"":"Isaac prys open another vent"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_vent3"]
+                },
+                {
+                    "sceneid": "prison_vent3",
+                    "background": "sunshine",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "We're here now!"},
+                        {"Monkey #16":"We're free!"},
+                        {"Isaac":"Enjoy"},
+                        {"Monkey #2":"Ok, now we'll convert"}
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_vent4"]
+                },
+                {
+                    "sceneid": "prison_vent4",
+                    "background": "sunshine",
+                    "actors": [
+                        {"downleft":"smoke"},
+                        {"upleft": "smoke"},
+                        {"center": "isaac"},
+                        {"upright": "smoke"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        { "": "*poof"},
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["prison_vent5"]
+                },
+                {
+                    "sceneid": "prison_vent4",
+                    "background": "sunshine",
+                    "actors": [
+                        {"downleft":"white2"},
+                        {"upleft": "white1"},
+                        {"center": "isaac"},
+                        {"upright": "white1"},
+                        {"downright": "white3"}
+                    ],
+                    "message": [
+                        { "Isaac": "I know<I just improved y'alls life ten-fold"},
+                    ],
+                    "choice":["Shoot Guard"],
+                    "choiceoutcome": ["ending_good"]
+                },
+                {
+                    "sceneid": "prison_court",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "I'll go take this to court to get you guys out"},
+                        {"Monkey #2":"Yeah, lets go do that"},
+                        {"Isaac":"Oh shoot, I just realized I've never been to law school"},
+                        {"Isaac":"Hmmmmm.............<<Well, maybe I should bribe the judge"},
+                    ],
+                    "choice":["That's a bad idea","I should totally bribe them"],
+                    "choiceoutcome": ["prison_legal","prison_bribe"]
+                },
+                {
+                    "sceneid": "prison_legal",
+                    "background": "court",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft":"monkey"},
+                        {"center":"judge"},
+                        {"downright": "lawyer"}
+                    ],
+                    "message": [
+                        { "Isaac": "Your honor, my client is totally guilty!"},
+                        {"Monkey #2":"Dude, what are you doing?"},
+                        {"Isaac":"Oh shoot, I mean<<Your honor, my client is absolutely not, not guilty"},
+                        {"Monkey #16":"Bro, that's just saying we're guilty"},
+                        {"Isaac":"Oh sorry,<<Your Honor, my client is completely not innocent"},
+                        {"Judge":"You know what, I'm just gonna rule that your client is guilty if you're actually this dumb"},
+                        {"Isaac":"Yikes, looks like I'm screwed<<*isaac proceeds to pull out literal screw from his pocket"},
+                        {"Monkey #1":"Why do have to have such stupid laywer"},
+                        {"Monkey #16":"Yeah, I'm never gonna convert to your stupid religion!"}
+                    ],
+                    "choice":["That's "],
+                    "choiceoutcome": ["ending_bad_legal"]
+                },
+                {
+                    "sceneid":"ending_bad_legal",
+                    "background":"ending_red",
+                    "endingtext":"You failed<br><br>and really bad too"
+                },
+                {
+                    "sceneid": "prison_bribe",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "I'm totally gonna go bribe the judge!"},
+                        {"Monkey #16":"Wait, isn't that illegal?"}
+                    ],
+                    "choice":["Break them out"],
+                    "choiceoutcome": ["prison_bribe2"]
+                },
+                {
+                    "sceneid": "prison_bribe2",
+                    "background": "alleyway",
+                    "actors": [
+                        {"upleft":"judge"},
+                        {"center":"isaac"}
+                    ],
+                    "message": [
+                        { "Isaac": "Your honor, do you take bribes"},
+                        {"Judge":"HOW DID YOU FIND ME?<<But yeah I do"},
+                        {"Isaac":"Do you accept card?"},
+                        {"Judge":"Only cash"},
+                        {"Isaac":"Here, take this stack of cash"},
+                        {"Judge":"That's only $400, I'm gonna at least 3 times as much"},
+                        {"Isaac":"uhhh....<<Do you accept bitcoin?"},
+                        {"Judge":"Yeah"},
+                        {"Isaac":"I'll send some to your wallet"},
+                        {"Judge":"Good, now I'll make sure you win that case"},
+                        {"Isaac":"Alright, see you tomorrow"}
+                    ],
+                    "choice":["That's "],
+                    "choiceoutcome": ["prison_bribe3"]
+                },
+                {
+                    "sceneid": "prison_bribe3",
+                    "background": "court",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft":"monkey"},
+                        {"center":"judge"},
+                        {"downright": "lawyer"}
+                    ],
+                    "message": [
+                        { "Isaac": "Your honor, my client is not guilty!<<He's innocent"},
+                        {"Monkey #2":"Thats a good start"},
+                        {"Isaac":"Look, my client didn't commit any crimes!"},
+                        {"Prosecutor":"And your proof?"},
+                        {"Isaac":"Proof?<<I don't need proof"},
+                        {"Prosecutor":"That's not how it works! Do you even have a degree?"},
+                        {"Isaac":"I'm too good for a degree"},
+                        {"Judge":"Silence! I have made my decision"},
+                        {"Judge":"..."},
+                        {"Judge":"Those Monkeys are free now! And I've totally not been bribed"},
+                        {"Isaac":"Yeah, lets go! Corruption is the best!"},
+                        {"Monkey #2":"I love you daddy!"},
+                        {"Isaac":"Hey don't say that! I only like it when Rylee calls me that"},
+                        {"Isaac":"Anyways, I'm gonna go tell those Monkeys"}
+                    ],
+                    "choice":["That's "],
+                    "choiceoutcome": ["prison_bribe4"]
+                },
+                {
+                    "sceneid": "prison_bribe4",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"monkey"},
+                        {"upleft": "monkey"},
+                        {"center": "isaac"},
+                        {"upright": "monkey"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Hey monkeys are free now! I won the case!"},
+                        {"Monkey #16":"Yay! Now we're gonna convert!"}
+                    ],
+                    "choice":["Break them out"],
+                    "choiceoutcome": ["prison_bribe5"]
+                },
+                {
+                    "sceneid": "prison_bribe5",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"smoke"},
+                        {"upleft": "smoke"},
+                        {"center": "isaac"},
+                        {"upright": "smoke"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        { "": "*poof"},
+                    ],
+                    "choice":["Break them out"],
+                    "choiceoutcome": ["prison_bribe6"]
+                },
+                {
+                    "sceneid": "prison_bribe6",
+                    "background": "prison",
+                    "actors": [
+                        {"downleft":"white1"},
+                        {"upleft": "white3"},
+                        {"center": "isaac"},
+                        {"upright": "white2"},
+                        {"downright": "white1"}
+                    ],
+                    "message": [
+                        { "Isaac": "You monkeys already look way better now"},
+                    ],
+                    "choice":["Break them out"],
+                    "choiceoutcome": ["ending_good"]
+                }
+
+            ]
+        };
+        var typeWriterID = undefined;
+        function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
+            if (repetition == undefined) {
+               var repetition = -1;
+            } 
+            /*if (message == undefined) {
+                message = String(message);
+            }*/
+            if (repetition < message.length) { //check if the message has characters left
+                if (message.charAt(repetition) == '<' || message.charAt(repetition) == '>' ) {
+                    document.getElementById("output").innerHTML += "<br>";
+                } else {
+
+                 document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                }
+                repetition++;
+                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few miliseconds
+            } else {
+                typewriterFinished = message; // if characters are not left update typewriterFinished, 
+                document.getElementById("nextLine").style.display = 'inherit';
+                 
+            }
+        }
+
+
+
+        jQuery(function () { //runs at the very beginning of the game to start everything
+            newScene("start");
+
+        });
+        var continueButton = false;
+        var dialogueLocation = 0;
+
+        function nextLine() { //function that runs to contine to the next line of dialogue
+            
+            if (document.getElementById('nextLine').style.display == 'inherit') {
+                document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
+                if (dialogueLocation == -1) { //if dialogue is finished then show buttons
+                    continueButton = true; //when continueButton is set to true, the buttons will then procede to load
+                }
+                continueLine = typewriterFinished; //variable signals that the game can show the next line
+
+                // when continueLine is equal to the previous message shown, the game will start showing the next line
+                // and typewriterFinished is equal to said previous message
+            }
+        }
+        
+        function newScene(nextScene) { //code for starting new scenes
+            if (nextScene == undefined) { //if called from button, get the scene name
+                var nextScene = event.target.id;
+            }
+            //document.getElementById("output").innerHTML = nextScene; actually useless code i think
+            var f = "";
+            jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
+                if (output.sceneid == nextScene) {
+                    f = output;
+                }
+            });
+
+            jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
+                //loops for each entry in a list
+                jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
+                    if (newVal[0] == '+') { //if the first char is '0'
+                        var newValDifference = newVal.slice(1); //get the number to change
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points + newValDifference;
+
+                                break;
+                        }
+                    }
+                    if (newVal[0] == '-') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points - newValDifference;
+
+                                break;
+                        }
+                    }
+
+
+
+                    switch (newVar) {
+                        case "avatar":
+                            avatar = newVal;
+                            break;
+                        case "points":
+                            points = newVal;
+                            console.log("points: "+points);
+
+                            break;
+                    }
+                });
+
+
+            });
+
+            
+
+            var lastMessage = "";
+            dialogueLocation = 0;
+            typewriterFinished = undefined; //code for displaying dialogue
+            jQuery.each(f.message, function (i, chatPair) { //loop
+                jQuery.each(chatPair, function (actor, message) {
+                    function waitForTypewriter() {
+                        if (continueLine == lastMessage || typewriterFinished == undefined) { //checks if the requirements to signal the next line are ready
+                            dialogueLocation++;
+                           
+                            typewriterFinished = "";
+                            clearTimeout(typeWriterID);
+                            newMessage = message;
+                            document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
+                            document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
+                            if (actor == "" || actor == " ") {
+                                document.getElementById('textbox').innerHTML = '<img src="https://thegreatestpairofpants.github.io/ultimate-yray/assets/textboxempty.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            } else {
+                                document.getElementById("textbox").innerHTML = '<img src="https://thegreatestpairofpants.github.io/ultimate-yray/assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            }
+                            typeWriter(newMessage, 0); //run the function for the type writer effect
+                            if (dialogueLocation == f.message.length ) { //if its the last line in scene
+                                dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
+                            }
+                            lastMessage = message;
+                        }
+                        else {
+                            setTimeout(waitForTypewriter, 250);
+                        }
+                    }
+                    waitForTypewriter();
+                });
+
+            }
+
+            );
+            if (f.ending != null) { //code for dealing with ending redirects
+                jQuery.each(f.ending, function (i, newValue) { //loop for each pair in the list
+                    jQuery.each(newValue, function (endingType, endingResult) { //loop for the pair and its values
+                        switch (endingType) {
+                            case "NormalNeutral":
+                                if (points >= -2 && points <= 3) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalGood":
+                                if (points > 4) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalBad":
+                                if (points < -2) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                        }       
+
+                    });
+                });
+            }
+            if (f.endingtext != null) {
+                document.getElementById("endingtext").innerHTML = f.endingtext;
+                document.getElementById("textbox").style.display = 'none';
+                const output = document.getElementById("output").remove;
+                output.remove;
+                document.getElementById("speakerName").style.display = 'none';
+
+            }
+         
+            if (f.overrideVar != null) { //handles the override stuff
+                switch (f.overrideVar) {
+                    case "bigmacs":
+                        if (bigmacs == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                    case "minions":
+                        if (minions == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                }
+            }
+
+
+            document.getElementById("upleft").innerHTML = ""; //reset current actors
+            document.getElementById("downleft").innerHTML = "";
+            document.getElementById("center").innerHTML = "";
+            document.getElementById("upright").innerHTML = "";
+            document.getElementById("downright").innerHTML = "";
+
+
+            jQuery.each(f.actors, function (i, actorPair) { //code for updating for new actors
+                jQuery.each(actorPair, function (actorLocation, actorName) {
+                    var actorImage;
+                    if (actorName == "avatar") {
+                        actorName = avatar;
+                    }
+                    switch (actorName) {
+                        case "isaac":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1083573937809674270/isaac.png" alt="image" width="150">';
+                            break;
+                        case "monkey":
+                            actorImage =  '<img src="https://imgs.search.brave.com/OOhTvpwM-IOThy-Krq7_38szgTWNqGRbCCyMDu5J_eY/rs:fit:544:225:1/g:ce/aHR0cHM6Ly90c2Ux/LmV4cGxpY2l0LmJp/bmcubmV0L3RoP2lk/PU9JUC5lakoyeHRP/ZXZXRVZ2YTNEV0Fu/M0d3SGFHZCZwaWQ9/QXBp" alt="image" width="150">';
+                            break;
+                        case "smoke":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/682774892512673867/1084912808308781096/smoke.png" alt="image" width="300">';
+                            break;
+                        case "white1":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1085605607089917962/person1.png" alt="image" width="175">';
+                            break;
+                        case "white2":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1085606561344405735/person2.png" alt="image" width="175">';
+                            break;
+                        case "white3":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1085606561604444200/person3.png" alt="image" width="175">';
+                            break;
+                        case "lawyer":
+                            actorImage = '<img src="https://imgs.search.brave.com/K6dTi-kHFESAsWTQEQ7TQ8-ZKi8nEImOPtGsC438hqY/rs:fit:910:910:1/g:ce/aHR0cDovL3d3dy5w/bmdhbGwuY29tL3dw/LWNvbnRlbnQvdXBs/b2Fkcy81L01hbGUt/TGF3eWVyLVBORy1D/bGlwYXJ0LnBuZw" alt="image" width="175">';
+                            break;
+                        case "judge":
+                            actorImage = '<img src="https://imgs.search.brave.com/lmeh4UY-5c2N9no7Z7fTlX_PUGrESktB8yP8xglk7Cw/rs:fit:667:850:1/g:ce/aHR0cHM6Ly9ibG9n/LmFkdmVydGlzZWlu/ZmF5ZXR0ZXZpbGxl/LmNvbS9ocy1mcy9o/dWJmcy9qdWRnZSUy/MHdpdGglMjBnYXZs/ZSUyMGFuZCUyMHdp/Zy5wbmc_d2lkdGg9/MTQwJm5hbWU9anVk/Z2UlMjB3aXRoJTIw/Z2F2bGUlMjBhbmQl/MjB3aWcucG5n" alt="image" width="175">';
+                            break;
+                        default:
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1083573937809674270/isaac.png" alt="default" width="100">';
+                    }       
+                    document.getElementById(actorLocation).innerHTML = actorImage;
+                });
+
+            });
+
+            var background = f.background;
+            switch (background) { //code for changing backgrounds
+                case "house":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1083579609917947974/image.png" alt="image" width="750">'
+                    break;
+                case "backyard":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/krfVLygR8LHEjB5lPRNA_rNW7auVGUhnyRuieGbZ1I8/rs:fit:1200:1000:1/g:ce/aHR0cDovLzEuYnAu/YmxvZ3Nwb3QuY29t/Ly0xb3VaWkVQREYw/WS9VQjQwV29hSUNB/SS9BQUFBQUFBQUFC/NC83cnY3bjFyeHRK/cy9zMTYwMC9CZWF1/dGlmdWwtanVuZ2xl/LXdhbGxwYXBlci5q/cGc" alt="image" height="562.5" width="750"> '
+                    break;
+                case "ending":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1085999125943820318/image.png" alt="image" height="562.5" width="750"> '
+                    break;
+                case "hell":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/pLd-nPCUG-rwlXqMyujMQCRk20MBXWv-MOK-_WXgrhk/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC9KVEg2bFlP/LmpwZw" alt="image" height="562.5" width="750"> '
+                    break;
+                case "ending_red":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1086440793939648623/image.png" alt="image" height="562.5" width="750"> '
+                    break;
+                case "prison":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1086439845334884473/cGc.png" alt="image" height="562.5" width="750"> '
+                    break;
+                case "bomb":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/8KFEJJGr3slsvtxpeulOdqhGdnHLUUoJVzjzlpEcBAE/rs:fit:1200:700:1/g:ce/aHR0cHM6Ly9pMS53/cC5jb20vd3d3LmFu/ZnJpeC5jb20vd3At/Y29udGVudC91cGxv/YWRzLzIwMjAvMDUv/RXhwbG9zaW9uLW51/Y2xlYXItZGV0YWxs/ZS5qcGc_Zml0PTE0/MDAlMkM3MDAmc3Ns/PTE" alt="image" height="562.5" width="750"> '
+                    break;
+                case "vent":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/eShVOYCk-e6cD_YwZ5U8maI8gYSgsm0AzVDYzFiQ-Hs/rs:fit:900:600:1/g:ce/aHR0cHM6Ly93d3cu/c2FmZWFpcmR1Y3Qu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDIwLzA2L09wZW4t/VmVudC5qcGc" alt="image" height="562.5" width="750"> '
+                    break;
+                case "sunshine":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/czLqhsQ3shwQuX1VnvkNfT0R9l6ObPi-f1eRtbQ6Ilw/rs:fit:844:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5W/V0NUb3hrc3VYeEln/LTlGRzhuUXhnSGFF/SyZwaWQ9QXBp" alt="image" height="562.5" width="750"> '
+                    break;
+                case "court":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/GKLPcJA6W8qbMaceBEmh92qcFM03O7j4SCX02kxPxcs/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly80ZGU4/MTExYjBlZGZkYzhh/NDFkZC02NmUyNDg5/NmE0YTc1MTVlM2I2/Yjc0Nzg0ODFlYTRk/Ni5zc2wuY2YxLnJh/Y2tjZG4uY29tL0Nv/dW50eV9Db3VydHJv/b21fQXJjaGl0ZWN0/dXJlLmpwZw" alt="image" height="562.5" width="750"> '
+                    break;
+                case "alleyway":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/Q2E-KiqKKOK5eRK-mB_6qZkDRWRkAP9w4CXDNh_VuJ0/rs:fit:1200:1023:1/g:ce/aHR0cHM6Ly9zLW1l/ZGlhLWNhY2hlLWFr/MC5waW5pbWcuY29t/L29yaWdpbmFscy8w/OC8yMS9lOS8wODIx/ZTkxNmZjY2I3Njhh/Yjg5ZWRlZGVhNTQy/MzAxMC5qcGc" alt="image" height="562.5" width="750"> '
+                    break;
+            }
+                    var newChoice = f.choice;
+                    document.getElementById("output").innerHTML = "";
+
+                    var buttonList = ""; //creates buttons
+
+                    function showButtons() {
+                        document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+
+                        if (continueButton) {
+                            continueButton = false;
+                            if (f.choice != null) {
+                                if (f.choice.length > 1) {
+                                    var repetition = 0;
+                                    function displayButtons() {
+                                        if (repetition < f.choice.length) {
+                                            console.log(repetition);
+                                            console.log(f.choiceoutcome);
+                                            console.log(f.choiceoutcome[repetition]);
+
+                                            buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                            repetition++;
+                                            setTimeout(displayButtons, 250);
+                                        }
+                                    }
+                                    displayButtons();
+                                } else {
+                                    newScene(f.choiceoutcome[0]);
+                                }
+                            }
+
+
+                        } else {
+                            setTimeout(showButtons, 250);
+                        }
+                    }
+                    showButtons();
+
+            }
+        
+    </script>
+</head>
+<body>
+    <div id="body">
+        <div id="background"></div>
+        <div class="textbox">
+            <div id="textbox">
+            <img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>
+            </div>
+            <div onclick=nextLine() id="output">
+            <p>test</p>
+            </div>
+            <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
+            <div id="speakerName"></div>
+
+        </div>
+        <div class="buttonOutput">
+        </div>
+        <div id="actors">
+            <div id="upleft"> </div>
+            <div id="upright"></div>
+            <div id="center"></div>
+            <div id="downright"></div>
+            <div id="downleft"></div>
+
+        </div>
+        <div id="endingtext"> </div>
+
+
+    </div>
+</body>
+</html>
