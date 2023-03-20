@@ -32,7 +32,11 @@
         left: 502px;
         top: 300px;
     }
-
+    #mid {
+        position: absolute;
+        left: 255px;
+        top: 120px;
+    }
 
     .textbox {
         position: absolute;
@@ -825,6 +829,229 @@
                     ],
                     "choice":["Break them out"],
                     "choiceoutcome": ["ending_good"]
+                },
+                {
+                    "sceneid": "basement",
+                    "background": "basement",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Oh.. little monkey... have you enjoyed your torture?"},
+                        {"Monkey #1":"What!?!?! Of course not! Why must you be so cruel... lord St.Michel"},
+                        {"Isaac":"Do you not know of what you've done? You've said no to my demands"},
+                        {"Isaac":"For that you shall SUFFER!!!"},
+                        {"Monkey #1":"Fine... I'll convert to Christianity, but you shall give me food first"},
+                        {"Isaac":"Very well then.. Alas.. take this loaf of bread"},
+                        {"":"*Isaac throws an entire pie to the monkey"},
+                        {"Monkey #1":"That's not a loaf of bread, but thanks"},
+                        {"":"*the monkey devours the pie after being starved for weeks"},
+                        {"Monkey #1":"Finally, after eating this pie I now have the strength to use this scroll"},
+                        {"":"The monkey reveals a rolled up scroll"},
+                        {"Isaac":"Wait, you're not supposed to do that!"},
+                        {"Monkey #1":"I shall use this Scroll of Tarrasque Summoning to summon a Tarrasque"},
+                        {"Isaac":"You fool! Do you not realize what doom you have brought to us!"},
+                        {"Isaac":"You shall be the death of us all!"},
+                        {"Monkey #1":"You deserve it, for what torture you've brought to me"},
+                        {"":"*The monkey raises the scroll, causing it to glow with a bright light"},
+                        {"":"*The scroll disappears as the ritual is finished"},
+                        {"Isaac":"You've doomed us"},
+                        {"Monkey #1":"I'll be happy to see you dead"},
+                        {"Isaac":"I need to get out of here to see this Tarrasque"}
+                    ],
+                    "choice":["Break them out"],
+                    "choiceoutcome": ["tarrasque"]
+                },
+                {
+                    "sceneid": "tarrasque",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "DARN YOU!"},
+                        {"Monkey #1":"Enjoy your death!"},
+                        {"Isaac":"Why, this beast! It bears 676 Hit Points! An Armor Class of 25! It has a Proficiency Bonus of +9!< And 3 legendary actions!Why, it even can use legendary resistances!<Alongside that, it bears advantage on saving throws against spells! On top of immunity to Fire, <Poison, Bludgeoning, Piercing, and Slashing damage!"},
+                        {"Isaac":"You've summoned a nearly unkillable foe!"},
+                        {"Monkey #1":"Everything is going according to plan!"},
+                        {"Isaac":"Alas! This could possibly be the end!"},
+                        {"Isaac":"Hmmm... I need to think closely about my move"},
+                        {"Monkey #1":"You think you have the luxary of time? The Tarrasque is about to make his move!"},
+                        {"":"*The giant beast swipes its massive claws at Isaac"},
+                        {"Monkey #1":"DIE FOOL!"},
+                        {"":"*However, Isaac seems unaffected... the beast missed its attack"},
+                        {"Isaac":"HUH! That's impossible... The fact that he missed is a miracle"},
+                        {"Isaac":"Hurry! I must think of my move. Perhaps I could cast a spell?"}
+                    ],
+                    "choice":["Power Word Kill","Divine Intervention","Cast 4 fireballs"],
+                    "choiceoutcome": ["tarrasque_powerword","tarrasque_intervention","tarrasque_fireball"]
+                },
+                {
+                    "sceneid": "tarrasque_powerword",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Hah! I shall cast Power Word Kill! Which lets me instantly kill any monster with 100 hit points or less!"},
+                        {"":"*Isaac utters a word of power<<Nothing happens"},
+                        {"Isaac":"What? But he should've died!"},
+                        {"Monkey #1":"How could you be so foolish?"},
+                        {"Isaac":"Huh?"},
+                        {"Monkey #1":"You've said it yourself! The Tarrasque has 676 hit points! Power Word Kill has no effect< on a creature with more than 100 hit points!"},
+                        {"Isaac":"NOOOOO!!!! HOW COULD IT BE!!!! HOW COULD I MAKE SUCH A FOOLISH MISTAKE!!!!"},
+                        {"":"*the Tarrasque lungs at Isaac and takes a bite at him, swallowing him whole!"},
+                        {"Monkey #1":"Hah! Good riddance FOOL!"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["ending_bad_dead"]
+                },
+                {
+                    "sceneid": "ending_bad_dead",
+                    "background": "ending_red",
+                    "actors": [{"mid":"tarrasque"}],
+                    "endingtext":"You're dead now"
+                },
+                {
+                    "sceneid": "tarrasque_intervention",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Hah! I shall cast Divine Intervention! Which lets me literally summon god!"},
+                        {"":"*Isaac waves his hands and they start glowing"},
+                        {"Monkey #1":"Wait, you can do that?"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_intervention2"]
+                },
+                {
+                    "sceneid": "tarrasque_intervention2",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft":"jesus"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        { "Isaac": "Oh hey Jesus! Can you kill this Tarrasque for me?"},
+                        {"Jesus":"Ye, I can do that"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_intervention3"]
+                },
+                {
+                    "sceneid": "tarrasque_intervention3",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"upleft":"jesus"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        {"Jesus":"Alright, I'm done now<Bye!"},
+                        {"Isaac":"Bye!"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_intervention4"]
+                },
+                {
+                    "sceneid": "tarrasque_intervention4",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        {"Monkey #1":"Wow, that impresive!"},
+                        {"Isaac":"So uhhh..."},
+                        {"Isaac":"..."},
+                        {"Isaac":"Are we cool now?"},
+                        {"Monkey #1":"Sure I guess"},
+                        {"Monkey #1":"Y'know what, I'll go convert to Christianity"},
+                        {"Isaac":"Oh, that's cool!"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_intervention5"]
+                },
+                {
+                    "sceneid": "tarrasque_intervention5",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"downright": "smoke"}
+                    ],
+                    "message": [
+                        {"":"*poof"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_intervention6"]
+                },
+                {
+                    "sceneid": "tarrasque_intervention6",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"downright": "white2"}
+                    ],
+                    "message": [
+                        {"Isaac":"Wow.. I know your life is already better"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["ending_good_intervention"]
+                },
+                {
+                    "sceneid": "ending_good_intervention",
+                    "background": "ending",
+                    "endingtext":"You did your job!<br>and also killed a<br>tarrasque"
+                },
+                {
+                    "sceneid": "tarrasque_fireball",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"isaac"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        {"Isaac":"Hah.. I shall use my Action Surge ability from multiclassing into Fighter, and then I shall< cast fire ball twice with my two actions, and then utilize the Twinned Spell metamagic option<to cast four fireballs total!"},
+                        {"Monkey #1":"Are you with stupid?"},
+                        {"Isaac":"Well its too late now!"},
+                        {"":"*Isaac waves his hands around and shoots 4 fireballs"},
+                        {"Monkey #1":"The Tarrasque is immune to fire damage, and can reflect spells!"},
+                        {"":"*the fireballs hit the Tarrasque and reflect right back to Isaac"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["tarrasque_fireball2"]
+                },
+                {
+                    "sceneid": "tarrasque_fireball2",
+                    "background": "backyard2",
+                    "actors": [
+                        {"downleft":"ash"},
+                        {"mid":"tarrasque"},
+                        {"downright": "monkey"}
+                    ],
+                    "message": [
+                        {"":"*Isaac is incinerated and burnt alive"},
+                        {"Monkey #1":"Enjoy being dead!"}
+                    ],
+                    "choice":["Power Word Kill"],
+                    "choiceoutcome": ["ending_bad_fireball"]
+                },
+                {
+                    "sceneid": "ending_bad_fireball",
+                    "background": "ending_red",
+                    "endingtext":"that ending was<br> fire!"
                 }
 
             ]
@@ -1023,6 +1250,7 @@
             document.getElementById("upleft").innerHTML = ""; //reset current actors
             document.getElementById("downleft").innerHTML = "";
             document.getElementById("center").innerHTML = "";
+            document.getElementById("mid").innerHTML = "";
             document.getElementById("upright").innerHTML = "";
             document.getElementById("downright").innerHTML = "";
 
@@ -1057,6 +1285,15 @@
                             break;
                         case "judge":
                             actorImage = '<img src="https://imgs.search.brave.com/lmeh4UY-5c2N9no7Z7fTlX_PUGrESktB8yP8xglk7Cw/rs:fit:667:850:1/g:ce/aHR0cHM6Ly9ibG9n/LmFkdmVydGlzZWlu/ZmF5ZXR0ZXZpbGxl/LmNvbS9ocy1mcy9o/dWJmcy9qdWRnZSUy/MHdpdGglMjBnYXZs/ZSUyMGFuZCUyMHdp/Zy5wbmc_d2lkdGg9/MTQwJm5hbWU9anVk/Z2UlMjB3aXRoJTIw/Z2F2bGUlMjBhbmQl/MjB3aWcucG5n" alt="image" width="175">';
+                            break;
+                        case "tarrasque":
+                            actorImage = '<img src="https://www.dndbeyond.com/avatars/thumbnails/30836/117/1000/1000/638063929008461547.png" alt="image" width="350" height="400">';
+                            break;
+                        case "jesus":
+                            actorImage = '<img src="https://imgs.search.brave.com/ykC_941h8UEu-bRvCJ1swZlxtAAp2ZWP6_Kc6yrdyAQ/rs:fit:381:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5M/VDU0SnUyOEFRMm5Y/cDNRcm5LN0NRSGFK/TiZwaWQ9QXBp" alt="image" width="200">';
+                            break;
+                        case "ash":
+                            actorImage = '<img src="https://imgs.search.brave.com/9d8zq5PxqlH3xBRV8-7O3C_QVmlcAhGFQiMjtXU_RI4/rs:fit:256:256:1/g:ce/aHR0cHM6Ly9jZG4u/c3Vydml2b3JzcmVz/dC5jb20vaW1nL2p1/c3RzdXJ2aXZlL2l0/ZW1zL2FzaC1waWxl/LnBuZw" alt="image" width="175">';
                             break;
                         default:
                             actorImage = '<img src="https://cdn.discordapp.com/attachments/852300488682110977/1083573937809674270/isaac.png" alt="default" width="100">';
@@ -1101,6 +1338,13 @@
                 case "alleyway":
                     document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/Q2E-KiqKKOK5eRK-mB_6qZkDRWRkAP9w4CXDNh_VuJ0/rs:fit:1200:1023:1/g:ce/aHR0cHM6Ly9zLW1l/ZGlhLWNhY2hlLWFr/MC5waW5pbWcuY29t/L29yaWdpbmFscy8w/OC8yMS9lOS8wODIx/ZTkxNmZjY2I3Njhh/Yjg5ZWRlZGVhNTQy/MzAxMC5qcGc" alt="image" height="562.5" width="750"> '
                     break;
+                case "basement":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/TNATuq2Iuwn2e1dlKj-PHenoM6dRhpaaeEIW-DFwe3M/rs:fit:900:610:1/g:ce/aHR0cDovL2ltYWdl/cy5maW5lYXJ0YW1l/cmljYS5jb20vaW1h/Z2VzL2FydHdvcmtp/bWFnZXMvbWVkaXVt/bGFyZ2UvMS9jaGFp/ci1pbi1jcmVlcHkt/YWJhbmRvbmVkLWJh/c2VtZW50LWR5bGFu/LW11cnBoeS5qcGc" alt="image" width="750" height="562.5">'
+                    break;
+                case "backyard2":
+                    document.getElementById("background").innerHTML = '<img src="https://ssl.cdn-redfin.com/photo/104/bigphoto/112/94692112_44_0.webp" alt="image" width="750">'
+                    break;
+
             }
                     var newChoice = f.choice;
                     document.getElementById("output").innerHTML = "";
@@ -1166,7 +1410,7 @@
             <div id="center"></div>
             <div id="downright"></div>
             <div id="downleft"></div>
-
+            <div id="mid"></div>
         </div>
         <div id="endingtext"> </div>
 
