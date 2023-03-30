@@ -5,7 +5,7 @@
     }
     #downleft {
         position: absolute;
-        left: 0px;
+        left: 0;
         top: 300px;
     }
 
@@ -51,6 +51,7 @@
         position: relative;
         top: -127px;
         left: 22px;
+        color: white;
         font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
         font-size: 18px;
     }
@@ -60,6 +61,7 @@
         font-size: 22px;
         top: 57px;
         left: 22px;
+        color: white;
         font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
 
@@ -68,7 +70,7 @@
         position: relative;
         font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
         top: -82px;
-        color: darkslategray;
+        color: azure;
         left: 495px;
         display: none;
     }
@@ -100,7 +102,7 @@
             transform: translateY(4px);
         }
 </style>
-<html>
+<html lang="en">
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -110,9 +112,6 @@
         var points = 0;
         var bigmacs = 0;
         var minions = "false";
-        var stopDialogue = undefined;
-
-
         const sourceJson = {
             "scenes": [
                 {
@@ -129,7 +128,7 @@
                     "choice": ["stickman", "stick woman", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
                     "choiceoutcome": ["avatar_stickman", "avatar_stickwoman", "avatar_jake", "avatar_auspencer", "avatar_gorbachev"]
                 },
-                
+
                 {
                     "sceneid": "avatar_stickman",
                     "background": "bedroom",
@@ -206,9 +205,21 @@
                         { "You": "Wait I forgot where our date is taking place" },
                         { "You": "Lets see if I can remember where" }
                     ],
-                    "choice": ["McDonalds", "Mr. Daw's office", "Anime Club Meeting", "A cliff", "An actual fancy restaurant"],
-                    "choiceoutcome": ["datelocation_mcdonalds", "datelocation_mrdaw", "datelocation_animeclub", "datelocation_cliff", "datelocation_fancyrestaurant"]
+                    "choice": ["McDonalds", "Mr. Daw's office", "Anime Club Meeting", "A cliff", "An actual fancy restaurant", "skip"],
+                    "choiceoutcome": ["datelocation_mcdonalds", "datelocation_mrdaw", "datelocation_animeclub", "datelocation_cliff", "datelocation_fancyrestaurant", "skip"]
 
+                },
+                {
+                    "sceneid": "skip",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "skipping!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["playplace_start"]
                 },
                 {
                     "sceneid": "datelocation_mcdonalds",
@@ -670,10 +681,10 @@
                     "message": [
                         { "Spencer": "Say, should we head to the play place?" },
                         { "You": "You want to head to the what?" },
-                        { "Spencer" : "They have a play place, so we could go check it out"}
+                        { "Spencer": "They have a play place, so we could go check it out" }
                     ],
                     "choice": ["That sounds like fun", "That for little kids"],
-                    "choiceoutcome": ["playplace_start","mcdonalds_trivia"]
+                    "choiceoutcome": ["playplace_start", "mcdonalds_trivia"]
                 },
                 {
                     "sceneid": "playplace_start",
@@ -683,7 +694,7 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "Spencer": "Wait, what's going on here?" },
@@ -692,10 +703,27 @@
                         { "Gru": "You all will get the pancakes eventually" },
                         { "Minion #2": "We will not work until we get the banana pancakes" },
                         { "Gru": "Hey short kid, and short's friend over there!" },
-                        { "Gru" : "I need you to help me get these minions bananas"}
+                        { "Gru": "I need you to help me get these minions bananas" }
                     ],
                     "choice": ["We can help", "Not happening"],
-                    "Choiceoutcome": ["playplace_banana","playplace_jail"]
+                    "choiceoutcome": ["playplace_banana", "playplace_prison_trapped0"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_trapped0",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Gru": "If you're not going to help, you're better off in my prison!" }
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["playplace_prison_trapped"]
 
                 },
                 {
@@ -706,7 +734,7 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "Gru": "You two need to find me a large supply of bananas" },
@@ -715,7 +743,7 @@
                         { "You": "I think I might have an idea" }
                     ],
                     "choice": ["Lets threaten the staff!", "We can make a banana farm", "Start a war in Central America"],
-                    "Choiceoutcome": ["playplace_staff","playplace_farm","playplace_war"]
+                    "choiceoutcome": ["playplace_staff", "playplace_farm", "playplace_war"]
 
                 },
                 {
@@ -726,19 +754,19 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "newvars": [
-                        { "points" : "+3"}
+                        { "points": "+3" }
                     ],
                     "message": [
                         { "You": "We can go threaten the staff" },
                         { "Spencer": "That sounds like fun to me!" },
-                        { "Spencer" : "Lets go find them" }
+                        { "Spencer": "Lets go find them" }
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_staff2"]
+                    "choiceoutcome": ["playplace_staff2"]
 
                 },
 
@@ -754,7 +782,7 @@
                         { "Spencer": "Hey Billy, how are the kids doing?" },
                         { "Spencer": "Sarah and Micheal?" },
                         { "Spencer": "Wouldn't it be shame if something happened to them" },
-                        { "Spencer": "And what about your house? 1600 Pennsylvania Avenue?" },
+                        { "Spencer": "And what about your house? 18 New Dawn place?" },
                         { "Spencer": "It would be a shame if it went up in flames, wouldn't it?" },
                         { "Employee": "Sir, you don't have to do this" },
                         { "Spencer": "Oh and you keep your house keys underneath the door mat" },
@@ -767,13 +795,13 @@
                         { "Employee": "Look, I'll do anything, just don't tell my boss" },
                         { "Spencer": "Well then I expect 50 banana pancakes from you" },
                         { "": "Spencer watches as the employee cooks all 50 pancakes, with sweat dripping from his face" },
-                        { "Spencer" : "Great, now lets get back to Gru with these pancakes"},
-                        { "Spencer": "You know? That was actually pretty fun!"}
+                        { "Spencer": "Great, now lets get back to Gru with these pancakes" },
+                        { "Spencer": "You know? That was actually pretty fun!" }
 
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_bananas"]
+                    "choiceoutcome": ["playplace_bananas"]
 
                 },
                 {
@@ -784,16 +812,16 @@
                         { "downleft": "avatar" }
                     ],
                     "newvars": [
-                        { "points" : "-4"}
+                        { "points": "-4" }
                     ],
                     "message": [
                         { "You": "We should go start a farm" },
                         { "Spencer": "That sounds interesting" },
-                        { "Spencer" : "Well, I guess we need to get started" }
+                        { "Spencer": "Well, I guess we need to get started" }
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_farm2"]
+                    "choiceoutcome": ["playplace_farm2"]
 
                 },
                 {
@@ -804,7 +832,7 @@
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_farm3"]
+                    "choiceoutcome": ["playplace_farm3"]
 
                 },
                 {
@@ -815,18 +843,18 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "Spencer": "That took a while" },
                         { "Spencer": "Like several months" },
                         { "Spencer": "That was so boring" },
                         { "Gru": "About time you two get those bananas, finally my minions can get fed" },
-                        { "Gru": "Anyways now you need to find out where the Shrink Ray is"}
+                        { "Gru": "Anyways now you need to find out where the Shrink Ray is" }
 
                     ],
-                    "choice": ["Use secret CIA info", "It has to be a stage manager"],
-                    "choiceoutcome": ["playplace_cia","playplace_guess"]
+                    "choice": ["Use secret CIA info", "One of the stage managers has it"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
 
                 },
                 {
@@ -837,16 +865,16 @@
                         { "downleft": "avatar" }
                     ],
                     "newvars": [
-                        { "points" : "+5"}
+                        { "points": "+5" }
                     ],
                     "message": [
                         { "You": "We should go start a war in central america" },
                         { "Spencer": "I like that idea" },
-                        { "Spencer" : "Where do we start?" }
+                        { "Spencer": "Where do we start?" }
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_war2"]
+                    "choiceoutcome": ["playplace_war2"]
 
                 },
                 {
@@ -857,7 +885,7 @@
 
                     ],
                     "choice": ["Lets threaten the staff!"],
-                    "Choiceoutcome": ["playplace_war3"]
+                    "choiceoutcome": ["playplace_war3"]
 
                 },
                 {
@@ -868,18 +896,18 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "Spencer": "Who would've thought starting a war would be so fun " },
                         { "Spencer": "Now we have a lifetime supply of bananas" },
                         { "Spencer": "That was so boring" },
-                        { "Gru": "Great, now that my minions are fed, you can help me with soemthing else" },
-                        { "Gru": "I need you to find where the Shrink Ray is"}
+                        { "Gru": "Great, now that my minions are fed, you can help me with something else" },
+                        { "Gru": "I need you to find where the Shrink Ray is" }
 
                     ],
-                    "choice": ["Use secret CIA info", "It has to be a stage manager"],
-                    "choiceoutcome": ["playplace_cia","playplace_guess"]
+                    "choice": ["Use secret CIA info", "It has to be with a stage manager"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
 
                 },
                 {
@@ -890,34 +918,509 @@
                         { "upleft": "Spencer" },
                         { "downleft": "avatar" },
                         { "upright": "Minion" },
-                        { "downright" : "Minion"}
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "Gru": "Very impressive" },
                         { "Gru": "Now that my minions are fed, I need your help with something else" },
                         { "Gru": "We need to find out who has the shrink ray" },
-                        { "You": "I have an idea on what to do"}
+                        { "You": "I have an idea on what to do" }
                     ],
-                    "choice": ["Use secret CIA info", "I know it was a stage manager"],
-                    "choiceoutcome": ["playplace_cia","playplace_guess"]
+                    "choice": ["Use secret CIA info", "I think a stage manager has it"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
 
                 },
                 {
                     "sceneid": "playplace_cia",
                     "background": "playplace",
                     "actors": [
-                        { "downleft": "Spencer" },
-                        { "upleft": "avatar" }
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
                     ],
                     "message": [
                         { "You": "I have access to secret CIA databases" },
                         { "Gru": "That is great news, now who has the Shrink ray" },
                         { "Spencer": "Oh let me check this out" },
                         { "": "Spencer searches through the files to find out where the shrink ray is" },
-                        { "Spencer" : "The Shrink Ray is located in "}
+                        { "Spencer": "The Shrink Ray is located in a high security prison" },
+                        { "Gru": "Well that sounds like a job for you" },
+                        { "Gru": "I'll be getting you to that prison as soon as possible " }
                     ],
-                    "choice": ["Use secret CIA info", "I know it was a stage manager"],
-                    "choiceoutcome": ["playplace_cia","playplace_guess"]
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["playplace_prison_mission"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_mission",
+                    "background": "keycard",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Wow! We got here fast" },
+                        { "Spencer": "Lets get going quick!" },
+                        { "": "You and Spencer start walking around for a bit" },
+                        { "You": "Hey, let's go through this door" },
+                        {"Spencer":"Alright then"},
+                        {"Spencer":"Wait, is that what I think it is?"}
+                    ],
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["prison_shrinkray"]
+
+                },
+                {
+                    "sceneid": "playplace_guess",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "You": "It has to be one of the stage managers" },
+                        { "Gru": "What kind of guess is that? You're just saying random names?" },
+                        { "Spencer": "It has to be stage manager though" },
+                        { "Gru": "I'm sending you to prison for being such an idiot" }
+                    ],
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["playplace_prison_trapped"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_trapped",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "They sent us here fast" },
+                        { "Spencer": "Great, now we're going to rot here for the rest of our lives" },
+                        { "Spencer": "It even smells terrible here" },
+                        { "You": "..." },
+                        { "You": "Hey, is that a knife?" },
+                        { "Spencer": "Huh, that is a knife" },
+                        { "Spencer": "What should we do with it" }
+                    ],
+                    "choice": ["Stab Spencer", "Stab yourself", "Stab a guard"],
+                    "choiceoutcome": ["prison_stab_spencer", "prison_stab_self", "prison_stab_guard"]
+
+                },
+                {
+                    "sceneid": "prison_stab_guard",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You grab the knife and hide it" },
+                        { "You": "Hey, I have an idea" },
+                        { "You": "Let's call the guard and then stab him" },
+                        { "Spencer": "I like that idea" },
+                        { "Spencer": "GUARD HELP!!!!" }
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_stab_guard2"]
+
+                },
+                {
+                    "sceneid": "prison_stab_guard2",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" },
+                        { "upright": "Guard" }
+                    ],
+                    "message": [
+                        { "Guard": "What is it?" },
+                        { "You": "I hope you enjoy hell!" },
+                        { "": "You violently stab him in the chest 5 times" },
+                        { "Guard": "AHH!" },
+                        { "Spencer": "Lets go check his corpse!" },
+                        { "": "You both check all of his pockets" },
+                        { "Spencer": "I found a key card, no clue what door it opens though" }
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_outage"]
+                },
+                {
+                    "sceneid": "prison_doors",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Oh, hey three doors" },
+                        { "Mysterious Voice": "Door A opens to a room filled with lava" },
+                        { "Mysterious Voice": "Door B opens to a room that will shock you with electricity" },
+                        { "Mysterious Voice": "Door C opens to a room with a shark that hasn't eaten in 100 years"},
+                        { "Spencer": "I wonder which one we should open?"}
+                    ],
+                    "choice": ["Door A", "Door B", "Door C"],
+                    "choiceoutcome": ["prison_doors_a","prison_doors_b","prison_doors_c"]
+                },
+                {
+                    "sceneid": "prison_outage",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+
+                    ],
+                    "message": [
+                        { "": "The lights turn off" },
+                        { "You": "This must be a power outage!" },
+                        { "Spencer": "Huh, so the power's out?"},
+                        {"":"You and Spencer start walking outside your cell"}
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_doors"]
+                },
+                {
+                    "sceneid": "prison_doors_a",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "Lava rushes out of the door and kills both you and Spencer" },
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["ending_door_a"]
+                },
+                {
+                    "sceneid": "ending_door_a",
+                    "background": "ending",
+                    "endingtext": "you and spencer died :("
+                },
+                {
+                    "sceneid": "prison_doors_b",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "Since the power is already out, there's nothing harmful here"},
+                        {"You":"Quick Spencer! Lets go through before the power turns back on!"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_doors_b2"]
+                },
+                {
+                    "sceneid": "prison_doors_b2",
+                    "background": "keycard",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Look, it's a keycard scanner!<Maybe we can use that guard's keycard"},
+                        {"":"Spencer scans it, but its the wrong keycard"},
+                        {"You":"Oh well, looks like we'll just turn back"},
+                        {"":"The power immediately turns back on"},
+                        {"You":"I stand corrected"},
+                        {"Spencer":"What are we going to do?"},
+                        {"You":"I have no clue"},
+                        {"":"Hours pass by, which turns into days"},
+                        {"":"Soon, it's been weeks since you've last had food"},
+                        {"":"It isn't much later until both you and Spencer die"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["ending_door_b"]
+                },
+                {
+                    "sceneid": "ending_door_b",
+                    "background": "ending",
+                    "endingtext": "You and Spencer starve to death"
+                },
+                {
+                    "sceneid": "prison_stab_spencer",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You pick up the knife and stab Spencer with it" },
+                        { "Spencer": "AAAGGGHGGHHHH!!!!!!" },
+                        { "": "Spencer slowly bleeds out on the floor" },
+                        { "": "You check to see his pulse, nothing" },
+                        { "": "Spencer's body lays on the ground, lifeless"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome": ["ending_stab_spencer"]
+                },
+                {
+                    "sceneid": "prison_doors_c",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "If the shark hasn't eaten in 100 years, then it's clearly dead"},
+                        {"Spencer":"Oh look! There's a keycard door on the other side!"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_doors_c2"]
+                },
+                {
+                    "sceneid": "prison_doors_c2",
+                    "background": "keycard",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Lets try using the keycard!"},
+                        {"":"The door opens up revealing the next room!"},
+                        {"Spencer":"WAIT WHAT!!!! DO YOU SEE THAT?"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_shrinkray"]
+                },
+                {
+                    "sceneid": "prison_shrinkray",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "That's the shrink ray! Can you believe it?"},
+                        {"Spencer":"The shrink ray is ours now!"},
+                        {"You":"Wait what do you mean? Shouldn't we give it to Gru? I'm sure he'd<give us a lot if we gave it to him."},
+                        {"Spencer":"But it could be ours, what do we owe to that disgruntled piece of string cheese"}
+                    ],
+                    "choice": ["It can be ours now!","We should just give it to Gru"],
+                    "choiceoutcome": ["prison_shrinkray_keep","prison_shrinkray_give"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "Think about it Spencer!"},
+                        {"Spencer":"You're right, lets just give it to Gru"},
+                        {"Spencer":"Wait do you hear that?"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_give2"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give2",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        {"downright":"Minion"},
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"},
+                        {"downleft":"Minion"}
+                    ],
+                    "message": [
+                        { "Minion #2": "You guys got the shrink ray?"},
+                        {"Minion #16":"We can air drop both of you back to Gru"},
+                        {"Spencer":"Well here's the Shrink ray"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_give3"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give3",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Spencer": "Sir Gru, we have got your Shrink Ray"},
+                        { "Gru": "Why, that's good news, we can now shrink the moon!" },
+                        { "Minion #25":"Good work short kid!" },
+                        { "Gru": "Now minions! We must get going!" }
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["prison_shrinkray_give4"]
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_give4",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Wow! We're finally done with that ordeal!"}
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["prison_shrinkray_give5"]
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_give5",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Dr. Nefario": "Greetings.. Would you be interested in becoming my test subject<short one?"},
+                        {"Spencer":"I'm conflicted, should I or should I not"}
+                    ],
+                    "choice": ["You should trust him","He seems strange"],
+                    "choiceoutcome": ["nefario_yes","nefario_no"]
+                },
+                {
+                    "sceneid": "nefario_yes",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"You":"You can probably trust him"},
+                        {"Spencer":"Fine, i'll do it"},
+                        { "Dr. Nefario": "Oh, that's good news, get ready for your experiments"},
+                        {"Spencer":"I'm ready"},
+                        {"":"Dr. Nefario reveals a laser gun and shoots Spencer with it"},
+                        {"Spencer":"AGGHHHH"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["nefario_yes2"]
+                },
+                {
+                    "sceneid": "nefario_yes2",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Gru" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"Spencer":"Wait, what happened?"},
+                        {"You":"Gru? What are you doing here?"},
+                        {"Spencer": "What? I'm not Gru!"},
+                        {"Spencer":"WAIT WHAT! DO I LOOK LIKE GRU?"},
+                        {"Dr. Nefario":"Hah! So it seems that the test is successful"},
+                        {"Spencer":"NOOOOOO!!!!! It can't be so!!!!"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["ending_nefario"]
+                },
+                {
+                    "sceneid": "ending_nefario",
+                    "background": "ending",
+                    "endingtext": "Spencer is gru now"
+
+                },
+                {
+                    "sceneid": "nefario_no",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Gru" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"You":"I don't think we can trust him"},
+                        {"Spencer":"Yeah you're totally right"},
+                        {"Dr. Nefario": "Darn it! Of course you had to make a wise decision"},
+                        {"Spencer":"Anyways, lets get out of this place"},
+                        {"You":"I agree, I've had enough here"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["ending_nefario_good"]
+                },
+                {
+                    "sceneid": "ending_nefario_good",
+                    "background": "ending",
+                    "endingtext": "You and spencer get<br>married and live<br> happily ever after"
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_keep",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "You're right, we should keep it for ourselves"},
+                        {"Spencer":"That's what I'm talking about"},
+                        {"Spencer":"Wait do you hear that?"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_keep2"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_keep2",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        {"downright":"Minion"},
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"},
+                        {"downleft":"Minion"}
+                    ],
+                    "message": [
+                        { "Minion #2": "You don't really plan on betraying Gru like that, don't you"},
+                        {"Minion #16":"If so, you're gonna suffer. There's about 15 more of us coming"},
+                        {"Spencer":"Well guess what. We won't go down without a fight"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["ending_shrinkray_keep"]
+                },
+                {
+                    "sceneid": "ending_shrinkray_keep",
+                    "background": "ending",
+                    "endingtext": "you can't betray gru like that"
+
+                },
+                {
+                    "sceneid": "ending_stab_spencer",
+                    "background": "ending",
+                    "endingtext": "you killed spencer"
+
+                },
+                {
+                    "sceneid": "prison_stab_self",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You pick up the knife and start to slit your wrists" },
+                        { "Spencer": "WAIT WHAT!!!!" },
+                        { "": "Spencer watches you in horor" },
+                        { "": "..." },
+                        { "Spencer": "You're?!??" },
+                        { "Spencer": "EMO!!?!?!!!"}
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["ending_stab_self"]
+
+                },
+                {
+                    "sceneid": "ending_stab_self",
+                    "background": "ending",
+                    "endingtext": "spencer thinks you're emo"
 
                 },
                 {
@@ -1087,7 +1590,7 @@
                         { "": "After surviving such a traumatic experience, you and Spencer get married" }
                     ],
                     "choice": ["Jump down immediately "],
-                    "choiceoutcome" : ["ending_restroom_surive"]
+                    "choiceoutcome" : ["ending_restroom_survive"]
 
                 },
                 {
@@ -1107,7 +1610,7 @@
 
                 },
                 {
-                    "sceneid": "ending_restroom_surive",
+                    "sceneid": "ending_restroom_survive",
                     "background": "ending",
                     "endingtext": "You managed to survive a sudden explosion"
                 },
@@ -1133,23 +1636,30 @@
             ]
         };
         var typeWriterID = undefined;
+
         function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
-            if (repetition == undefined) {
-               var repetition = -1;
+            if (repetition === undefined) {
+                repetition = -1;
             } 
             /*if (message == undefined) {
                 message = String(message);
             }*/
             if (repetition < message.length) { //check if the message has characters left
-                document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                if (message.charAt(repetition) === '<' || message.charAt(repetition) === '>') {
+                    document.getElementById("output").innerHTML += "<br>";
+                } else {
+
+                 document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                }
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 50 , repetition); //run the function again in a few miliseconds
+                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few miliseconds
             } else {
                 typewriterFinished = message; // if characters are not left update typewriterFinished, 
                 document.getElementById("nextLine").style.display = 'inherit';
-                 
+
             }
         }
+
 
 
 
@@ -1162,9 +1672,9 @@
 
         function nextLine() { //function that runs to contine to the next line of dialogue
             
-            if (document.getElementById('nextLine').style.display == 'inherit') {
+            if (document.getElementById('nextLine').style.display === 'inherit') {
                 document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
-                if (dialogueLocation == -1) { //if dialogue is finished then show buttons
+                if (dialogueLocation === -1) { //if dialogue is finished then show buttons
                     continueButton = true; //when continueButton is set to true, the buttons will then procede to load
                 }
                 continueLine = typewriterFinished; //variable signals that the game can show the next line
@@ -1175,13 +1685,14 @@
         }
         
         function newScene(nextScene) { //code for starting new scenes
-            if (nextScene == undefined) { //if called from button, get the scene name
-                var nextScene = event.target.id;
+            var typewriterFinished;
+            if (nextScene === undefined) { //if called from button, get the scene name
+                nextScene = event.target.id;
             }
             //document.getElementById("output").innerHTML = nextScene; actually useless code i think
             var f = "";
             jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
-                if (output.sceneid == nextScene) {
+                if (output.sceneid === nextScene) {
                     f = output;
                 }
             });
@@ -1189,8 +1700,8 @@
             jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
                 //loops for each entry in a list
                 jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
-                    if (newVal[0] == '+') { //if the first char is '0'
-                        var newValDifference = newVal.slice(1); //get the number to change
+                    if (newVal[0] === '+') { //if the first char is '0'
+                        newValDifference = newVal.slice(1); //get the number to change
                         newValDifference = parseInt(newValDifference);
                         switch (newVar) {
                             case "points":
@@ -1202,7 +1713,7 @@
                                 break;
                         }
                     }
-                    if (newVal[0] == '-') {
+                    if (newVal[0] === '-') {
                         var newValDifference = newVal.slice(1);
                         newValDifference = parseInt(newValDifference);
                         switch (newVar) {
@@ -1217,14 +1728,13 @@
                     }
 
 
-
                     switch (newVar) {
                         case "avatar":
                             avatar = newVal;
                             break;
                         case "points":
                             points = newVal;
-                            console.log("points: "+points);
+                            console.log("points: " + points);
 
                             break;
                         case "bigmacs":
@@ -1238,7 +1748,6 @@
 
             });
 
-            
 
             var lastMessage = "";
             dialogueLocation = 0;
@@ -1246,7 +1755,7 @@
             jQuery.each(f.message, function (i, chatPair) { //loop
                 jQuery.each(chatPair, function (actor, message) {
                     function waitForTypewriter() {
-                        if (continueLine == lastMessage || typewriterFinished == undefined) { //checks if the requirements to signal the next line are ready
+                        if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
                             dialogueLocation++;
                            
                             typewriterFinished = "";
@@ -1259,8 +1768,8 @@
                             } else {
                                 document.getElementById("textbox").innerHTML = '<img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
                             }
-                            typeWriter(newMessage, 50); //run the function for the type writer effect
-                            if (dialogueLocation == f.message.length ) { //if its the last line in scene
+                            typeWriter(newMessage, 0); //run the function for the typewriter effect
+                            if (dialogueLocation === f.message.length ) { //if it's the last line in scene
                                 dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
                             }
                             lastMessage = message;
@@ -1361,8 +1870,14 @@
                         case "Jake":
                             actorImage = '<img src="assets/characters/jake.png" alt="image" width="100">';
                             break;
-                        case "":
-                            actorImage = '<img src="assets/characters/gru.png" alt="image" width="75">';
+                        case "Gru":
+                            actorImage = '<img src="assets/characters/gru.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Guard":
+                            actorImage = '<img src="assets/characters/prison-guard.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Nefario":
+                            actorImage = '<img src="assets/characters/nefario.png" alt="image" width="100" height="200">';
                             break;
 
                         default:
@@ -1399,8 +1914,21 @@
                 case "timeskip":
                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/timeskip.png" alt="image" width="750" height="562.5">';
                     break;
+                case "jail":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/jail.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "jail_doors":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/prison_doors.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "keycard":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/keycard.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "jail_shrinkray":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/prison_shrinkray.png" alt="image" width="750" height="562.5">';
+                    break;
 
-             }
+
+            }
                     var newChoice = f.choice;
                     document.getElementById("output").innerHTML = "";
 
@@ -1416,6 +1944,10 @@
                                     var repetition = 0;
                                     function displayButtons() {
                                         if (repetition < f.choice.length) {
+                                            console.log(repetition);
+                                            console.log(f.choiceoutcome);
+                                            console.log(f.choiceoutcome[repetition]);
+
                                             buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
                                             document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
                                             repetition++;
@@ -1438,6 +1970,7 @@
             }
         
     </script>
+    <title>Howell I Get With Spencer</title>
 </head>
 <body>
     <div id="body">
