@@ -90,16 +90,24 @@
         left: 330px;
         z-index: 17;
         margin-bottom: 10px;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+
     }
 
         button:hover {
-            background-color: #97b688
+            background-color: #97b688;
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+
         }
 
         button:active {
             background-color: #97b688;
             box-shadow: 0 10px #666;
-            transform: translateY(4px);
+            transform: translateX(-40%);
+
+
         }
 </style>
 <html lang="en">
@@ -111,6 +119,7 @@
         var avatar;
         var points = 0;
         var bigmacs = 0;
+        var deathnote = "false";
         var minions = "false";
         const sourceJson = {
             "scenes": [
@@ -125,7 +134,7 @@
                         { "": "As you scramble to wake up, you realize you've forgotten what you look like!" },
 
                     ],
-                    "choice": ["stickman", "stick woman", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
+                    "choice": ["Stickman", "woman", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
                     "choiceoutcome": ["avatar_stickman", "avatar_stickwoman", "avatar_jake", "avatar_auspencer", "avatar_gorbachev"]
                 },
 
@@ -151,7 +160,7 @@
                     "actors": [
                         { "upleft": "avatar" }
                     ],
-                    "message": [{ "You": "Oh yeah, I look just like a Stick woman" }],
+                    "message": [{ "You": "Oh yeah, I look just like a woman" }],
                     "choice": ["auto"],
                     "choiceoutcome": ["datelocation"]
                 },
@@ -219,7 +228,7 @@
                         { "You": "skipping!" }
                     ],
                     "choice": ["auto"],
-                    "choiceoutcome": ["playplace_start"]
+                    "choiceoutcome": ["anime_cult_question3_hokage"]
                 },
                 {
                     "sceneid": "datelocation_mcdonalds",
@@ -235,13 +244,1226 @@
                     "choiceoutcome": ["mcdonalds_outside"]
                 },
                 {
+                    "sceneid": "datelocation_animeclub",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "It was at the Anime Club Meeting Today wasn't it!" },
+                        { "You": "I need to get leaving right away, it's about to start!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["anime_start"]
+                },
+                {
+                    "sceneid": "anime_start",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "Wow that's a lot of posters" },
+                        { "Spencer": "Yeah, they were actually plan on getting even more" },
+                        {"You":"More! How would you even fit them!"},
+                        {"Spencer":"They could put them in the closet I guess?"},
+                        {"You":"Oh there's a closet? What's it like in there?"},
+                        {"Anime Kid #1":"Don't even think about going in there!"},
+                        {"You":"Oh, alright then."},
+                        {"You":"Hey, what's on that picture frame over th-"},
+                        {"Spencer":"Don't worry about that!"},
+                        {"Anime Kid #2":"So, do you know what we usually do at meetings?"},
+                        {"You":"Uhh.. No"},
+                        {"Anime Kid #2":"Well sometimes we watch Anime together."},
+                        {"Spencer":"Oh maybe we should watch some Anime, can you think of a show?"},
+                        {"You":"Uhh... Lemme think about this"}
+                    ],
+                    "choice": ["Dragon Ball Z","My Hero Academia","One Piece","Naruto","Death Note","Kaguya-sama: Love is War"],
+                    "choiceoutcome": ["anime_choose_dbz","anime_choose_mha","anime_choose_op","anime_choose_naruto","anime_choose_deathnote","anime_choose_loveiswar"]
+                },
+                {
+                    "sceneid": "anime_choose_dbz",
+                    "background": "anime",
+                    "actors": [
+                        {"downleft":"Goku"},
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "How about Dragon Ball Z" },
+                        { "Anime Kid #1":"Yeah, I can pull that up on the projector" },
+                        {"":"You and Spencer start watching the Anime together"},
+                        {"Spencer":"Wow, this anime low key sucks"},
+                        {"You":"I totally agree, how could something be so boring?"},
+                        {"Weird Kid":"SILENCE IMBECILE! WHAT WORDS HAVE THOU SPOKEN THUS FAR!"},
+                        {"You":"We said Dragon Ball Z is absolute garbage"},
+                        {"Weird Kid":"Well you both hold an objectively false opinion if neither <of you respect the brilliance of Dragon Ball Z"},
+                        {"Weird Kid":"But alas, I do not waste time arguing with such feeble-minded, lesser beings"},
+                        {"Spencer":"Uh ok?"},
+                        {"Weird Kid":"Say u wanna hop on valorant"},
+                        {"Spencer":"Uh what's valorant?"},
+                        {"You":"I think its a game?"},
+                        {"Weird Kid":"Hop on val bro"},
+                        {"Spencer":"I'm confused, what should I do in this situation?"}
+                    ],
+                    "choice": ["You should hop on","He's weird"],
+                    "choiceoutcome": ["anime_val","anime_weird"]
+
+                },
+                {
+                    "sceneid": "anime_val",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downleft":"Goku"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        { "You": "Dude, just hop on bro" },
+                        { "Spencer": "Hold on! I'm still installing it" },
+                        {"Spencer":"Alright now it's finished"},
+                        {"":"Spencer starts playing and absolutely loses"},
+                        {"Spencer":"OMG THIS GAME SUCKS!"},
+                        {"Spencer":"I QUIT, I LITERALLY QUIT, I HATE EVERYONE HERE, THIS IS THE WORST"},
+                        {"Spencer":"I'M DONE. EVERYTHING LITERALLY SUCKS. I HOPE EVERYONE IN THIS ROOM DIES IN A CAR CRASH"},
+                        {"Spencer":"I HOPE EVERY SINGLE PERSON HERE DIES A VIOLENT, SLOW AND PAINFUL DEATH. I HATE EVERYONE!!!"},
+                        {"Spencer":"NEVER IN MY LIFE HAVE I PLAYED SOMETHING SO BAD, THIS GAME IS ABSOLUTE GARBAGE"},
+                        {"Weird Kid":"SILENCE IMBECILE! WHAT WORDS HAVE THOU SPOKEN THUS FAR!"},
+                        {"Spencer":"..."},
+                        {"You":"..."},
+                        {"You":"he just said that again..."},
+                        {"Spencer":"Yeah, we need to get rid of him"},
+                        {"You":"Yeah we really do"},
+                        {"You": "Yo, Weird Kid! Have you heard about the anime convention going on across the street?"},
+                        {"Weird Kid":"Wait, there is a convention happening right now?"},
+                        {"Spencer":"Yeah, you're totally missing out right now"},
+                        {"Weird Kid":"Oh, I gotta get running!!!"},
+                        {"":"*The Weird Kid starts running with his hands behind his back"}
+                    ],
+                    "choice": ["You should hop on"],
+                    "choiceoutcome": ["anime_val2"]
+                },
+                {
+                    "sceneid":"anime_val2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Good riddance!"},
+                        {"You":"About time, I hated that kid"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid": "anime_weird",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"downleft":"Goku"},
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "Nah he's weird" },
+                        { "Spencer": "You're right, we should just get rid of him"},
+                        {"Spencer":"Hey Weird Kid! Have you heard about the manga sale going on down the street?"},
+                        {"Weird Kid":"Wait a MANGA SALE!!11!1! OMG!!! I need to get leaving right now"},
+                        {"Weird Kid":"I still need to finish the Goku vs Ryan Reynolds arc!!< I heard that it's about to finish in the manga" },
+                        {"Weird Kid":"Cheap manga here I come !!!!"},
+                        {"Spencer":"..."},
+                        {"":"*The Weird Kid starts running with his hands behind his back"}
+                    ],
+                    "choice": ["You should hop on"],
+                    "choiceoutcome": ["anime_weird2"]
+                },
+                {
+                    "sceneid":"anime_weird2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"He finally left!"},
+                        {"You":"I'm so glad that he's gone now!"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_mha",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"I want to watch My Hero Academia"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer watch it together"},
+                        {"Spencer":"Wow, this show is actually terrible"},
+                        {"You":"How can something be this bad?"},
+                        {"Anime Kid #1":"It actually gets better after episode 52"},
+                        {"You":"Yeah, I'm not gonna get that far in"},
+                        {"Anime Kid #2":"I might as well turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_op",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch One Piece?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"Never in my life have I seen something so bad"},
+                        {"You":"It's a miracle that people could create such a boring show"},
+                        {"Anime Kid #1":"Well, it begins getting really good after season 26"},
+                        {"You":"I'm not gotta watch another 25 seasons of this"},
+                        {"Anime Kid #2":"Oh well then, I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_deathnote",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Death Note?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"This kinda sucks but I could take some notes from it"},
+                        {"You":"I guess having a book that kills anyone you want if you write their name in it is kinda cool"},
+                        {"Anime Kid #1":"Yeah, I'd really love to have that sort of power"},
+                        {"":"*You and Spencer continue watching"},
+                        {"You":"Yeah, now it's getting kind of boring"},
+                        {"Spencer":"Hey, what's your full name?"},
+                        {"You":"Why do you ask?"},
+                        {"Spencer":"Uh reasons... *he pulls out a black leather notebook"},
+                    ],
+                    "choice":["I'll tell him","This seems strange"],
+                    "choiceoutcome":["anime_choose_tell","anime_choose_secret"]
+                },
+                {
+                    "sceneid":"anime_choose_tell",
+                    "background":"anime",
+                    "newvars": [
+                        {"deathnote":"true"}
+                    ],
+
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"My full name is *imagine your name here*"},
+                        {"Spencer":"Oh, that's nice to know"},
+                        {"Spencer":"*starts writing in a notebook furiously"},
+                        {"You":"Uhh... Spencer? What are you doing?"},
+                        {"Spencer":"Don't worry about it"},
+                        {"":"*You and Spencer continue watching for a bit"},
+                        {"You":"Oh hey, it's over"},
+                        {"Anime Kid #2":"Oh yeah, guess I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+
+                },
+                {
+                    "sceneid":"anime_dead",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Hey, do you feel any discomfort in your chest?"},
+                        {"You":"Are you trying to ask if I have symptoms of a heart attack?"},
+                        {"Spencer":"Uh.. perhaps"},
+                        {"You":"Uhh... Spencer? Do you have a death note or something? Is that what you were writing in?"},
+                        {"Spencer":"Uhh... he.. he.. maybe?"},
+                        {"Spencer":"Hurry up only ten more seconds until you die"},
+                        {"Anime Kid #2":"I should've known! When that short kid asked for your name, it was only <for him to be able to write it down in his death note to< cause your demise!"},
+                        {"You":"AAGGGHHHH!!!!! I FEEL LIKE I HAVE A HEART ATTACK!!!!"}
+
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["ending_deathnote"]
+
+                },
+                {
+                    "sceneid":"ending_deathnote",
+                    "background":"ending_bad",
+                    "endingtext":"Spencer killed you with<br>a magic book"
+                },
+                {
+                    "sceneid":"anime_choose_secret",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"I'm not gonna tell"},
+                        {"Spencer":"Oh, darn it *he puts away the notebook"},
+                        {"":"*You and Spencer continue watching for a bit"},
+                        {"You":"Oh hey, it's over"},
+                        {"Anime Kid #2":"Oh yeah, guess I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+
+                },
+                {
+                    "sceneid":"anime_choose_naruto",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Naruto?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"OMG this show absolutely sucks"},
+                        {"You":"How could they make the main character so annoying?"},
+                        {"Anime Kid #1":"Well, it gets much better after the second episode"},
+                        {"You":"I can't bare to listen to this kid's voice for another minute!"},
+                        {"Anime Kid #2":"Oh well then, I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_loveiswar",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Kaguya sama: Love is War?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"You":"This show is absolute garbage"},
+                        {"Spencer":"Seriously, if you ever had an ex who actually enjoyed this show. You seriously need >to reconsider your life decisions."},
+                        {"Anime Kid #1":"Yeah, I feel like that message needs to go out to a certain Mexican"},
+                        {"Spencer":"I'm just gonna watch this out of spite"},
+                        {"":"*You and Spencer continue watching"},
+                        {"You":"Uh.. this is kinda getting boring now"},
+                        {"Spencer":"Yeah, lets stop watching this"},
+                        {"Anime #1":"I'll just turn the projector off now"},
+                        {"":"*the projector goes dark"},
+                    ],
+                    "choice":["I'll tell him"],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_hobby",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Can I ask you something?"},
+                        {"You":"Yeah sure, what is it?"},
+                        {"Spencer":"Do you have any hobbies?"},
+                        {"You":"Uhh... lemme think"}
+                    ],
+                    "choice":["I like watching anime","Committing murder","Watching crime documentaries","Reading books","Baking bread"],
+                    "choiceoutcome":["anime_hobby_anime","anime_hobby_murder","anime_hobby_crime","anime_hobby_reading","anime_hobby_bread"]
+                },
+                {
+                    "sceneid":"anime_hobby_bread",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I like to bake bread in my free time"},
+                        {"Spencer":"Oh, that's cool!"},
+                        {"Spencer":"Do you know how to bake Pumpernickel?"},
+                        {"You":"Yeah, I can do that"},
+                        {"Spencer":"Oh sweet, that's sick"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_reading",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I like to read in my free time"},
+                        {"Spencer":"Oh, that's cool!"},
+                        {"You":"It's a lot of fun reading about new things or strange and fantastic worlds"},
+                        {"Spencer":"Maybe I should more..."}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_crime",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I enjoy watching crime documentaries in my free time"},
+                        {"Spencer":"Oh really?"},
+                        {"You":"Yeah, it's nice since I can now quote a bunch of crime statistics"},
+                        {"Spencer":"Really? Can you quote some right now?"},
+                        {"You":"Sure, why not!"},
+                        {"You":"Black people make up an eighth of the population, yet they make up a quarter of all arrests?"},
+                        {"You":"A majority of crime in Israel are committed by jews"},
+                        {"You":"Being named Daxton makes you more likely to become a criminal"},
+                        {"You":"In the state of Arizona, it is still legal to be executed by gas chamber. Though the <last time one has been used was in 1999"},
+                        {"You":"40% of all murders are left unsolved, that's a pretty solid chance you have there"},
+                        {"Spencer":"That's all pretty interesting, but I'm kind of scared now"},
+                        {"You":"It's fine, until you realize Viktor Bout, a Russian arms dealer made an estimated <$50 million off of selling weapons<to the Taliban in the 1990s"},
+                        {"Spencer":"You're not helping"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_murder",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-1"}
+                    ],
+                    "message": [
+                        {"You":"I like committing murder in my free time"},
+                        {"Spencer":"Like killing people?"},
+                        {"You":"Precisely"},
+                        {"Spencer":"Are you going to kill me too?"},
+                        {"You":"Maybe?"},
+                        {"Spencer":"There's something strange about you"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_anime",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"I like watching anime a lot in my free time"},
+                        {"Spencer":"A lot? That's your idea of fun?"},
+                        {"You":"Yeah it is"},
+                        {"Spencer":"You're definitely weird, is there something wrong with you?"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_boardgame",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "overrideVar": "deathnote",
+                    "overrideRequirement": "true",
+                    "overrideRedirect": "anime_dead",
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"Anime Kid #2":"Hey, if you guys want to play some board games, you can check out the closet."},
+                        {"Spencer":"Oh, we could play board games I guess?"}
+                    ],
+                    "choice":["Let's go get them","I don't want to get Spencer bored with board games"],
+                    "choiceoutcome":["anime_boardgame_yes","anime_boardgame_no"]
+                },
+                {
+                    "sceneid":"anime_boardgame_no",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-3"}
+                    ],
+                    "message": [
+                        {"You":"That just sounds super boring"},
+                        {"Spencer":"Oh..."},
+                        {"Spencer":"I guess I didn't want to either way"},
+                        {"You":"..."},
+                        {"Spencer":"..."},
+                        {"You":"Yeah this is getting awkward"},
+                        {"Spencer":"This is getting boring"},
+                        {"You":"..."},
+                        {"Spencer":"uhhh..."},
+                        {"Spencer":"What's your favorite flavor of ice cream?"}
+                    ],
+                    "choice":["Spicy Pistachio","Asphalt","Cookies and Cream with Cookie Dough","Vanilla"],
+                    "choiceoutcome":["anime_icecream_spicy","anime_icecream_asphalt","anime_icecream_cookie","anime_icecream_vanilla"]
+                },
+                {
+                    "sceneid":"anime_icecream_spicy",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is Spicy Pistachio"},
+                        {"Spencer":"What..."},
+                        {"Spencer":"THE HELL IS WRONG WITH YOU!??! YOU'RE DISGUSTING!"},
+                        {"You":"..."},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_asphalt",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is the Asphalt flavor"},
+                        {"Spencer":"What..."},
+                        {"Spencer":"Is that a weird name for a type of poison?"},
+                        {"You":"..."},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_cookie",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+6"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is Cookies and Cream with chunks of Cookie Dough"},
+                        {"Spencer":"Wait really?"},
+                        {"You":"Yeah!"},
+                        {"Spencer":"That's my favorite flavor too!"},
+                        {"You":"That's awesome"},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_vanilla",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+2"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is just Vanilla"},
+                        {"Spencer":"That's really basic, but Vanilla is pretty good"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid": "anime_endings",
+                    "background": "anime",
+                    "ending": [
+                        { "NormalBad": "ending_anime_bad_pretext" },
+                        { "NormalNeutral": "ending_anime_neutral_pretext" },
+                        { "NormalGood": "ending_anime_good_pretext" }
+                    ],
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "Spencer": "You find this fun?" }
+                    ],
+                    "choice": ["For fun"],
+                    "choiceoutcome": ["mcdonalds_ending"]
+                },
+                {
+                    "sceneid":"ending_anime_bad_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+2"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is just Vanilla"},
+                        {"Spencer":"That's really basic, but Vanilla is pretty good"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_boardgame_yes",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+2"}
+                    ],
+                    "message": [
+                        {"You":"Oh sure, I'm down to play some board games"},
+                        {"Spencer":"Well lets go find them in the closet then"}
+                    ],
+                    "choice":["Let's go get them"],
+                    "choiceoutcome":["anime_boardgame_yes2"]
+                },
+                {
+                    "sceneid":"anime_boardgame_yes2",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"Spencer":"WHAT THE HELL"},
+                        {"Spencer":"WHAT WERE THEY DOING HERE?!?!?"},
+                        {"You":"Uhhh... This place looks a bit strange"}
+                    ],
+                    "choice":["This is perfectly normal activity","We need to tell someone"],
+                    "choiceoutcome":["anime_cult_join","anime_cult_report"]
+                },
+                {
+                    "sceneid":"anime_cult_join",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"You":"I don't really see anything wrong with this?"},
+                        {"Spencer":"Seriously? You think this is perfectly normal?"},
+                        {"You":"Yeah, this all looks fine"},
+                        {"Spencer":"Maybe you're, I guess this is just something anime kids do"},
+                        {"You":"Let's just go back inside and say we didn't find any board games"}
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_join2"]
+                },
+                {
+                    "sceneid":"anime_cult_join2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"We weren't able to find any board games"},
+                        {"Anime Kid #1":"Wait, うずまき ナルト, did you remember to clean the closet up from the last ritual?"},
+                        {"Anime Kid #2":"No..."},
+                        {"Anime Kid #2":"..."},
+                        {"Anime Kid #2":"Oh wait, that means the short kid and his friend saw the ritual!"},
+                        {"Anime Kid #1":"Why are you always like this?"},
+                        {"Spencer":"Uhhh. idk what you weird kids do, so like, please don't sacrifice us to your anime gods"},
+                        {"Anime Kid #1":"Alright, look here. We don't you to cause us any trouble, so if you join us, we won't<cause both of you any trouble either."}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!","We're gonna report you all"],
+                    "choiceoutcome":["anime_cult_join3","anime_cult_join_report"]
+                },
+                {
+                    "sceneid":"anime_cult_join3",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Sure! I'd love to join a cult"},
+                        {"Spencer":"I guess I might as well join too"},
+                        {"Anime Kid #1":"That's good news! We need to prepare the initiation ritual soon then"},
+                        {"Anime Kid #2":"Alright, I'll get everything set up in the closet"},
+                        {"Anime Kid #1":"You both can go inside while we prepare"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join4"]
+                },
+                {
+                    "sceneid":"anime_cult_join4",
+                    "background":"anime_closet",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        {"center": "avatar"},
+                        {"downright":"Sasuke"},
+                        {"downleft":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Anime Kid #2":"Oh look, everything we need is the corner"},
+                        {"Anime Kid #1":"Oh hey, I guess we can just start the ritual now"},
+                        {"Spencer":"So how do we begin?"},
+                        {"Anime Kid #1":"Just sit right there and we'll tell you what to say"},
+                        {"":"*one of the kids lifts up a plushie and holds a knife to its throat"},
+                        {"":"*he then slices the plushie with the knife letting stuffing spill out everywhere"},
+                        {"Anime Kid #2":"ARGGHGHGHGHGHGHGHGH!!!!!!!!!!!!!"},
+                        {"Spencer":"Uh... I'm a bit concerned"},
+                        {"":"*the other kid pulls out a giant scroll"},
+                        {"Anime Kid #1":"Now read this!"},
+                        {"You":"I swear I will love Naruto very, very much and fully believe in his awesome <Shinobi Ninja Powers."},
+                        {"Spencer":"I vow to embrace the Animeness which flows through me and which isn't slightly< abnormal in the slightest"},
+                        {"You":"By this oath I swear that I shall watch every single episode of Naruto when I have <the chance, all 1013 of them"},
+                        {"Spencer":"And also by this oath I swear I shall watch all the new episodes when they come out<on sundays at 7pm GMT"},
+                        {"Anime Kid #1":"Good, now welcome to the cult!"},
+                        {"Spencer":"I feel like I just made the biggest mistake of my life"},
+                        {"You":"It can't really be that big a mistake"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join5"]
+                },
+                {
+                    "sceneid":"anime_cult_join5",
+                    "background":"timeskip",
+                    "message": [
+                        {"":"sometime in the future"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join6"]
+                },
+                {
+                    "sceneid":"anime_cult_join5",
+                    "background":"timeskip",
+                    "message": [
+                        {"":"sometime in the future"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join6"]
+                },
+                {
+                    "sceneid":"anime_cult_join6",
+                    "background":"anime_wedding",
+                    "message": [
+                        {"You":"Wow, no one showed up to our wedding"},
+                        {"Spencer":"Do you think it's because everyone we used to know hates us because of our<obsession with Naruto?"},
+                        {"You":"That couldn't possibly be the case"},
+                        {"You":"I don't know why anyone wouldn't love to attend a wedding themed around Naruto"},
+                        {"Spencer":"Maybe some people are crazy? But that doesn't matter, because ..."},
+                        {"Spencer":"I love you more than Naruto!"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["ending_anime_wedding"]
+                },
+                {
+                    "sceneid":"ending_anime_wedding",
+                    "background":"ending_red",
+                    "endingtext":"You and Spencer had the best ever<br>anime themed wedding"
+                },
+                {
+                    "sceneid":"anime_cult_join_report",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"There's no way we're gonna join your cult. You're all going to get in huge trouble!"},
+                        {"Anime Kid #1":"What! There's no way we're going to let you reveal the club's secret!"},
+                        {"Anime Kid #2":"Exactly! Do you know what this means?"},
+                        {"Spencer":"Is he about to do something weird?"},
+                        {"Anime Kid #2":"Desperate times call for desperate measures!"},
+                        {"Anime Kid#2":"It's time to summon our lord!"},
+                        {"Anime Kid #2":"SUMMONING JUTSU"},
+                        {"":"*the kid bites his finger and smears blood on the floor and concentrates"},
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_report3"]
+                },
+                {
+                    "sceneid":"anime_cult_report",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"You":"I get that kids who watch anime are weird, but this is just too much"},
+                        {"Spencer":"We need to tell someone about this"},
+                        {"You":"Definitely!"}
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_report2"]
+                },
+                {
+                    "sceneid":"anime_cult_report2",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"WHAT THE HELL WAS IN THAT CLOSET?"},
+                        {"Anime Kid #2":"The board games?"},
+                        {"Spencer":"We saw more than just board games!"},
+                        {"Anime Kid #1":"They're talking about the Naruto cult ritual there, うずまき ナルト, we< forgot to clean it up, remember?"},
+                        {"Anime Kid #2":"Oh shoot, THEY SAW IT?!?!?!?!"},
+                        {"Spencer":"Oh yeah we did, and we're gonna let the principal find out about it"},
+                        {"Anime Kid #1":"Oh hell no, there's no way we're gonna let that happen"},
+                        {"Anime Kid #2":"Oh, you know what that means? "},
+                        {"You":"You're gonna do something weird?"},
+                        {"Anime Kid#2":"It's time to summon our lord!"},
+                        {"Anime Kid #2":"SUMMONING JUTSU"},
+                        {"":"*the kid bites his finger and smears blood on the floor and concentrates"},
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_report3"]
+                },
+                {
+                    "sceneid":"anime_cult_report3",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Naruto":"Hah, who called me!"},
+                        {"Anime Kid #1":"Lord Uzumaki Sir! This kid and his friend is going to reveal our cult!"},
+                        {"Naruto":"Oh, we can't let that happen, can we?"},
+                        {"Naruto":"I'm going to give you guys a challenge, if you can answer all 3 of my anime Trivia <questions right. I'll let you both go free."},
+                        {"Naruto":"If you fail however, you'll suffer eternal damnation."},
+                        {"Spencer":"Answer anime trivia? *gulp* I don't think I can do this!"},
+                        {"You":"Don't worry Spencer, I can try my best to solve these"},
+                        {"Naruto":"Hah! My first question is who is the main character of the show Naruto!"},
+                        {"Spencer":"Oh no! I can't possibly think of this answer"}
+                    ],
+                    "choice":["Kushimaru Kuriarare","Jefferson Davis","Naruto Uzumaki","David Duke!"],
+                    "choiceoutcome":["anime_cult_question1_kid","anime_cult_question1_davis","anime_cult_question1_naruto","anime_cult_question1_duke"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_naruto",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"The answer is simple, the main character is Naruto Uzumaki!"},
+                        {"Naruto":"Quite impressive, I simply didn't expect you to solve that"},
+                        {"Anime Kid #2":"何何何! They weren't supposed to get that right!"},
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_question2"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_kid",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"I belive that the answer is Kushimaru Kuriarare!"},
+                        {"Naruto":"You're an idiot, you have made a foolish choice!"},
+                        {"Anime Kid #2":"How did you even get that wrong! Who even is that character!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_davis",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the main character's name Jefferson Davis?"},
+                        {"Naruto":"Quite a foolish mistake, you're wrong!"},
+                        {"Anime Kid #2":"Hah they're an idiot!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_duke",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the main character named David Duke?"},
+                        {"Naruto":"Quite a foolish mistake, you're wrong!"},
+                        {"Anime Kid #2":"How did you even get that wrong! Naruto isn't a show about racists!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_wrong",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Spencer":"Oh no! What's going to happen now"},
+                        {"Naruto":"You're going to suffer the ultimate fate"},
+                        {"Spencer":"..."},
+                        {"Naruto":"You will both be locked into the anime closet with Rohit for the rest of eternity!"},
+                        {"Spencer":"NOOOO!11!11!1"},
+                        {"You":"Isn't that bit too cruel?"},
+                        {"Naruto":"Precisely so, which is why you're so deserving of it"},
+                        {"Naruto":"Now begone!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_rohit"]
+                },
+                {
+                    "sceneid":"anime_rohit",
+                    "background":"anime_closet",
+                    "actors": [
+                        {"upright":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"center":"Rohit"}
+                    ],
+                    "message": [
+                        {"Spencer":"OH GOD AM I IN HELL!!"},
+                        {"You":"WHAT IS THAT HIDEOUS THING"},
+                        {"Spencer":"I THINK I'M ABOUT TO HAVE A HEART ATTACK!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["ending_rohit"]
+                },
+                {
+                    "sceneid":"ending_rohit",
+                    "background": "ending_bad",
+                    "endingtext": "you suffer worst <br> fate imaginable"
+
+                },
+                {
+                    "sceneid":"anime_cult_question2",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Naruto":"Well then your next question is!"},
+                        {"Naruto":"..."},
+                        {"Naruto":"What is the name of the technique that Kimimaro uses to manipulate his bones and< attack his enemies?"},
+                        {"Spencer":"WHAT!!!! DO YOU EXPECT US TO FAIL?!?"}
+                    ],
+                    "choice":["Shikotsumyaku","Sharingan","Ketsuryūgan","Kotoamatsukami"],
+                    "choiceoutcome":["anime_cult_question2_right","anime_cult_question2_sharingan","anime_cult_question2_ketsuryugan","anime_cult_question2_kotoamatsukami"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_right",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"The answer is clearly his Shikotsumyaku"},
+                        {"Spencer":"His what?"},
+                        {"Naruto":"Hah! That is correct! Maybe you're not as foolish as I thought"},
+                        {"Anime Kid #1":"How did they get that one right?"},
+                        {"Naruto":"But this next one will be harder!"},
+                        {"Naruto":"What is Naruto Uzumaki's main goal in life?"},
+                        {"Spencer":"This one might be tough"}
+                    ],
+                    "choice":["To become the Hokage, leader of the Hidden Leaf Vilalge","Become the best Chess grandmaster!","Get a ramen eating world record!","Take a shower!"],
+                    "choiceoutcome":["anime_cult_question3_hokage","anime_cult_question3_chess","anime_cult_question3_ramen","anime_cult_question3_shower"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_sharingan",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"If I'm not mistaken, then his technique is named the Sharingan!"},
+                        {"Naruto":"Wise words son! But you're wrong"},
+                        {"Anime Kid #1":"Hah, that's what I expected from you"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_kotoamatsukami",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer the Kotoamatsukami!"},
+                        {"Naruto":"Good guess, but you're still wrong!"},
+                        {"Anime Kid #2":"Hah, they're not as much of a master of ancient Naruto knowledge, as Imperial Grand Wizard Patel is!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_ketsuryugan",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"To my knowledge, the technique is called the Ketsuryūgan!"},
+                        {"Naruto":"Good guess, but you're still wrong!"},
+                        {"Anime Kid #2":"Hah, they're not as much of a master of ancient Naruto knowledge, as Imperial Grand Wizard Patel is!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_hokage",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Naruto's main goal is to become the Hokage!"},
+                        {"Naruto":"HAH! You're not as bad as I thought!"},
+                        {"Spencer":"OMG WE DID IT!!!!"},
+                        {"Anime Kid #1":"But... they weren't supposed to do that!"},
+                        {"Naruto":"Well, since you got all 3 questions right, I'll keep my promise. <You're both free to leave"},
+                        {"You":"Good, now lets get out of here quick!"},
+                        {"Spencer":"We really need to find these kids better hobbies than having a cult revolving around <Naruto from the hit show Naruto"},
+                        {"You":"I can't agree more"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["ending_cult_escape"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_chess",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is his main goal to become the greatest chess grandmaster of all time?"},
+                        {"Naruto":"Nope. Not even close"},
+                        {"Anime Kid #2":"That's the worst guess I've ever heard!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_ramen",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Does he strive to break a ramen eating world record?"},
+                        {"Naruto":"Not quite! But you're still wrong :("},
+                        {"Anime Kid #2":"He has bigger priorities than that!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_shower",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is his goal to actually take a shower for once?"},
+                        {"Naruto":"Nope"},
+                        {"Anime Kid #2":"Ok! Now that just hits where it hurts the most :("}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"ending_cult_escape",
+                    "background":"ending",
+                    "endingtext":"You later convince the<br>anime club kids that<br>there's more to life<br>than just anime"
+                },
+                {
                     "sceneid": "mcdonalds_outside",
                     "background": "mcdonalds_outside",
                     "actors": [
                         { "center": "avatar" }
                     ],
                     "message": [
-                        { "You": "Wow this is such a fancy restraunt" },
+                        { "You": "Wow this is such a fancy restaurant" },
                         { "You": "I wonder what it looks like on the side" }
                     ],
                     "choice": ["auto"],
@@ -256,7 +1478,7 @@
                     ],
                     "message": [
                         { "Spencer": "You're late :(" },
-                        { "You": "Well atleast I showed up" },
+                        { "You": "Well at least I showed up" },
                         { "Spencer": "Anyways, what do you want to order?" },
                         { "Spencer": "And because I feel like it, I'll get the same order as you" }
                     ],
@@ -446,11 +1668,11 @@
                     "message": [
                         { "Spencer": "I'm actually disappointed" },
                         { "Spencer": "That's not even close" },
-                        { "Spencer": "You've made me unbelievablely upset right now" },
+                        { "Spencer": "You've made me unbelievably upset right now" },
                         { "Spencer": "I am so dissatisfied with you" },
                         { "Spencer": "Seriously, you've made me aggrieved like I've never been before" },
                         { "Spencer": "I am incredibly displeased with your stupidity" },
-                        { "Spencer": "Your total idiocracy" },
+                        { "Spencer": "Your total idiocy" },
                         { "Spencer": "Is it actually that hard to answer a question right?" },
                         { "Spencer": "I am disconsolate all because of you now!" }
 
@@ -1099,7 +2321,7 @@
                 },
                 {
                     "sceneid": "ending_door_a",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext": "you and spencer died :("
                 },
                 {
@@ -1140,7 +2362,7 @@
                 },
                 {
                     "sceneid": "ending_door_b",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext": "You and Spencer starve to death"
                 },
                 {
@@ -1327,7 +2549,7 @@
                 {
                     "sceneid": "ending_nefario",
                     "background": "ending",
-                    "endingtext": "Spencer is gru now"
+                    "endingtext_red": "Spencer is gru now"
 
                 },
                 {
@@ -1388,13 +2610,13 @@
                 },
                 {
                     "sceneid": "ending_shrinkray_keep",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext": "you can't betray gru like that"
 
                 },
                 {
                     "sceneid": "ending_stab_spencer",
-                    "background": "ending",
+                    "background": "ending_red",
                     "endingtext": "you killed spencer"
 
                 },
@@ -1419,7 +2641,7 @@
                 },
                 {
                     "sceneid": "ending_stab_self",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext": "spencer thinks you're emo"
 
                 },
@@ -1496,7 +2718,7 @@
                 },
                 {
                     "sceneid": "ending_mcdonalds_bad",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext":"Spencer hates you :(",
                 },
                 {
@@ -1616,12 +2838,12 @@
                 },
                  {
                     "sceneid": "ending_restroom_die",
-                    "background": "ending",
+                    "background": "ending_bad",
                     "endingtext": "You died in an explosion"
                 },
                 {
                     "sceneid": "ending_bigmac",
-                    "background": "ending",
+                    "background": "ending_red",
                     "endingtext": "Spencer suffered a heart attack"
                 }
 
@@ -1652,7 +2874,7 @@
                  document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
                 }
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few miliseconds
+                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few milliseconds
             } else {
                 typewriterFinished = message; // if characters are not left update typewriterFinished, 
                 document.getElementById("nextLine").style.display = 'inherit';
@@ -1740,8 +2962,12 @@
                         case "bigmacs":
                             bigmacs = newVal;
                             break;
+                        case "deathnote":
+                            deathnote = newVal;
+                            break;
                         case "minions":
                             minions = newVal;
+                            break;
                     }
                 });
 
@@ -1831,6 +3057,11 @@
                             return;
                         }
                         break;
+                    case "deathnote":
+                        if (deathnote == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
                 }
             }
 
@@ -1879,7 +3110,18 @@
                         case "Nefario":
                             actorImage = '<img src="assets/characters/nefario.png" alt="image" width="100" height="200">';
                             break;
-
+                        case "Sasuke":
+                            actorImage = '<img src="assets/characters/sasuke.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Ladybug":
+                            actorImage = '<img src="assets/characters/ladybug.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Goku":
+                            actorImage = '<img src="assets/characters/goku.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Naruto":
+                            actorImage = '<img src="assets/characters/naruto.png" alt="image" width="100" height="200">';
+                            break;
                         default:
                             actorImage = '<img src="assets/characters/spencer.png" alt="default" width="100">';
                     }       
@@ -1902,6 +3144,13 @@
                 case "ending":
                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending.png" alt="image" width="750">'
                     break;
+                case "ending_red":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending_red.png" alt="image" width="750">'
+                    break;
+                case "ending_bad":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending_bad.png" alt="image" width="750">'
+                    break;
+
                 case "restroom":
                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/restrooms.png" alt="image" width="750" height="562.5">'
                     break;
@@ -1926,7 +3175,18 @@
                 case "jail_shrinkray":
                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/prison_shrinkray.png" alt="image" width="750" height="562.5">';
                     break;
-
+                case "anime":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "anime_closet":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime_closet.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "daw":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/daw.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "anime_wedding":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime_closet.png" alt="image" width="750" height="562.5">';
+                    break;
 
             }
                     var newChoice = f.choice;
@@ -1948,7 +3208,7 @@
                                             console.log(f.choiceoutcome);
                                             console.log(f.choiceoutcome[repetition]);
 
-                                            buttonList += (`<button type="button" onclick="newScene()" id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                            buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
                                             document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
                                             repetition++;
                                             setTimeout(displayButtons, 250);
