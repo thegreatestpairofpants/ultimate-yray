@@ -257,6 +257,78 @@
                     "choiceoutcome": ["anime_start"]
                 },
                 {
+                    "sceneid": "datelocation_mrdaw",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "It was at Mr Daw’s office wasn't it!" },
+                        { "You": "I need to get leaving right away"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["daw_start"]
+                },
+                {
+                    "sceneid": "daw_start",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"Spencer":"I’m here!"},
+                        {"You":"That was quite an entrance"},
+                        {"Spencer":"Thank you very much"},
+                        {"Spencer":"Hey, since we’re in Mr. Daw’s office, you wanna see if we can fnd any of his secrets?"},
+                        {"You":"What do you mean by that"},
+                        {"Spencer":"We can try searching through his room, like opening up his filing cabinet!"},
+                        {"You":"Oh, that sounds like fun!"},
+                        {"Spencer":"So, what do you wanna check out first?"}
+                    ],
+                    "choice": ["His Filing Cabinet","Under the rug","The drawers in his desk"],
+                    "choiceoutcome": ["daw_cabinet","daw_rug","daw_drawers"]
+                },
+                {
+                    "sceneid": "daw_cabinet",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"Lets go check out his filing cabinet"},
+                        {"Spencer":"Oh sure, that sounds like fun"},
+                        {"":"*As you open the cabinet, you notice a peculiar looking file"},
+                        {"You":"Oh, hey check this out"},
+                        {"Spencer":"What is it?"}
+
+                    ],
+                    "choice": ["Show him it imediately","I’ll show you it if you give me a kiss later"],
+                    "choiceoutcome": ["daw_cabinet2","daw_cabinet2_alt"]
+
+                },
+                {
+                    "sceneid": "daw_cabinet2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"It's a copy of some secret blueprints"},
+                        {"Spencer":""},
+                        {"":"*As you open the cabinet, you notice a peculiar looking file"},
+                        {"You":"Oh, hey check this out"},
+                        {"Spencer":"What is it?"}
+
+                    ],
+                    "choice": ["Show him it imediately","I’ll show you it if you give me a kiss later"],
+                    "choiceoutcome": ["daw_cabinet2","daw_cabinet2_alt"]
+
+                },
+
+                {
                     "sceneid": "anime_start",
                     "background": "anime",
                     "actors": [
@@ -905,15 +977,66 @@
                         {"upright":"Sasuke"},
                         {"downright":"Ladybug"}
                     ],
-                    "newvars":[
-                        {"points":"+2"}
-                    ],
                     "message": [
-                        {"You":"My favorite flavor is just Vanilla"},
-                        {"Spencer":"That's really basic, but Vanilla is pretty good"}
+                        {"Spencer":"You know what, today's been really boring. And I'm getting really tired"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I'm gonna leave now"},
+                        {"Spencer":"Also never talk to me again, you're actually so annoying"}
                     ],
                     "choice":["Spicy Pistachio"],
-                    "choiceoutcome":["anime_endings"]
+                    "choiceoutcome":["ending_anime_bad"]
+                },
+                {
+                    "sceneid":"ending_anime_bad",
+                    "background":"ending_bad",
+                    "endingtext":"Spencer hates you"
+                },
+                {
+                    "sceneid":"ending_anime_neutral_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"You know what, today's been really boring. And I'm getting really tired"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I'm gonna leave now"},
+                        {"Spencer":"By the way, do you wanna go on another date?"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["ending_anime_neutral"]
+                },
+                {
+                    "sceneid":"ending_anime_neutral",
+                    "background":"ending",
+                    "endingtext":"You and Spencer are dating now"
+                },
+                {
+                    "sceneid":"ending_anime_good_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"You know what, today has helped me realize something"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I need to ask you something"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"ABSOLUTELY"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["ending_anime_good"]
+                },
+                {
+                    "sceneid":"ending_anime_good",
+                    "background":"ending",
+                    "endingtext":"You got married to Spency"
                 },
                 {
                     "sceneid":"anime_boardgame_yes",
