@@ -304,8 +304,37 @@
                         {"Spencer":"What is it?"}
 
                     ],
-                    "choice": ["Show him it imediately","I’ll show you it if you give me a kiss later"],
+                    "choice": ["Show him it imediately","I’ll show you it, but only if you give me a kiss later"],
                     "choiceoutcome": ["daw_cabinet2","daw_cabinet2_alt"]
+
+                },
+                {
+                    "sceneid": "daw_cabinet2_alt",
+                    "background": "daw",
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"I'll show it to you, but only if you give me a kiss later"},
+                        {"Spencer":"Ohh, I see how it is *spencer blushes*<Maybe I will"},
+                        {"Spencer":"So can I see it?"},
+                        {"You":"Alright then, check this out"},
+                        {"You":"It's blueprints for some sort of highly classified fishing rod"},
+                        {"Spencer":"Wait, does that say what I think it does"},
+                        {"You":"Yep, it sure does"},
+                        {"Spencer":"This rod can catch fish in the 4th and 5th dimensions?"},
+                        {"Spencer":"And it can also catch fish in 2 dimensions of time?"},
+                        {"Spencer":"No way, that's Mr. Daw's signature... He designed this himself!"},
+                        {"You":"Just think about what would happen if Bass Pro Shop got their hands on this"},
+                        {"Spencer":"OMG YOU'RE RIGHT!!! THEY COULD MAKE BILLIONS OFF OF THIS!"},
+                        {"You":"Exactly, that's why we need to..."}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop","Keep the blueprints secret"],
+                    "choiceoutcome": ["daw_rod_sell","daw_rod_protect"]
 
                 },
                 {
@@ -316,18 +345,85 @@
                         {"upleft":"Spencer"}
                     ],
                     "message": [
-                        {"You":"It's a copy of some secret blueprints"},
-                        {"Spencer":""},
-                        {"":"*As you open the cabinet, you notice a peculiar looking file"},
-                        {"You":"Oh, hey check this out"},
-                        {"Spencer":"What is it?"}
-
+                        {"You":"It's blueprints for some sort of highly classified fishing rod"},
+                        {"Spencer":"Wait, does that say what I think it does"},
+                        {"You":"Yep, it sure does"},
+                        {"Spencer":"This rod can catch fish in the 4th and 5th dimensions?"},
+                        {"Spencer":"And it can also catch fish in 2 dimensions of time?"},
+                        {"Spencer":"No way, that's Mr. Daw's signature... He designed this himself!"},
+                        {"You":"Just think about what would happen if Bass Pro Shop got their hands on this"},
+                        {"Spencer":"OMG YOU'RE RIGHT!!! THEY COULD MAKE BILLIONS OFF OF THIS!"},
+                        {"You":"Exactly, that's why we need to..."}
                     ],
-                    "choice": ["Show him it imediately","I’ll show you it if you give me a kiss later"],
-                    "choiceoutcome": ["daw_cabinet2","daw_cabinet2_alt"]
+                    "choice": ["Sell it to Bass Pro Shop","Keep the blueprints secret"],
+                    "choiceoutcome": ["daw_rod_sell","daw_rod_protect"]
 
                 },
+                {
+                    "sceneid": "daw_rod_sell",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"We need to sell this to Bass Pro Shop as soon as we can!<Think of how rich we'll become!"},
+                        {"Spencer":"Oh that's perfect! I have connections in the fishing store industry!"},
+                        {"You":"That's amazing let's get a deal set up"},
+                        {"Spencer":"Let me try calling my contacts"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell2"]
 
+                },
+                {
+                    "sceneid": "daw_rod_sell2",
+                    "background": "timeskip",
+                    "message": [
+                        {"":"Spencer has to call a lot of his contacts"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell3"]
+
+                },
+                {
+                    "sceneid": "daw_rod_sell3",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"Spencer":"I finally got a meeting set up with Bass Pro Shop!"},
+                        {"You":"Oh great, that's amazing! Let's get to their headquarters"},
+                        {"Spencer":"No need, the meeting takes place right here"},
+                        {"You":"WAIT WHAT?"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell4"]
+
+                },
+                {
+                    "sceneid": "daw_rod_sell4",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Fishing Dude":"Howdy y'all. I hear y'all have got some amazing new invention"},
+                        {"Bearded Fishing Dude":"Howdy again, I'm pretty damn interested in what y'all have here for us"},
+                        {"You":"This is sudden"},
+                        {"Spencer":"Uh... uh... uh..."},
+                        {"Spencer":"Help the impossible is happening<I'M HAVING STAGE FRIGHT!!!"},
+                        {"You":"Oh no! I must help Spencer pitch our stolen fishing rod design! What should I do!"}
+                    ],
+                    "choice": ["Act like a car salesman","BLACK MAIL","Generic business jargon"],
+                    "choiceoutcome": ["daw_rod_sell4","daw_rod_sell4","daw_rod_sell4"]
+
+                },
                 {
                     "sceneid": "anime_start",
                     "background": "anime",
@@ -3252,7 +3348,7 @@
                 });
 
             });
-
+            
             var background = f.background;
             switch (background) { //code for changing backgrounds
                 case "bedroom":
