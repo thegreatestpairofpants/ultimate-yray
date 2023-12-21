@@ -560,7 +560,7 @@
                  document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
                 }
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few milliseconds
+                typeWriterID = setTimeout(typeWriter, delay, message, 30 , repetition); //run the function again in a few milliseconds
             } else {
                 typewriterFinished = message; // if characters are not left update typewriterFinished, 
                 document.getElementById("nextLine").style.display = 'inherit';
