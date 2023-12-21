@@ -1,0 +1,887 @@
+<style>
+    #body {
+        position: relative;
+        left: 30px;
+    }
+    #downleft {
+        position: absolute;
+        left: 0;
+        top: 300px;
+    }
+
+    #upleft {
+        position: absolute;
+        left: 180px;
+        top: 225px;
+    }
+
+    #center {
+        position: absolute;
+        left: 255px;
+        top: 300px;
+    }
+
+    #upright {
+        position: absolute;
+        left: 405px;
+        top: 225px;
+    }
+
+    #downright {
+        position: absolute;
+        left: 502px;
+        top: 300px;
+    }
+
+
+    .textbox {
+        position: absolute;
+        top: 472px;
+    }
+
+    #endingtext {
+        position: absolute;
+        top: 225px;
+        left: 425px;
+        color: red;
+        font-size: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+    #remember {
+        position: absolute;
+        top:-400px;
+        left: 60px;
+        font-size: 30px;
+        color:white;
+        background:darkgray;
+        font-family: 'Curlz MT';
+        opacity: 0;
+    }
+    #output {
+        position: relative;
+        top: -127px;
+        left: 22px;
+        color: white;
+        font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+    }
+
+    #speakerName {
+        position: absolute;
+        font-size: 22px;
+        top: 57px;
+        left: 22px;
+        color: white;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+    #nextLine {
+        position: relative;
+        font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -82px;
+        color: azure;
+        left: 495px;
+        display: none;
+    }
+
+    button {
+        padding: 15px 18px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #04AA6D;
+        border: none;
+        border-radius: 35px;
+        position: relative;
+        top: -440px;
+        left: 330px;
+        z-index: 17;
+        margin-bottom: 10px;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+
+    }
+
+        button:hover {
+            background-color: #97b688;
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+
+        }
+
+        button:active {
+            background-color: #97b688;
+            box-shadow: 0 10px #666;
+            transform: translateX(-40%);
+
+
+        }
+</style>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        var continueLine = "";
+        var avatar;
+        var points = 0;
+        const sourceJson = {
+            "scenes": [
+                {
+                    "sceneid":"start",
+                    "background":"poster",
+                    "message":[
+                        {"":"This is an amazing story about the love between shrek and obama"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome": ["start2"]
+                },
+                {
+                    "sceneid": "start2",
+                    "background": "beach",
+                    "actors":[
+                        {"center":"Shrek"}
+                    ],
+                    "message": [
+                        { "": "You are shrek" },
+                        { "": "Do you are understand?" }
+
+                    ],
+                    "choice": ["Yes", "No"],
+                    "choiceoutcome": ["start_yes", "start_no"]
+                },
+                {
+                    "sceneid":"start_no",
+                    "background":"beach",
+                    "message": [
+                        {"":"not cool dude"},
+                        {"":"it ain't hard to understand htat"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome": ["start_fail"]
+                },
+                {
+                    "sceneid":"start_fail",
+                    "background":"bad",
+                    "endingtext":"how you not gonna <br>understand you're shrek"
+                },
+                {
+                    "sceneid":"start_yes",
+                    "background":"beach",
+                    "message": [
+                        {"":"cool, now lets start!"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome": ["tax1"]
+                },
+                {
+                    "sceneid":"tax1",
+                    "background":"tax",
+                    "actors":[
+                        {"center":"Shrek"},
+                    ],
+
+                    "message":[
+                        {"":"It was a dark and stormy night, when you find yourself to be at the tax office"},
+                        {"":"After finishing your appointment, you decide to rush suddenly out of the building, but then..."}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome": ["tax2"]
+                },
+                {
+                    "sceneid":"tax2",
+                    "actors":[
+                        {"center":"Shrekbama"}
+                    ],
+
+                    "background":"tax",
+                    "message":[
+                        {"":"As you're running out of the hall, you run right into a tall, burly, black man!"},
+                        {"":"but when you bump into eachother, you both accidentally kiss!!!!!!"},
+                        {"Obama":"Well goodness me! Excuse my mistake! I am Barrack Obama and I approve this message."},
+                        {"":"..."},
+                        {"":"*you notice obama is like totally blushing right now"},
+                        {"Shrek":"Ermmm hi (you say cutely)"},
+                        {"Obama":"Oh, I was just about to file my taxes for my family's christmas tree farm, times have < been really tough on us this year, especially since the Pickle family is trying extra < hard this year to buy out the family farm."},
+                        {"Obama":"The pickles are quite a mischievous bunch, especially now since they've hired the <Irish mafia to start raiding our farm in order to further their evil and briny goals!"},
+                        {"":"What could you possibly say in response?"}
+                    ],
+                    "choice":["We can take down the mafia together, especially with the help of a Lockheed Martin/Boeing F-22 Raptor","We should kiss rn"],
+                    "choiceoutcome": ["tax3","tax_punch"]
+                },
+                {
+                    "sceneid":"tax_punch",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"We should kiss like rn"},
+                        {"Obama":"Goodness me! This is far too early to be asking to kiss me! I am Barrack Obama and I approve this message"},
+                        {"":"*Obama sucker punches you in the face!"}
+                    ],
+                    "background":"tax",
+                    "choice":[""],
+                    "choiceoutcome":["bad"]
+                },
+                {
+                    "sceneid":"bad",
+                    "background":"bad",
+                    "endingtext":"obama hates you now"
+                },
+                {
+                    "sceneid":"tax3",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "background":"tax",
+                    "message":[
+                        {"Shrek":"We can down the mafia together, especially with the help of a Lockheed Martin/Boeing F-22 Raptor@"},
+                        {"Obama":"Good golly miss molly! You seem to be quite an enlightened and intelectual feller"},
+                        {"Obama":"That's quite true, if we have a Lockheed Martin/Boeing F-22 Raptor, we could<easily take on the mafia!"},
+                        {"Shrek":"Precisely my point, for this reason I believe it to be true that we must<track down the location of a Lockheed Martin/Boeing F-22 Raptor!"},
+                        {"Obama":"*blushing* Why, where should we find this"}
+                    ],
+                    "choice":["Airport", "Middle of the woods","Community Swimming Pool"],
+                    "choiceoutcome":["tax_airport","tax_woods","tax_pool"]
+                },
+                {
+                    "sceneid":"tax_airport",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"We should try to search for one in an airport@"},
+                        {"Obama":"I should've expected better from you! Why would a Lockheed Martin/Boeing F-22 Raptor<possibly be in an airport!"},
+                        {"Obama":"Now begone and never speak to me agian!"}
+                    ],
+                    "background":"tax",
+                    "choice":[""],
+                    "choiceoutcome":["bad"]
+                },
+                {
+                    "sceneid":"tax_pool",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"We should try to search for one in a public swimming pool!@"},
+                        {"Obama":"Heavens no! Are you trying to have me catch a brain eating amoeba!!! "},
+                        {"Obama":"Now begone and never speak to me agian!"}
+                    ],
+                    "background":"tax",
+                    "choice":[""],
+                    "choiceoutcome":["bad"]
+                },
+                {
+                    "sceneid":"tax_woods",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"Why my dear! Would it not be most reasonable for us to begin searching in the<middle of the woods for our most beloved Lockheed Martin/Boeing F-22 Raptor@"},
+                        {"Obama":"Umm I would quite agree, we should at once begin to search in the woods!"},
+                        {"Obama":""}
+                    ],
+                    "background":"tax",
+                    "choice":[""],
+                    "choiceoutcome":["woods"]
+                },
+                {
+                    "sceneid":"woods",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"Oh goodness! How could it be so soon that we find ourselves lost in the woods! "},
+                        {"Obama":"It surely appears that we're in quite a pickle!!"},
+                        {"Obama":"Well should we go left, or right?"}
+                    ],
+                    "background":"woods",
+                    "choice":["Left","Right"],
+                    "choiceoutcome":["woods_left","woods_right"]
+                },
+                {
+                    "sceneid":"woods_right",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"Lets go right"},
+                        {"":"As you walk towards the right, a giant nuclear missile comes raining down from the sky!!!"}
+                    ],
+                    "background":"woods",
+                    "choice":["woods_nuke"],
+                    "choiceoutcome":["woods_nuke"]
+                },
+                {
+                    "sceneid":"woods_nuke",
+                    "background":"bomb",
+                    "message":[
+                        {"":"kabloeey!"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["bad"]
+                },
+                {
+                    "sceneid":"woods_left",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"Lets go left"},
+                        {"":"As you walk towards the left you notice a little gnome"},
+                        {"Gnome":"If you wish to pass by me to find your precious little Lockheed-Martin/Boeing> F-22 Raptor, you will have to solve my riddle"},
+                        {"Obama":"Ok, we got this!"},
+                        {"Gnome":"You measure my life in hours and I serve you by expiring. I’m quick when I’m thin <and slow when I’m fat. The wind is my enemy."}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle","Battery","Hourglass"],
+                    "choiceoutcome":["woods_left2","bad_choice","bad_choice"]
+                },
+                {
+                    "sceneid":"bad_choice",
+                    "background":"bad",
+                    "endingtext":"You chose wrong"
+                },
+                {
+                    "sceneid":"woods_left2",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"The answer is a candle!"},
+                        {"Gnome":"Brilliant, now you are free to continue forward!"},
+                        {"Obama":"Oh my *blushes* you are quite smart shrekie poo"}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle"],
+                    "choiceoutcome":["woods_left3"]
+                },
+                {
+                    "sceneid":"woods_left3",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"":"As you continue forward, you notice another little being up ahead"},
+                        {"Shrek":"Ruh roh! What could that be?"}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle"],
+                    "choiceoutcome":["woods_left4"]
+                },
+                {
+                    "sceneid":"woods_left4",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"":"It's another gnome!"},
+                        {"Gnome 2":"It appears that you want to further trespass in my domain! First you must answer<my riddle!"},
+                        {"Obama":"Here we go again!"},
+                        {"Gnome 2":"What gets wet while drying?"}
+                    ],
+                    "background":"woods",
+                    "choice":["Towel","A Sponge"],
+                    "choiceoutcome":["woods_left5","bad_choice"]
+                },
+                {
+                    "sceneid":"woods_left5",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"The answer is a towel!"},
+                        {"Gnome":"Epic, now you are free to continue forward!"},
+                        {"Obama":"@Wow shrek! you are quite the intellectual"}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle"],
+                    "choiceoutcome":["woods_left6"]
+                },
+                {
+                    "sceneid":"woods_left6",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"":"As you continue forward once more, you notice yet another little being up ahead"},
+                        {"Obama":"Please don't tell me that's what i think it is?"}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle"],
+                    "choiceoutcome":["woods_left7"]
+                },
+                {
+                    "sceneid":"woods_left7",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"":"It's yet another gnome!"},
+                        {"Gnome 5":"If you want to get pass me, You first must answer my riddle!"},
+                        {"Obama":"Not this again!"},
+                        {"Gnome 5":"What is able to go up a chimney when down but unable to go down a chimney when up??"}
+                    ],
+                    "background":"woods",
+                    "choice":["Feather","Umbrella","Smoke"],
+                    "choiceoutcome":["bad_choice","woods_left8","bad_choice"]
+                },
+                {
+                    "sceneid":"woods_left8",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"upright":"Gnome"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"The answer is an Umbrella!"},
+                        {"Gnome":"That's correct! Now you may leave!@"},
+                        {"Obama":"How smart"}
+                    ],
+                    "background":"woods",
+                    "choice":["Candle"],
+                    "choiceoutcome":["woods_left9"]
+                },
+                {
+                    "sceneid":"woods_left9",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Obama":"Hold on! This is where the Lockheed Martin/Boeing F-22 Raptor should be!"},
+                        {"Shrek":"But then, why isn't it hear? 😱"},
+                        {"Obama":"Well, this could only mean one thing!"},
+                        {"Obama":"..."},
+                        {"Shrek":"Well you're right..."}
+                    ],
+                    "background":"woods2",
+                    "choice":["Maybe the real Lockheed Martin/Boeing F-22 Raptor was the friends we made along the way","Lets try searching harder"],
+                    "choiceoutcome":["woods_left10","bad_choice"]
+                },
+                {
+                    "sceneid":"woods_left10",
+                    "actors":[
+                        {"center":"Shrek"},
+                        {"downright":"Obama"}
+                    ],
+                    "message":[
+                        {"Shrek":"Maybe the real Lockheed@ Martin/Boeing F-22 Raptor was the @friends we made along the way@"},
+                        {"Obama":"You're so real for that@"},
+                        {"Shrek":"You're right!"},
+                        {"Obama":"..."},
+                        {"Obama":"Wait, do you see what's above us?"},
+                        {"Shrek":"*blushing* is that *blush* mistletoe? *says cutely*@"},
+                        {"Obama":"Why, it is my dear shrekie poo! Y'know what that means *blushes*. My name is Obama<and I approve this message!"},
+                        {"Shrek":"Oh i know what that means alright *says deviously*"},
+                        {"":"..."}
+                    ],
+                    "background":"woods2",
+                    "choice":["Maybe the real Lockheed Martin/Boeing F-22 Raptor was the friends we made along the way"],
+                    "choiceoutcome":["woods_left11"]
+                },
+                {
+                    "sceneid":"woods_left11",
+                    "actors":[
+                        {"center":"Shrekbama"},
+                    ],
+                    "message":[
+                        {"Shrek":"We are like so getting married@"},
+                        {"Obama":"Y'know, with the power of friendship on our side, the pickles won't stand a chance<against us and we'll be able to keep the christmas tree farm!"},
+                        {"Shrek":"I truly do agree obama!"},
+                        {"":"Shrek and Obama would live happily ever after and they would never need to worry about the<briny and evil actions of the evil Pickle family"}
+                    ],
+                    "background":"woods2",
+                    "choice":["Maybe the real Lockheed Martin/Boeing F-22 Raptor was the friends we made along the way"],
+                    "choiceoutcome":["woods_left12"]
+                },
+                {
+                    "sceneid":"woods_left12",
+
+                    "message":[
+                        {"":"The end!"},
+                        {"":"."},
+                        {"":".."},
+                        {"":"..."},
+                        {"":"WHat are you doing? the story over, go now! bye!!!"},
+                        {"":"."},
+                        {"":".."},
+                        {"":"..."},
+
+                    ],
+                    "background":"poster",
+                    "endingtext":"The end!!!",
+                    "choice":["Maybe the real Lockheed Martin/Boeing F-22 Raptor was the friends we made along the way"],
+                    "choiceoutcome":["woods_left12"]
+                }
+
+
+            ]
+        };
+        var typeWriterID = undefined;
+
+        function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
+            if (repetition === undefined) {
+                repetition = -1;
+            } 
+            /*if (message == undefined) {
+                message = String(message);
+            }*/
+            if (repetition < message.length) { //check if the message has characters left
+                if (message.charAt(repetition) === '<' || message.charAt(repetition) === '>') {
+                    document.getElementById("output").innerHTML += "<br>";
+                } else if (message.charAt(repetition) ==='@') {
+                    document.getElementById("remember").style.opacity = "1";
+                } else {
+
+                 document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                }
+                repetition++;
+                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few milliseconds
+            } else {
+                typewriterFinished = message; // if characters are not left update typewriterFinished, 
+                document.getElementById("nextLine").style.display = 'inherit';
+
+            }
+        }
+
+
+
+
+        jQuery(function () { //runs at the very beginning of the game to start everything
+            newScene("start");
+            setTimeout(rememberDecay,100)
+
+            function rememberDecay() {
+                document.getElementById('remember').style.opacity = document.getElementById('remember').style.opacity - .05;
+                setTimeout(rememberDecay,100)
+            }
+
+        });
+        var continueButton = false;
+        var dialogueLocation = 0;
+
+        function nextLine() { //function that runs to contine to the next line of dialogue
+            
+            if (document.getElementById('nextLine').style.display === 'inherit') {
+                document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
+                if (dialogueLocation === -1) { //if dialogue is finished then show buttons
+                    continueButton = true; //when continueButton is set to true, the buttons will then procede to load
+                }
+                continueLine = typewriterFinished; //variable signals that the game can show the next line
+
+                // when continueLine is equal to the previous message shown, the game will start showing the next line
+                // and typewriterFinished is equal to said previous message
+            }
+        }
+        
+        function newScene(nextScene) { //code for starting new scenes
+            var typewriterFinished;
+            if (nextScene === undefined) { //if called from button, get the scene name
+                nextScene = event.target.id;
+            }
+            //document.getElementById("output").innerHTML = nextScene; actually useless code i think
+            var f = "";
+            jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
+                if (output.sceneid === nextScene) {
+                    f = output;
+                }
+            });
+
+            jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
+                //loops for each entry in a list
+                jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
+                    if (newVal[0] === '+') { //if the first char is '0'
+                        newValDifference = newVal.slice(1); //get the number to change
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points + newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs + newValDifference;
+                                break;
+                        }
+                    }
+                    if (newVal[0] === '-') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points - newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs - newValDifference;
+                                break;
+                        }
+                    }
+
+
+                    switch (newVar) {
+                        case "avatar":
+                            avatar = newVal;
+                            break;
+                        case "points":
+                            points = newVal;
+                            console.log("points: " + points);
+
+                            break;
+                        case "bigmacs":
+                            bigmacs = newVal;
+                            break;
+                        case "deathnote":
+                            deathnote = newVal;
+                            break;
+                        case "minions":
+                            minions = newVal;
+                            break;
+                    }
+                });
+
+
+            });
+
+
+            var lastMessage = "";
+            dialogueLocation = 0;
+            typewriterFinished = undefined; //code for displaying dialogue
+            jQuery.each(f.message, function (i, chatPair) { //loop
+                jQuery.each(chatPair, function (actor, message) {
+                    function waitForTypewriter() {
+                        if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
+                            dialogueLocation++;
+                           
+                            typewriterFinished = "";
+                            clearTimeout(typeWriterID);
+                            newMessage = message;
+                            document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
+                            document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
+                            if (actor == "" || actor == " ") {
+                                document.getElementById('textbox').innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187198945601011742/textboxempty.png?ex=6596042d&is=65838f2d&hm=d32fc7c60465ff5ff26c89d44f1b160e453539102f7e70b496ead2cc4213039b&" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            } else {
+                                document.getElementById("textbox").innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187198945252880415/textbox.png?ex=6596042d&is=65838f2d&hm=ee1b83487f047877c694e77b52c750f4fe514df102ad0fab3a59938ebfae4b91&" onclick=nextLine() alt="image" width="750" height="300"/>';
+                            }
+                            typeWriter(newMessage, 0); //run the function for the typewriter effect
+                            if (dialogueLocation === f.message.length ) { //if it's the last line in scene
+                                dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
+                            }
+                            lastMessage = message;
+                        }
+                        else {
+                            setTimeout(waitForTypewriter, 250);
+                        }
+                    }
+                    waitForTypewriter();
+                });
+
+            }
+
+            );
+            if (f.ending != null) { //code for dealing with ending redirects
+                jQuery.each(f.ending, function (i, newValue) { //loop for each pair in the list
+                    jQuery.each(newValue, function (endingType, endingResult) { //loop for the pair and its values
+                        switch (endingType) {
+                            case "NormalNeutral":
+                                if (points >= -2 && points <= 3) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalGood":
+                                if (points > 4) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalBad":
+                                if (points < -2) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                        }       
+
+                    });
+                });
+            }
+            if (f.endingtext != null) {
+                document.getElementById("endingtext").innerHTML = f.endingtext;
+                const output = document.getElementById("output").remove;
+                output.remove;
+            }
+         
+            if (f.overrideVar != null) { //handles the override stuff
+                switch (f.overrideVar) {
+                   /* case "bigmacs":
+                        if (bigmacs == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                */}
+            }
+
+
+            document.getElementById("upleft").innerHTML = ""; //reset current actors
+            document.getElementById("downleft").innerHTML = "";
+            document.getElementById("center").innerHTML = "";
+            document.getElementById("upright").innerHTML = "";
+            document.getElementById("downright").innerHTML = "";
+
+
+            jQuery.each(f.actors, function (i, actorPair) { //code for updating for new actors
+                jQuery.each(actorPair, function (actorLocation, actorName) {
+                    var actorImage;
+                    if (actorName == "avatar") {
+                        actorName = avatar;
+                    }
+                    switch (actorName) {
+                        case "Shrek":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187196065951264768/image.png?ex=6596017f&is=65838c7f&hm=f679742ed48241a72618c1d79389d742d5d7ed87708b4cf1471cd13c7f9d17a6&" alt="image" width="120">';
+                            break;
+                        case "Obama":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187194983841804318/image.png?ex=6596007d&is=65838b7d&hm=a9b7491f1b8017736e87e7c9d5aea90cdd6321cc79eb7bedf0166f2eac00a4a6&" alt="image" width="120">';
+                            break;
+                        case "Shrekbama":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187257889040113714/image.png?ex=65963b12&is=6583c612&hm=c1edd2a804451d98bb6d411a9c872f8cf7b5a0efc707ee97896ef01cf4c7c02f&" alt="https://cdn.discordapp.com/attachments/1078447616716710039/1187257889040113714/image.png?ex=65963b12&is=6583c612&hm=c1edd2a804451d98bb6d411a9c872f8cf7b5a0efc707ee97896ef01cf4c7c02f&" width="360">';
+                            break;
+                        case "Gnome":
+                            actorImage = '<img src="https://imgs.search.brave.com/4HdrCMZyceTM4ilNDj9lq7-Iq3CVLgFhdZFr32U40XA/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMDkv/NjYyLzYyNy9zbWFs/bC9jaHJpc3RtYXMt/Z25vbWUtY2hhcmFj/dGVyLXBuZy5wbmc" alt="image" width="120">';
+                            break;
+                        case "donkey":
+                            actorImage = '<img src="&" alt="image" width="120">';
+                            break;
+                        default:
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187196065951264768/image.png?ex=6596017f&is=65838c7f&hm=f679742ed48241a72618c1d79389d742d5d7ed87708b4cf1471cd13c7f9d17a6&" alt="default" width="100">';
+                    }       
+                    document.getElementById(actorLocation).innerHTML = actorImage;
+                });
+
+            });
+            
+            var background = f.background;
+            switch (background) { //code for changing backgrounds
+                case "tax":
+                    document.getElementById("background").innerHTML = '<img src="https://media.discordapp.net/attachments/1078447616716710039/1187242247985582161/image.png?ex=65962c81&is=6583b781&hm=0859e5c8366381c5cec6c307112085998394274eaf97a96593a37802d8fee76a&=&format=webp&quality=lossless&width=539&height=678" alt="image" width="750" height="560">'
+                    break;
+                case "beach":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187200683921899622/image.png?ex=659605cc&is=658390cc&hm=da7b479d6deee011415d4f2fad9733edb59a6687c4367ccdd42796043c410d56&" alt="image" width="750" height="560">'
+                    break;
+                case "poster":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187196615228936212/image.png?ex=65960202&is=65838d02&hm=d6351ebc4895097ea4d528ade7f6e71b22400a28f9efa1c863dc2d95d34e2698&" alt="image" width="750" height="560">'
+                    break;
+                case "bad":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187253930179182623/image.png?ex=65963763&is=6583c263&hm=a0c64a0ab998bf40530c19fc092c3ba0f2f5698f2f19f05320692e334a2d77a2&" alt="image" width="750" height="560">'
+                    break;
+                case "woods":
+                    document.getElementById("background").innerHTML = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187268468068847616/image.png?ex=659644ed&is=6583cfed&hm=267a066ae239f44896f1a5e5193928c45c991e740d155f35e126092ea47ab8ba&" alt="image" height="560" width="750">'
+                    break;
+                case "bomb":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/AOX9rt-Hx1Lyo5x0GI1e0Eb52RzaU7JY7UZmknYzW3k/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzAzLzU3Lzcy/LzM2MF9GXzIwMzU3/NzI5NF9pbGNPdEdr/cnl5bjVHaEt6T3JG/c1RJYVZKbDRkcTE1/Ty5qcGc" alt="image" height="560" width="750">'
+                    break;
+                case "woods2":
+                    document.getElementById("background").innerHTML = '<img src="https://imgs.search.brave.com/93fadjnZTtQvTbuFFvEWVL1sDq3CVA78Ro4C81opfW4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3cy4xMjNyZi5j/b20vaW1hZ2VzL3Bs/dXM2OS9wbHVzNjkx/MjA5L3BsdXM2OTEy/MDkwMDAwOC8xNTMy/OTMwNy1zdW5zZXQt/aW4tYS1mb3Jlc3Qt/Y2xlYXJpbmcuanBn" alt="image" width="750" height="560">'
+                    break;
+               /* case "bedroom":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/bedroom.png" alt="image" width="750" height="560">'
+                    break;
+*/
+            }
+                    var newChoice = f.choice;
+                    document.getElementById("output").innerHTML = "";
+
+                    var buttonList = ""; //creates buttons
+
+                    function showButtons() {
+                        document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+
+                        if (continueButton) {
+                            continueButton = false;
+                            if (f.choice != null) {
+                                if (f.choice.length > 1) {
+                                    var repetition = 0;
+                                    function displayButtons() {
+                                        if (repetition < f.choice.length) {
+                                            console.log(repetition);
+                                            console.log(f.choiceoutcome);
+                                            console.log(f.choiceoutcome[repetition]);
+
+                                            buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                            repetition++;
+                                            setTimeout(displayButtons, 250);
+                                        }
+                                    }
+                                    displayButtons();
+                                } else {
+                                    newScene(f.choiceoutcome[0]);
+                                }
+                            }
+
+
+                        } else {
+                            setTimeout(showButtons, 250);
+                        }
+                    }
+                    showButtons();
+
+            }
+        
+    </script>
+    <title>Howell I Get With Spencer</title>
+</head>
+<body>
+    <div id="body">
+        <div id="background"></div>
+        <div class="textbox">
+            <div id="textbox">
+            <img src="https://media.discordapp.net/attachments/1078447616716710039/1187198945252880415/textbox.png?ex=6596042d&is=65838f2d&hm=ee1b83487f047877c694e77b52c750f4fe514df102ad0fab3a59938ebfae4b91&=&format=webp&quality=lossless&width=1440&height=342" onclick=nextLine() alt="image" width="750" height="300"/>
+            </div>
+            <div onclick=nextLine() id="output">
+            <p>test</p>
+            </div>
+            <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
+            <div id="speakerName"></div>
+            <div id="remember"><p>Obama will remember that</p></div>
+        </div>
+        <div class="buttonOutput">
+        </div>
+        <div id="actors">
+            <div id="upleft"> </div>
+            <div id="upright"></div>
+            <div id="center"></div>
+            <div id="downright"></div>
+            <div id="downleft"></div>
+
+        </div>
+        <div id="endingtext"> </div>
+
+
+    </div>
+</body>
+</html>
