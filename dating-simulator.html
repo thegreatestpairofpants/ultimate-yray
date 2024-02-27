@@ -46,7 +46,16 @@
         font-size: 22px;
         font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
     }
-
+    #remember {
+        position: absolute;
+        top:-400px;
+        left: 60px;
+        font-size: 30px;
+        color:white;
+        background:darkgray;
+        font-family: 'Curlz MT';
+        opacity: 0;
+    }
     #output {
         position: relative;
         top: -127px;
@@ -134,7 +143,7 @@
                         { "": "As you scramble to wake up, you realize you've forgotten what you look like!" },
 
                     ],
-                    "choice": ["Stickman", "woman", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
+                    "choice": ["Stickman", "hell spawn", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
                     "choiceoutcome": ["avatar_stickman", "avatar_stickwoman", "avatar_jake", "avatar_auspencer", "avatar_gorbachev"]
                 },
 
@@ -160,7 +169,7 @@
                     "actors": [
                         { "upleft": "avatar" }
                     ],
-                    "message": [{ "You": "Oh yeah, I look just like a woman" }],
+                    "message": [{ "You": "Oh yeah, I look just like a woman@" }],
                     "choice": ["auto"],
                     "choiceoutcome": ["datelocation"]
                 },
@@ -214,8 +223,8 @@
                         { "You": "Wait I forgot where our date is taking place" },
                         { "You": "Lets see if I can remember where" }
                     ],
-                    "choice": ["McDonalds", "Mr. Daw's office", "Anime Club Meeting", "A cliff", "An actual fancy restaurant", "skip"],
-                    "choiceoutcome": ["datelocation_mcdonalds", "datelocation_mrdaw", "datelocation_animeclub", "datelocation_cliff", "datelocation_fancyrestaurant", "skip"]
+                    "choice": ["McDonalds", "Mr. Daw's office", "Anime Club Meeting"],
+                    "choiceoutcome": ["datelocation_mcdonalds", "datelocation_mrdaw","datelocation_animeclub"]
 
                 },
                 {
@@ -288,6 +297,39 @@
                     ],
                     "choice": ["His Filing Cabinet","Under the rug","The drawers in his desk"],
                     "choiceoutcome": ["daw_cabinet","daw_rug","daw_drawers"]
+                },
+                {
+                    "sceneid": "daw_rug",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"editors note":"uhh so i like originally planned for this option to start some<route about a giant rat that's obsessed with cheese, or probably<just make ratatouille but with meth"},
+                        {"editors note":"but like i haven't touched this part in like 9 months so i'll just do it<later this week"},
+
+                    ],
+                    "choice": ["Show him it imediately"],
+                    "choiceoutcome": ["daw_start"]
+
+                },
+                {
+                    "sceneid": "daw_drawers",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"editors note":"uhh so i like originally planned for this option to just continue the date<like normal, think of the mcdonalds route if you don't do<anything crazy"},
+                        {"editors note":"wait cuz yeah, i think you were gonna find mr daw's lunch"},
+                        {"editors note":"but like i haven't touched this part in like 9 months so i'll just do it<later this week"},
+
+                    ],
+                    "choice": ["Show him it imediately"],
+                    "choiceoutcome": ["daw_start"]
+
                 },
                 {
                     "sceneid": "daw_cabinet",
@@ -393,7 +435,6 @@
                         {"Fishing Dude":"You know what fine, the only way to settle this is a game of fishing trivia"},
                         {"You":"Alright, fine then"},
                         {"Spencer":"Wait, who's going to be the judge?"}
-                        
                     ],
                     "choice": ["Sell it to Bass Pro Shop"],
                     "choiceoutcome": ["daw_rod_protect3"]
@@ -409,16 +450,26 @@
                         {"downleft":"Bass3"}
                     ],
                     "message": [
-                        {"You":"What no way! Is that {placeholder} himself?"},
-                        {"{placeholder}":"Yep you guessed it"},
-                        {"{placeholder}":"Anyways, it's time for the trivia question"},
-                        {"{placeholder}":"A soft-hackle nymph fly that has just been successfully employed to hook a< member of one of the types of fish for which flies are most <commonly used. What kind of fish is this?"},
+                        {"You":"What no way! Is that Jesus Christ himself?"},
+                        {"Jesus Christ":"Yep you guessed it"},
+                        {"Jesus Christ":"Anyways, it's time for the trivia question"},
+                        {"Jesus Christ":"A soft-hackle nymph fly that has just been successfully employed to hook a< member of one of the types of fish for which flies are most <commonly used. What kind of fish is this?"},
                         {"Spencer":"Uh oh? What could the answer to this question possibly be?"},
                         {"Bearded Fishing Dude":"Haha! I already know the answer to this one!"},
                         {"You":"Oh no! I gotta think of it quick!"}
                     ],
                     "choice": ["Sardines","Trout","Salmon","Tuna"],
                     "choiceoutcome": ["daw_rod_sardines","daw_rod_trout","daw_rod_salmon","daw_rod_tuna"]
+                },
+                {
+                    "sceneid":"daw_rod_fail",
+                    "background":"ending_bad",
+                    "endingtext":"You and Spencer both suck at <br>trivia and never talk to eachother<br>again"
+                },
+                {
+                    "sceneid":"daw_rod_succeed",
+                    "background":"ending",
+                    "endingtext":"You and Spencer run off with <br>the invention and become a filthy<br>rich couple together"
                 },
                 {
                     "sceneid": "daw_rod_sardines",
@@ -432,9 +483,9 @@
                     ],
                     "message": [
                         {"You":"Is the answer Sardines?"},
-                        {"{placeholder}":"Nope that's completely wrong"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
                         {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
-                        {"{placeholder}":"Yep that's right"},
+                        {"Jesus Christ":"Yep that's right"},
                         {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
                         {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
                         {"You":"God! How could I have gotten this wrong!"},
@@ -444,21 +495,74 @@
                     "choiceoutcome": ["daw_rod_fail"]
                 },
                 {
-                    "sceneid": "daw_rod_protect3",
+                    "sceneid": "daw_rod_trout",
                     "background": "daw",
                     "actors": [
                         { "center": "avatar" },
                         {"upleft":"Spencer"},
                         {"upright":"Bass1"},
-                        {"downright":"Bass2"}
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
                     ],
                     "message": [
-                        {"Bearded Fishing Dude":"Hey! Watch who you're callin' evil!"}
+                        {"You":"Is the answer Trout?"},
+                        {"Jesus Christ":"Yep that's completely correct"},
+                        {"Bearded Fishing Dude":"Hah! The kid actually got it correct"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Fishing Dude":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Spencer":"Bahahaha! These blueprints are staying with us!!!!"},
+                        {"Fishing Dude":"God! How these meddling kis have actually gotten it right?"},
+                        {"Spencer":"Alrighty! We can now create our million-dollar invention and become rich"}
                     ],
-                    "choice": ["Sell it to Bass Pro Shop"],
-                    "choiceoutcome": ["daw_rod_protect2"]
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_succeed"]
                 },
-
+                {
+                    "sceneid": "daw_rod_salmon",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Salmon?"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
+                {
+                    "sceneid": "daw_rod_tuna",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Tuna?"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
                 {
                     "sceneid": "daw_rod_sell",
                     "background": "daw",
@@ -662,7 +766,7 @@
                 {
                     "sceneid":"ending_rich_fail",
                     "background":"ending_bad",
-                    "endingtext":"You messed up bad and <Spencer hates u big time"
+                    "endingtext":"You messed up bad and <br>Spencer hates u big time"
                 },
                 {
                   "sceneid":"ending_rich",
@@ -2131,8 +2235,8 @@
                         { "upleft": "avatar" }
                     ],
                     "message": [
-                        { "Spencer": "I'm actually disappointed" },
-                        { "Spencer": "That's not even close" },
+                        { "Spencer": "I'm actually disappointed@@" },
+                        { "Spencer": "That's not even @close" },
                         { "Spencer": "You've made me unbelievably upset right now" },
                         { "Spencer": "I am so dissatisfied with you" },
                         { "Spencer": "Seriously, you've made me aggrieved like I've never been before" },
@@ -2167,7 +2271,7 @@
                     "background": "mcdonalds_inside",
                     "message": [
                         { "You": "You're exactly 5 feet tall or 60 inches" },
-                        { "Spencer": "WOW" },
+                        { "Spencer": "WOW@" },
                         { "Spencer": "OF COURSE YOU PUT THAT UP" },
                         { "Spencer": "I HATE YOU" }
                     ],
@@ -2202,7 +2306,7 @@
                     "sceneid": "mcdonalds_trivia_socks",
                     "background": "mcdonalds_inside",
                     "message": [
-                        { "You": "You own exactly 27 pairs of socks" },
+                        { "You": "You own exactly 27 pairs of socks@" },
                         { "Spencer": "Wow, you really do know a lot about me" }
                     ],
                     "newvars": [
@@ -2255,7 +2359,7 @@
                         { "upleft": "avatar" }
                     ],
                     "message": [
-                        { "Spencer": "A big mac! I think I'll be able to handle this" },
+                        { "Spencer": "@A big mac! I think I'll be able to handle this" },
                         { "": "You can see the worry on Spencer's face as the order arrives" },
                         { "Spencer": "Here goes nothing!" },
                         { "": "Spencer's face is more worried than it was before the burger" },
@@ -2323,8 +2427,8 @@
                         { "upleft": "avatar" }
                     ],
                     "message": [
-                        { "Spencer": "Another?" },
-                        { "Spencer": "I don't know about this one" },
+                        { "Spencer": "Another?@" },
+                        { "Spencer": "@I don't know about this one" },
                         { "You": "Too late now, the burger is already here" },
                         { "": "Spencer struggles to eat the big mac" },
                         { "Spencer": "I don't feel that well anymore" }
@@ -2343,7 +2447,7 @@
                         { "upleft": "avatar" }
                     ],
                     "message": [
-                        { "Spencer": "Are you trying to kill me or something?" },
+                        { "Spencer": "Are you trying to kill me or something?@" },
                         { "": "You can start to see tears form from Spencer's eyes" },
                         { "You": "Guess what's already arriving" },
                         { "": "Spencer can barely manage to swallow more than a few bites" },
@@ -2840,7 +2944,7 @@
                     "message": [
                         { "": "You pick up the knife and stab Spencer with it" },
                         { "Spencer": "AAAGGGHGGHHHH!!!!!!" },
-                        { "": "Spencer slowly bleeds out on the floor" },
+                        { "": "Spencer slowly bleeds out on the floor@" },
                         { "": "You check to see his pulse, nothing" },
                         { "": "Spencer's body lays on the ground, lifeless"}
                     ],
@@ -3271,7 +3375,7 @@
                         { "": "You immediately drop down on the floor, knocking down Spencer with you" },
                         { "": "Suddenly an explosion happens " },
                         { "": "KABLAAAM!!!!!!!" },
-                        { "Spencer": "Wow" },
+                        { "Spencer": "@Wow" },
                         { "Spencer": "I can't believe that we survived that explosion" },
                         { "Spencer": "You really did save me back there" },
                         { "": "After surviving such a traumatic experience, you and Spencer get married" }
@@ -3334,12 +3438,14 @@
             if (repetition < message.length) { //check if the message has characters left
                 if (message.charAt(repetition) === '<' || message.charAt(repetition) === '>') {
                     document.getElementById("output").innerHTML += "<br>";
+                } else if (message.charAt(repetition) ==='@') {
+                    document.getElementById("remember").style.opacity = "1";
                 } else {
 
                  document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
                 }
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 0 , repetition); //run the function again in a few milliseconds
+                typeWriterID = setTimeout(typeWriter, delay, message, 10 , repetition); //run the function again in a few milliseconds
             } else {
                 typewriterFinished = message; // if characters are not left update typewriterFinished, 
                 document.getElementById("nextLine").style.display = 'inherit';
@@ -3350,8 +3456,15 @@
 
 
 
+
         jQuery(function () { //runs at the very beginning of the game to start everything
             newScene("start");
+            setTimeout(rememberDecay,100)
+
+            function rememberDecay() {
+                document.getElementById('remember').style.opacity = document.getElementById('remember').style.opacity - .05;
+                setTimeout(rememberDecay,100)
+            }
 
         });
         var continueButton = false;
@@ -3587,6 +3700,9 @@
                         case "Naruto":
                             actorImage = '<img src="assets/characters/naruto.png" alt="image" width="100" height="200">';
                             break;
+                        case "Jesus Christ":
+                            actorImage = '<img src="assets/characters/naruto.png" alt="image" width="100" height="200">';
+                            break;
                         default:
                             actorImage = '<img src="assets/characters/spencer.png" alt="default" width="100">';
                     }       
@@ -3693,7 +3809,7 @@
                     showButtons();
 
             }
-        
+
     </script>
     <title>Howell I Get With Spencer</title>
 </head>
@@ -3709,6 +3825,7 @@
             </div>
             <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
             <div id="speakerName"></div>
+            <div id="remember"><p>Spencer will remember that</p></div>
 
         </div>
         <div class="buttonOutput">
