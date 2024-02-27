@@ -228,7 +228,7 @@
                         { "You": "skipping!" }
                     ],
                     "choice": ["auto"],
-                    "choiceoutcome": ["anime_cult_question3_hokage"]
+                    "choiceoutcome": ["daw_rod_jargon"]
                 },
                 {
                     "sceneid": "datelocation_mcdonalds",
@@ -357,8 +357,108 @@
                     ],
                     "choice": ["Sell it to Bass Pro Shop","Keep the blueprints secret"],
                     "choiceoutcome": ["daw_rod_sell","daw_rod_protect"]
-
                 },
+                {
+                    "sceneid": "daw_rod_protect",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"We need to protect this from the evil Bass Pro Shop executives!"},
+                        {"Spencer":"You're right! We must protect Mr. Daw's invention"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_protect2"]
+                },
+                {
+                    "sceneid": "daw_rod_protect2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Bearded Fishing Dude":"Hey! Watch who you're callin' evil!"},
+                        {"Spencer":"WAIT WHAT, HOW DID YOU GET HERE?"},
+                        {"Bearded Fishing Dude":"How do you think? We obvious keep a microphone in the desk of every<junior high school principal who sponsors a fishing club in the country."},
+                        {"You":"What! How could we have not seen through this"},
+                        {"Spencer":"Oh no, what are you guys gonna do?"},
+                        {"Fishing Dude":"We're gonna take those blueprints from you guys! We already know what that<rod can do!"},
+                        {"You":"No way! We could never let that happen!"},
+                        {"Spencer":"You're going to have to get past the both of us if you want those blueprints!"},
+                        {"Fishing Dude":"You know what fine, the only way to settle this is a game of fishing trivia"},
+                        {"You":"Alright, fine then"},
+                        {"Spencer":"Wait, who's going to be the judge?"}
+                        
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_protect3"]
+                },
+                {
+                    "sceneid": "daw_rod_protect3",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"What no way! Is that {placeholder} himself?"},
+                        {"{placeholder}":"Yep you guessed it"},
+                        {"{placeholder}":"Anyways, it's time for the trivia question"},
+                        {"{placeholder}":"A soft-hackle nymph fly that has just been successfully employed to hook a< member of one of the types of fish for which flies are most <commonly used. What kind of fish is this?"},
+                        {"Spencer":"Uh oh? What could the answer to this question possibly be?"},
+                        {"Bearded Fishing Dude":"Haha! I already know the answer to this one!"},
+                        {"You":"Oh no! I gotta think of it quick!"}
+                    ],
+                    "choice": ["Sardines","Trout","Salmon","Tuna"],
+                    "choiceoutcome": ["daw_rod_sardines","daw_rod_trout","daw_rod_salmon","daw_rod_tuna"]
+                },
+                {
+                    "sceneid": "daw_rod_sardines",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Sardines?"},
+                        {"{placeholder}":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"{placeholder}":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
+                {
+                    "sceneid": "daw_rod_protect3",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Bearded Fishing Dude":"Hey! Watch who you're callin' evil!"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_protect2"]
+                },
+
                 {
                     "sceneid": "daw_rod_sell",
                     "background": "daw",
@@ -421,8 +521,153 @@
                         {"You":"Oh no! I must help Spencer pitch our stolen fishing rod design! What should I do!"}
                     ],
                     "choice": ["Act like a car salesman","BLACK MAIL","Generic business jargon"],
-                    "choiceoutcome": ["daw_rod_sell4","daw_rod_sell4","daw_rod_sell4"]
-
+                    "choiceoutcome": ["daw_rod_car","daw_rod_blackmail","daw_rod_jargon"]
+                },
+                {
+                    "sceneid": "daw_rod_car",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"You":"Ready to catch fish like no other? Our offer is simply unbeatable!"},
+                        {"Bearded Fishing Dude":"Dang! Keep it goin' with that enthusiasm!"},
+                        {"You":"This buddy right here may seem like a normal fishing rod, but it's really a bit more"},
+                        {"Fishing Dude":"I'm intrigued"},
+                        {"You":"What we have right here, is a fishing rod that ascends limitations of Space and Time"},
+                        {"Bearded Fishing Dude":"So you're saying that this rod can catch fish in the fifth dimension?"},
+                        {"You":"Ding ding ding! We've got a winner!"},
+                        {"Fishing Dude":"This is incredible! Soon every principal with a fishing club will be fishin'<5th dimensional fish!"},
+                        {"You":"Exactly! Are you ready to get the paperwork started?"},
+                        {"Bearded Fishing Dude":"Absolutely! We'll be able to work out an amazing deal"},
+                        {"You":"Amazing deal? That's my middle name!"},
+                        {"Bearded Fishing Dude":"We'll be willing to buy your design for $6.5 billion!"},
+                        {"Spencer":"OMG WE DID IT!"},
+                        {"You":"That's amazing news! Now lets finish this paperwork"},
+                        {"":"*you shake hands with both of the fishin' dudes"},
+                        {"Fishing Dude":"You'll receive your money on a wire transfer"},
+                        {"Bearded Fishing Dude":"Nice meetin' yall! It's bout time we get leavin'"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_car2"]
+                },
+                {
+                    "sceneid": "daw_rod_car2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG We're billionaires now!"},
+                        {"You":"How are we ever going to spend our money?"},
+                        {"Spencer":"I know how to"},
+                        {"":"*spencer smirks"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"OMG YES!!! WE CAN BURN MILLIONS OF DOLLARS AT OUR WEDDING!!!"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich"]
+                },
+                {
+                    "sceneid": "daw_rod_blackmail",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"You":"Look here bearded dude"},
+                        {"Bearded Fishing Dude":"Yeah?"},
+                        {"You":"You live at 18 New Dawn pl, your ip address is 192.272.11.224, you visit the <starbucks down the street from your house everyday, your credit card number is 45678912345678." },
+                        {"":"*the bearded dude(joseph william smith, son of grant turner smith) looks at you in shock"},
+                        {"Fishing Dude":"Hey, hold ya horses kid!"},
+                        {"You":"You live at 11 Weeping Spruce pl, your ip your ip address is 295.119.52.992, your<favorite hobby is to post online about how much you hate Bass Pro Shop"},
+                        {"You":"That's a pretty ironic hobby for someone like you to have. It would be a shame if the<public were to find out about that, wouldn't it?"},
+                        {"Fishing Dude":"OK! OK! Look bud, we'll take any offer that you want, just don't tell anyone"},
+                        {"You":"I'm going to sell you these blueprints, for the small sum of "},
+                        {"You":"..."},
+                        {"You":"$1 trillion dollars!"},
+                        {"Bearded Fishing Dude":"*gulp* I guess we have no choice"},
+                        {"Fishing Dude":"We'll have to write you an I.O.U. after giving you all of our cash"},
+                        {"You":"That's good. Now lets shake on it"},
+                        {"":"*you shake hands with both of the men"},
+                        {"Fishing Dude":"We should probably leave now"},
+                        {"":"*they both walk outside in shame"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_blackmail2"]
+                },
+                {
+                    "sceneid": "daw_rod_blackmail2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG We're billionaires now!"},
+                        {"You":"How are we ever going to spend our money?"},
+                        {"Spencer":"I know how to"},
+                        {"":"*spencer smirks"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"OMG YES!!! WE CAN BURN MILLIONS OF DOLLARS AT OUR WEDDING!!!"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich"]
+                },
+                {
+                    "sceneid": "daw_rod_jargon",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Bearded Fishing Dude":"So, what do you have 'ere"},
+                        {"You":"A most sagacious inquiry, dear sir! By virtue of its proprietary quantum entanglement< mechanism, this interdimensional piscine conduit harnesses the chaotic dance of subatomic particles, aligning <the multidimensional fabric of piscine existence to your advantage. Ergo, as you cast your line, you shall< penetrate the temporal thresholds, transcending the boundaries of conventional piscine prospects. <Imagine the awe-inspiring sight of fish manifesting from dimensions unknown, swimming <their way into your reality!." },
+                        {"Bearded Fishing Dude":"The hell did ya just say?"},
+                        {"You":"Ah, my sincerest apologies for the convoluted nature of my previous soliloquy. It <appears that my zealous commitment to describing the awe-inspiring attributes of this <piscatorial contrivance may have veered into a realm of linguistic obfuscation. <Allow me to rectify the situation and provide a succinct< elucidation of the proposition at hand."},
+                        {"Fishing Dude":"Yeah, we're just gonna go leave now"},
+                        {"":"*they both walk outside with no clue of what you said"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_jargon2"]
+                },
+                {
+                    "sceneid": "daw_rod_jargon2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG you're a failure of a salesman!"},
+                        {"You":"What? I tried my best"},
+                        {"Spencer":"They came in here saying 'Howdy yall'! Ain't no way they'd be saying business<jargon ever!"},
+                        {"You":"You're right, I'm sorry"},
+                        {"Spencer":"Sorry? You just lost us an opportunity worth billions!"},
+                        {"Spencer":"You're a bigger failure than Chernobyl! Never talk to me again"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich_fail"]
+                },
+                {
+                    "sceneid":"ending_rich_fail",
+                    "background":"ending_bad",
+                    "endingtext":"You messed up bad and <Spencer hates u big time"
+                },
+                {
+                  "sceneid":"ending_rich",
+                  "background":"ending",
+                  "endingtext":"You and Spencer become billionaires<and have a super expensive wedding"
                 },
                 {
                     "sceneid": "anime_start",
@@ -863,6 +1108,7 @@
                         {"You":"40% of all murders are left unsolved, that's a pretty solid chance you have there"},
                         {"Spencer":"That's all pretty interesting, but I'm kind of scared now"},
                         {"You":"It's fine, until you realize Viktor Bout, a Russian arms dealer made an estimated <$50 million off of selling weapons<to the Taliban in the 1990s"},
+                        {"You":"That's nearly 8-fold the amount of income a doctor will make in his lifetime"},
                         {"Spencer":"You're not helping"}
                     ],
                     "choice":["I like watching anime"],
