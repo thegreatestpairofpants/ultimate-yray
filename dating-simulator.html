@@ -104,20 +104,20 @@
 
     }
 
-        button:hover {
-            background-color: #97b688;
-            -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
+    button:hover {
+        background-color: #97b688;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
 
-        }
+    }
 
-        button:active {
-            background-color: #97b688;
-            box-shadow: 0 10px #666;
-            transform: translateX(-40%);
+    button:active {
+        background-color: #97b688;
+        box-shadow: 0 10px #666;
+        transform: translateX(-40%);
 
 
-        }
+    }
 </style>
 <html lang="en">
 <head>
@@ -769,9 +769,9 @@
                     "endingtext":"You messed up bad and <br>Spencer hates u big time"
                 },
                 {
-                  "sceneid":"ending_rich",
-                  "background":"ending",
-                  "endingtext":"You and Spencer become billionaires<and have a super expensive wedding"
+                    "sceneid":"ending_rich",
+                    "background":"ending",
+                    "endingtext":"You and Spencer become billionaires<and have a super expensive wedding"
                 },
                 {
                     "sceneid": "anime_start",
@@ -2204,11 +2204,11 @@
                         { "You": "I think I might know this one" },
                         { "You": "Let me think" }
                     ],
-                    "choice": ["Green", "Red", "Blue", "Black"],
-                    "choiceoutcome": ["mcdonalds_favcolor_green", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong"]
+                    "choice": ["Blue", "Red", "Green", "Black"],
+                    "choiceoutcome": ["mcdonalds_favcolor_blue", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong"]
                 },
                 {
-                    "sceneid": "mcdonalds_favcolor_green",
+                    "sceneid": "mcdonalds_favcolor_blue",
                     "background": "mcdonalds_inside",
                     "actors": [
                         { "downleft": "Spencer" },
@@ -2218,7 +2218,7 @@
                         { "points": "+4" }
                     ],
                     "message": [
-                        { "You": "Is it green?" },
+                        { "You": "Is it blue?" },
                         { "Spencer": "Wow! You actually got it right" },
                         { "Spencer": "That's kind of impressive!" }
                     ],
@@ -3395,7 +3395,7 @@
                     "message": [
                         { "": "A sudden explosion appears from out of nowhere" },
                         { "": "KABLAAAM!!!!!!!" }
-                        
+
                     ],
                     "choice": ["Jump down immediately "],
                     "choiceoutcome" : ["ending_restroom_die"]
@@ -3406,7 +3406,7 @@
                     "background": "ending",
                     "endingtext": "You managed to survive a sudden explosion"
                 },
-                 {
+                {
                     "sceneid": "ending_restroom_die",
                     "background": "ending_bad",
                     "endingtext": "You died in an explosion"
@@ -3432,7 +3432,7 @@
         function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
             if (repetition === undefined) {
                 repetition = -1;
-            } 
+            }
             /*if (message == undefined) {
                 message = String(message);
             }*/
@@ -3443,12 +3443,12 @@
                     document.getElementById("remember").style.opacity = "1";
                 } else {
 
-                 document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                    document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
                 }
                 repetition++;
                 typeWriterID = setTimeout(typeWriter, delay, message, 10 , repetition); //run the function again in a few milliseconds
             } else {
-                typewriterFinished = message; // if characters are not left update typewriterFinished, 
+                typewriterFinished = message; // if characters are not left update typewriterFinished,
                 document.getElementById("nextLine").style.display = 'inherit';
 
             }
@@ -3472,7 +3472,7 @@
         var dialogueLocation = 0;
 
         function nextLine() { //function that runs to contine to the next line of dialogue
-            
+
             if (document.getElementById('nextLine').style.display === 'inherit') {
                 document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
                 if (dialogueLocation === -1) { //if dialogue is finished then show buttons
@@ -3484,7 +3484,7 @@
                 // and typewriterFinished is equal to said previous message
             }
         }
-        
+
         function newScene(nextScene) { //code for starting new scenes
             var typewriterFinished;
             if (nextScene === undefined) { //if called from button, get the scene name
@@ -3558,35 +3558,35 @@
             dialogueLocation = 0;
             typewriterFinished = undefined; //code for displaying dialogue
             jQuery.each(f.message, function (i, chatPair) { //loop
-                jQuery.each(chatPair, function (actor, message) {
-                    function waitForTypewriter() {
-                        if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
-                            dialogueLocation++;
-                           
-                            typewriterFinished = "";
-                            clearTimeout(typeWriterID);
-                            newMessage = message;
-                            document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
-                            document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
-                            if (actor == "" || actor == " ") {
-                                document.getElementById('textbox').innerHTML = '<img src="assets/textboxempty.png" onclick=nextLine() alt="image" width="750" height="300"/>';
-                            } else {
-                                document.getElementById("textbox").innerHTML = '<img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
-                            }
-                            typeWriter(newMessage, 0); //run the function for the typewriter effect
-                            if (dialogueLocation === f.message.length ) { //if it's the last line in scene
-                                dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
-                            }
-                            lastMessage = message;
-                        }
-                        else {
-                            setTimeout(waitForTypewriter, 250);
-                        }
-                    }
-                    waitForTypewriter();
-                });
+                    jQuery.each(chatPair, function (actor, message) {
+                        function waitForTypewriter() {
+                            if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
+                                dialogueLocation++;
 
-            }
+                                typewriterFinished = "";
+                                clearTimeout(typeWriterID);
+                                newMessage = message;
+                                document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
+                                document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
+                                if (actor == "" || actor == " ") {
+                                    document.getElementById('textbox').innerHTML = '<img src="assets/textboxempty.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                                } else {
+                                    document.getElementById("textbox").innerHTML = '<img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                                }
+                                typeWriter(newMessage, 0); //run the function for the typewriter effect
+                                if (dialogueLocation === f.message.length ) { //if it's the last line in scene
+                                    dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
+                                }
+                                lastMessage = message;
+                            }
+                            else {
+                                setTimeout(waitForTypewriter, 250);
+                            }
+                        }
+                        waitForTypewriter();
+                    });
+
+                }
 
             );
             if (f.ending != null) { //code for dealing with ending redirects
@@ -3611,7 +3611,7 @@
                                     return;
                                 }
                                 break;
-                        }       
+                        }
 
                     });
                 });
@@ -3621,7 +3621,7 @@
                 const output = document.getElementById("output").remove;
                 output.remove;
             }
-         
+
             if (f.overrideVar != null) { //handles the override stuff
                 switch (f.overrideVar) {
                     case "bigmacs":
@@ -3712,12 +3712,12 @@
                             break;
                         default:
                             actorImage = '<img src="assets/characters/spencer.png" alt="default" width="100">';
-                    }       
+                    }
                     document.getElementById(actorLocation).innerHTML = actorImage;
                 });
 
             });
-            
+
             var background = f.background;
             switch (background) { //code for changing backgrounds
                 case "bedroom":
@@ -3777,77 +3777,77 @@
                     break;
 
             }
-                    var newChoice = f.choice;
-                    document.getElementById("output").innerHTML = "";
+            var newChoice = f.choice;
+            document.getElementById("output").innerHTML = "";
 
-                    var buttonList = ""; //creates buttons
+            var buttonList = ""; //creates buttons
 
-                    function showButtons() {
-                        document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+            function showButtons() {
+                document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
 
-                        if (continueButton) {
-                            continueButton = false;
-                            if (f.choice != null) {
-                                if (f.choice.length > 1) {
-                                    var repetition = 0;
-                                    function displayButtons() {
-                                        if (repetition < f.choice.length) {
-                                            console.log(repetition);
-                                            console.log(f.choiceoutcome);
-                                            console.log(f.choiceoutcome[repetition]);
+                if (continueButton) {
+                    continueButton = false;
+                    if (f.choice != null) {
+                        if (f.choice.length > 1) {
+                            var repetition = 0;
+                            function displayButtons() {
+                                if (repetition < f.choice.length) {
+                                    console.log(repetition);
+                                    console.log(f.choiceoutcome);
+                                    console.log(f.choiceoutcome[repetition]);
 
-                                            buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
-                                            document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
-                                            repetition++;
-                                            setTimeout(displayButtons, 250);
-                                        }
-                                    }
-                                    displayButtons();
-                                } else {
-                                    newScene(f.choiceoutcome[0]);
+                                    buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                    document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                    repetition++;
+                                    setTimeout(displayButtons, 250);
                                 }
                             }
-
-
+                            displayButtons();
                         } else {
-                            setTimeout(showButtons, 250);
+                            newScene(f.choiceoutcome[0]);
                         }
                     }
-                    showButtons();
 
+
+                } else {
+                    setTimeout(showButtons, 250);
+                }
             }
+            showButtons();
+
+        }
 
     </script>
     <title>Howell I Get With Spencer</title>
 </head>
 <body>
-    <div id="body">
-        <div id="background"></div>
-        <div class="textbox">
-            <div id="textbox">
+<div id="body">
+    <div id="background"></div>
+    <div class="textbox">
+        <div id="textbox">
             <img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>
-            </div>
-            <div onclick=nextLine() id="output">
+        </div>
+        <div onclick=nextLine() id="output">
             <p>test</p>
-            </div>
-            <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
-            <div id="speakerName"></div>
-            <div id="remember"><p>Spencer will remember that</p></div>
-
         </div>
-        <div class="buttonOutput">
-        </div>
-        <div id="actors">
-            <div id="upleft"> </div>
-            <div id="upright"></div>
-            <div id="center"></div>
-            <div id="downright"></div>
-            <div id="downleft"></div>
-
-        </div>
-        <div id="endingtext"> </div>
-
+        <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
+        <div id="speakerName"></div>
+        <div id="remember"><p>Spencer will remember that</p></div>
 
     </div>
+    <div class="buttonOutput">
+    </div>
+    <div id="actors">
+        <div id="upleft"> </div>
+        <div id="upright"></div>
+        <div id="center"></div>
+        <div id="downright"></div>
+        <div id="downleft"></div>
+
+    </div>
+    <div id="endingtext"> </div>
+
+
+</div>
 </body>
 </html>
