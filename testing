@@ -1,0 +1,3856 @@
+<style>
+    #body {
+        position: relative;
+        left: 30px;
+    }
+    #downleft {
+        position: absolute;
+        left: 0;
+        top: 300px;
+    }
+
+    #upleft {
+        position: absolute;
+        left: 180px;
+        top: 225px;
+    }
+
+    #center {
+        position: absolute;
+        left: 255px;
+        top: 300px;
+    }
+
+    #upright {
+        position: absolute;
+        left: 405px;
+        top: 225px;
+    }
+
+    #downright {
+        position: absolute;
+        left: 502px;
+        top: 300px;
+    }
+
+
+    .textbox {
+        position: absolute;
+        top: 472px;
+    }
+
+    #endingtext {
+        position: absolute;
+        top: 225px;
+        left: 425px;
+        font-size: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+    #remember {
+        position: absolute;
+        top:-400px;
+        left: 60px;
+        font-size: 30px;
+        color:white;
+        background:darkgray;
+        font-family: 'Curlz MT';
+        opacity: 0;
+    }
+    #output {
+        position: relative;
+        top: -127px;
+        left: 22px;
+        color: white;
+        font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+    }
+
+    #speakerName {
+        position: absolute;
+        font-size: 22px;
+        top: 57px;
+        left: 22px;
+        color: white;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+    #nextLine {
+        position: relative;
+        font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -82px;
+        color: azure;
+        left: 495px;
+        display: none;
+    }
+
+    button {
+        padding: 15px 18px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #04AA6D;
+        border: none;
+        border-radius: 35px;
+        position: relative;
+        top: -440px;
+        left: 330px;
+        z-index: 17;
+        margin-bottom: 10px;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+
+    }
+
+    button:hover {
+        background-color: #97b688;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+
+    }
+
+    button:active {
+        background-color: #97b688;
+        box-shadow: 0 10px #666;
+        transform: translateX(-40%);
+
+
+    }
+</style>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        var continueLine = "";
+        var avatar;
+        var points = 0;
+        var bigmacs = 0;
+        var deathnote = "false";
+        var minions = "false";
+        const sourceJson = {
+            "scenes": [
+                {
+                    "sceneid": "start",
+                    "background": "bedroom",
+                    "message": [
+
+                        { "": "You wake up in the soft morning light" },
+                        { "": "As your alarm rings you realize" },
+                        { "": "YOU HAVE A DATE WITH SPENCER TODAY!" },
+                        { "": "As you scramble to wake up, you realize you've forgotten what you look like!" },
+
+                    ],
+                    "choice": ["Stickman", "hell spawn", "Jake from State Farm", "Alternate Universe Spencer", "Mikhail Gorbachev"],
+                    "choiceoutcome": ["avatar_stickman", "avatar_stickwoman", "avatar_jake", "avatar_auspencer", "avatar_gorbachev"]
+                },
+
+                {
+                    "sceneid": "avatar_stickman",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar": "Stickman" }
+                    ],
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [{ "You": "Oh yeah, I look just like a Stickman" }],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_stickwoman",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar": "Stickwoman" }
+                    ],
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [{ "You": "Oh yeah, I look just like a woman@" }],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_jake",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar": "Jake" }
+                    ],
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [{ "You": "Oh yeah, I look just Jake from State Farm, in fact I am Jake from State Farm" }],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_auspencer",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar": "SpencerInverted" }
+                    ],
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [{ "You": "Oh yeah, I look like Spencer but with inverted colors" }],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "avatar_gorbachev",
+                    "background": "bedroom",
+                    "newvars": [
+                        { "avatar": "Gorbachev" }
+                    ],
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [{ "You": "Oh yeah, I look just Mikhail Gorbachev, the final leader of the ussr before he dissolved it in 1991" }],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["datelocation"]
+                },
+                {
+                    "sceneid": "datelocation",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Blimey! Its almost time for me to get leaving" },
+                        { "You": "Wait I forgot where our date is taking place" },
+                        { "You": "Lets see if I can remember where" }
+                    ],
+                    "choice": ["McDonalds", "Mr. Daw's office", "Anime Club Meeting"],
+                    "choiceoutcome": ["datelocation_mcdonalds", "datelocation_mrdaw","datelocation_animeclub"]
+
+                },
+                {
+                    "sceneid": "skip",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "skipping!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["daw_rod_jargon"]
+                },
+                {
+                    "sceneid": "datelocation_mcdonalds",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "It was at the McDonalds down the street wasn't it!" },
+                        { "You": "I need to get leaving right away" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_outside"]
+                },
+                {
+                    "sceneid": "datelocation_animeclub",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "It was at the Anime Club Meeting Today wasn't it!" },
+                        { "You": "I need to get leaving right away, it's about to start!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["anime_start"]
+                },
+                {
+                    "sceneid": "datelocation_mrdaw",
+                    "background": "bedroom",
+                    "actors": [
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "It was at Mr Daw’s office wasn't it!" },
+                        { "You": "I need to get leaving right away"}
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["daw_start"]
+                },
+                {
+                    "sceneid": "daw_start",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"Spencer":"I’m here!"},
+                        {"You":"That was quite an entrance"},
+                        {"Spencer":"Thank you very much"},
+                        {"Spencer":"Hey, since we’re in Mr. Daw’s office, you wanna see if we can fnd any of his secrets?"},
+                        {"You":"What do you mean by that"},
+                        {"Spencer":"We can try searching through his room, like opening up his filing cabinet!"},
+                        {"You":"Oh, that sounds like fun!"},
+                        {"Spencer":"So, what do you wanna check out first?"}
+                    ],
+                    "choice": ["His Filing Cabinet","Under the rug","The drawers in his desk"],
+                    "choiceoutcome": ["daw_cabinet","daw_rug","daw_drawers"]
+                },
+                {
+                    "sceneid": "daw_rug",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"editors note":"uhh so i like originally planned for this option to start some<route about a giant rat that's obsessed with cheese, or probably<just make ratatouille but with meth"},
+                        {"editors note":"but like i haven't touched this part in like 9 months so i'll just do it<later this week"},
+
+                    ],
+                    "choice": ["Show him it imediately"],
+                    "choiceoutcome": ["daw_start"]
+
+                },
+                {
+                    "sceneid": "daw_drawers",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"editors note":"uhh so i like originally planned for this option to just continue the date<like normal, think of the mcdonalds route if you don't do<anything crazy"},
+                        {"editors note":"wait cuz yeah, i think you were gonna find mr daw's lunch"},
+                        {"editors note":"but like i haven't touched this part in like 9 months so i'll just do it<later this week"},
+
+                    ],
+                    "choice": ["Show him it imediately"],
+                    "choiceoutcome": ["daw_start"]
+
+                },
+                {
+                    "sceneid": "daw_cabinet",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"Lets go check out his filing cabinet"},
+                        {"Spencer":"Oh sure, that sounds like fun"},
+                        {"":"*As you open the cabinet, you notice a peculiar looking file"},
+                        {"You":"Oh, hey check this out"},
+                        {"Spencer":"What is it?"}
+
+                    ],
+                    "choice": ["Show him it imediately","I’ll show you it, but only if you give me a kiss later"],
+                    "choiceoutcome": ["daw_cabinet2","daw_cabinet2_alt"]
+
+                },
+                {
+                    "sceneid": "daw_cabinet2_alt",
+                    "background": "daw",
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"I'll show it to you, but only if you give me a kiss later"},
+                        {"Spencer":"Ohh, I see how it is *spencer blushes*<Maybe I will"},
+                        {"Spencer":"So can I see it?"},
+                        {"You":"Alright then, check this out"},
+                        {"You":"It's blueprints for some sort of highly classified fishing rod"},
+                        {"Spencer":"Wait, does that say what I think it does"},
+                        {"You":"Yep, it sure does"},
+                        {"Spencer":"This rod can catch fish in the 4th and 5th dimensions?"},
+                        {"Spencer":"And it can also catch fish in 2 dimensions of time?"},
+                        {"Spencer":"No way, that's Mr. Daw's signature... He designed this himself!"},
+                        {"You":"Just think about what would happen if Bass Pro Shop got their hands on this"},
+                        {"Spencer":"OMG YOU'RE RIGHT!!! THEY COULD MAKE BILLIONS OFF OF THIS!"},
+                        {"You":"Exactly, that's why we need to..."}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop","Keep the blueprints secret"],
+                    "choiceoutcome": ["daw_rod_sell","daw_rod_protect"]
+
+                },
+                {
+                    "sceneid": "daw_cabinet2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"It's blueprints for some sort of highly classified fishing rod"},
+                        {"Spencer":"Wait, does that say what I think it does"},
+                        {"You":"Yep, it sure does"},
+                        {"Spencer":"This rod can catch fish in the 4th and 5th dimensions?"},
+                        {"Spencer":"And it can also catch fish in 2 dimensions of time?"},
+                        {"Spencer":"No way, that's Mr. Daw's signature... He designed this himself!"},
+                        {"You":"Just think about what would happen if Bass Pro Shop got their hands on this"},
+                        {"Spencer":"OMG YOU'RE RIGHT!!! THEY COULD MAKE BILLIONS OFF OF THIS!"},
+                        {"You":"Exactly, that's why we need to..."}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop","Keep the blueprints secret"],
+                    "choiceoutcome": ["daw_rod_sell","daw_rod_protect"]
+                },
+                {
+                    "sceneid": "daw_rod_protect",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"We need to protect this from the evil Bass Pro Shop executives!"},
+                        {"Spencer":"You're right! We must protect Mr. Daw's invention"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_protect2"]
+                },
+                {
+                    "sceneid": "daw_rod_protect2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Bearded Fishing Dude":"Hey! Watch who you're callin' evil!"},
+                        {"Spencer":"WAIT WHAT, HOW DID YOU GET HERE?"},
+                        {"Bearded Fishing Dude":"How do you think? We obvious keep a microphone in the desk of every<junior high school principal who sponsors a fishing club in the country."},
+                        {"You":"What! How could we have not seen through this"},
+                        {"Spencer":"Oh no, what are you guys gonna do?"},
+                        {"Fishing Dude":"We're gonna take those blueprints from you guys! We already know what that<rod can do!"},
+                        {"You":"No way! We could never let that happen!"},
+                        {"Spencer":"You're going to have to get past the both of us if you want those blueprints!"},
+                        {"Fishing Dude":"You know what fine, the only way to settle this is a game of fishing trivia"},
+                        {"You":"Alright, fine then"},
+                        {"Spencer":"Wait, who's going to be the judge?"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_protect3"]
+                },
+                {
+                    "sceneid": "daw_rod_protect3",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"What no way! Is that Jesus Christ himself?"},
+                        {"Jesus Christ":"Yep you guessed it"},
+                        {"Jesus Christ":"Anyways, it's time for the trivia question"},
+                        {"Jesus Christ":"A soft-hackle nymph fly that has just been successfully employed to hook a< member of one of the types of fish for which flies are most <commonly used. What kind of fish is this?"},
+                        {"Spencer":"Uh oh? What could the answer to this question possibly be?"},
+                        {"Bearded Fishing Dude":"Haha! I already know the answer to this one!"},
+                        {"You":"Oh no! I gotta think of it quick!"}
+                    ],
+                    "choice": ["Sardines","Trout","Salmon","Tuna"],
+                    "choiceoutcome": ["daw_rod_sardines","daw_rod_trout","daw_rod_salmon","daw_rod_tuna"]
+                },
+                {
+                    "sceneid":"daw_rod_fail",
+                    "background":"ending_bad",
+                    "endingtext":"You and Spencer both suck at <br>trivia and never talk to eachother<br>again"
+                },
+                {
+                    "sceneid":"daw_rod_succeed",
+                    "background":"ending",
+                    "endingtext":"You and Spencer run off with <br>the invention and become a filthy<br>rich couple together"
+                },
+                {
+                    "sceneid": "daw_rod_sardines",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Sardines?"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
+                {
+                    "sceneid": "daw_rod_trout",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Trout?"},
+                        {"Jesus Christ":"Yep that's completely correct"},
+                        {"Bearded Fishing Dude":"Hah! The kid actually got it correct"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Fishing Dude":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Spencer":"Bahahaha! These blueprints are staying with us!!!!"},
+                        {"Fishing Dude":"God! How these meddling kis have actually gotten it right?"},
+                        {"Spencer":"Alrighty! We can now create our million-dollar invention and become rich"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_succeed"]
+                },
+                {
+                    "sceneid": "daw_rod_salmon",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Salmon?"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
+                {
+                    "sceneid": "daw_rod_tuna",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"},
+                        {"downleft":"Bass3"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer Tuna?"},
+                        {"Jesus Christ":"Nope that's completely wrong"},
+                        {"Bearded Fishing Dude":"Hah! The answer is actually Trout"},
+                        {"Jesus Christ":"Yep that's right"},
+                        {"Spencer":"NOOO!!! THIS CAN'T BE!!!!"},
+                        {"Fishing Dude":"Bahahaha! These blueprints are now ours!!!!"},
+                        {"You":"God! How could I have gotten this wrong!"},
+                        {"Fishing Dude":"Alright, we'll be leaving with our new billion dollar invention!"}
+                    ],
+                    "choice": ["Sardines"],
+                    "choiceoutcome": ["daw_rod_fail"]
+                },
+                {
+                    "sceneid": "daw_rod_sell",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"You":"We need to sell this to Bass Pro Shop as soon as we can!<Think of how rich we'll become!"},
+                        {"Spencer":"Oh that's perfect! I have connections in the fishing store industry!"},
+                        {"You":"That's amazing let's get a deal set up"},
+                        {"Spencer":"Let me try calling my contacts"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell2"]
+
+                },
+                {
+                    "sceneid": "daw_rod_sell2",
+                    "background": "timeskip",
+                    "message": [
+                        {"":"Spencer has to call a lot of his contacts"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell3"]
+
+                },
+                {
+                    "sceneid": "daw_rod_sell3",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"}
+                    ],
+                    "message": [
+                        {"Spencer":"I finally got a meeting set up with Bass Pro Shop!"},
+                        {"You":"Oh great, that's amazing! Let's get to their headquarters"},
+                        {"Spencer":"No need, the meeting takes place right here"},
+                        {"You":"WAIT WHAT?"}
+                    ],
+                    "choice": ["Sell it to Bass Pro Shop"],
+                    "choiceoutcome": ["daw_rod_sell4"]
+
+                },
+                {
+                    "sceneid": "daw_rod_sell4",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Fishing Dude":"Howdy y'all. I hear y'all have got some amazing new invention"},
+                        {"Bearded Fishing Dude":"Howdy again, I'm pretty damn interested in what y'all have here for us"},
+                        {"You":"This is sudden"},
+                        {"Spencer":"Uh... uh... uh..."},
+                        {"Spencer":"Help the impossible is happening<I'M HAVING STAGE FRIGHT!!!"},
+                        {"You":"Oh no! I must help Spencer pitch our stolen fishing rod design! What should I do!"}
+                    ],
+                    "choice": ["Act like a car salesman","BLACK MAIL","Generic business jargon"],
+                    "choiceoutcome": ["daw_rod_car","daw_rod_blackmail","daw_rod_jargon"]
+                },
+                {
+                    "sceneid": "daw_rod_car",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"You":"Ready to catch fish like no other? Our offer is simply unbeatable!"},
+                        {"Bearded Fishing Dude":"Dang! Keep it goin' with that enthusiasm!"},
+                        {"You":"This buddy right here may seem like a normal fishing rod, but it's really a bit more"},
+                        {"Fishing Dude":"I'm intrigued"},
+                        {"You":"What we have right here, is a fishing rod that ascends limitations of Space and Time"},
+                        {"Bearded Fishing Dude":"So you're saying that this rod can catch fish in the fifth dimension?"},
+                        {"You":"Ding ding ding! We've got a winner!"},
+                        {"Fishing Dude":"This is incredible! Soon every principal with a fishing club will be fishin'<5th dimensional fish!"},
+                        {"You":"Exactly! Are you ready to get the paperwork started?"},
+                        {"Bearded Fishing Dude":"Absolutely! We'll be able to work out an amazing deal"},
+                        {"You":"Amazing deal? That's my middle name!"},
+                        {"Bearded Fishing Dude":"We'll be willing to buy your design for $6.5 billion!"},
+                        {"Spencer":"OMG WE DID IT!"},
+                        {"You":"That's amazing news! Now lets finish this paperwork"},
+                        {"":"*you shake hands with both of the fishin' dudes"},
+                        {"Fishing Dude":"You'll receive your money on a wire transfer"},
+                        {"Bearded Fishing Dude":"Nice meetin' yall! It's bout time we get leavin'"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_car2"]
+                },
+                {
+                    "sceneid": "daw_rod_car2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG We're billionaires now!"},
+                        {"You":"How are we ever going to spend our money?"},
+                        {"Spencer":"I know how to"},
+                        {"":"*spencer smirks"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"OMG YES!!! WE CAN BURN MILLIONS OF DOLLARS AT OUR WEDDING!!!"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich"]
+                },
+                {
+                    "sceneid": "daw_rod_blackmail",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"You":"Look here bearded dude"},
+                        {"Bearded Fishing Dude":"Yeah?"},
+                        {"You":"You live at 18 New Dawn pl, your ip address is 192.272.11.224, you visit the <starbucks down the street from your house everyday, your credit card number is 45678912345678." },
+                        {"":"*the bearded dude(joseph william smith, son of grant turner smith) looks at you in shock"},
+                        {"Fishing Dude":"Hey, hold ya horses kid!"},
+                        {"You":"You live at 11 Weeping Spruce pl, your ip your ip address is 295.119.52.992, your<favorite hobby is to post online about how much you hate Bass Pro Shop"},
+                        {"You":"That's a pretty ironic hobby for someone like you to have. It would be a shame if the<public were to find out about that, wouldn't it?"},
+                        {"Fishing Dude":"OK! OK! Look bud, we'll take any offer that you want, just don't tell anyone"},
+                        {"You":"I'm going to sell you these blueprints, for the small sum of "},
+                        {"You":"..."},
+                        {"You":"$1 trillion dollars!"},
+                        {"Bearded Fishing Dude":"*gulp* I guess we have no choice"},
+                        {"Fishing Dude":"We'll have to write you an I.O.U. after giving you all of our cash"},
+                        {"You":"That's good. Now lets shake on it"},
+                        {"":"*you shake hands with both of the men"},
+                        {"Fishing Dude":"We should probably leave now"},
+                        {"":"*they both walk outside in shame"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_blackmail2"]
+                },
+                {
+                    "sceneid": "daw_rod_blackmail2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG We're billionaires now!"},
+                        {"You":"How are we ever going to spend our money?"},
+                        {"Spencer":"I know how to"},
+                        {"":"*spencer smirks"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"OMG YES!!! WE CAN BURN MILLIONS OF DOLLARS AT OUR WEDDING!!!"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich"]
+                },
+                {
+                    "sceneid": "daw_rod_jargon",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                        {"upright":"Bass1"},
+                        {"downright":"Bass2"}
+                    ],
+                    "message": [
+                        {"Bearded Fishing Dude":"So, what do you have 'ere"},
+                        {"You":"A most sagacious inquiry, dear sir! By virtue of its proprietary quantum entanglement< mechanism, this interdimensional piscine conduit harnesses the chaotic dance of subatomic particles, aligning <the multidimensional fabric of piscine existence to your advantage. Ergo, as you cast your line, you shall< penetrate the temporal thresholds, transcending the boundaries of conventional piscine prospects. <Imagine the awe-inspiring sight of fish manifesting from dimensions unknown, swimming <their way into your reality!." },
+                        {"Bearded Fishing Dude":"The hell did ya just say?"},
+                        {"You":"Ah, my sincerest apologies for the convoluted nature of my previous soliloquy. It <appears that my zealous commitment to describing the awe-inspiring attributes of this <piscatorial contrivance may have veered into a realm of linguistic obfuscation. <Allow me to rectify the situation and provide a succinct< elucidation of the proposition at hand."},
+                        {"Fishing Dude":"Yeah, we're just gonna go leave now"},
+                        {"":"*they both walk outside with no clue of what you said"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["daw_rod_jargon2"]
+                },
+                {
+                    "sceneid": "daw_rod_jargon2",
+                    "background": "daw",
+                    "actors": [
+                        { "center": "avatar" },
+                        {"upleft":"Spencer"},
+                    ],
+                    "message": [
+                        {"Spencer":"OMG you're a failure of a salesman!"},
+                        {"You":"What? I tried my best"},
+                        {"Spencer":"They came in here saying 'Howdy yall'! Ain't no way they'd be saying business<jargon ever!"},
+                        {"You":"You're right, I'm sorry"},
+                        {"Spencer":"Sorry? You just lost us an opportunity worth billions!"},
+                        {"Spencer":"You're a bigger failure than Chernobyl! Never talk to me again"}
+                    ],
+                    "choice": ["Act like a car salesman"],
+                    "choiceoutcome": ["ending_rich_fail"]
+                },
+                {
+                    "sceneid":"ending_rich_fail",
+                    "background":"ending_bad",
+                    "endingtext":"You messed up bad and <br>Spencer hates u big time"
+                },
+                {
+                    "sceneid":"ending_rich",
+                    "background":"ending",
+                    "endingtext":"You and Spencer become billionaires<and have a super expensive wedding"
+                },
+                {
+                    "sceneid": "anime_start",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "Wow that's a lot of posters" },
+                        { "Spencer": "Yeah, they were actually plan on getting even more" },
+                        {"You":"More! How would you even fit them!"},
+                        {"Spencer":"They could put them in the closet I guess?"},
+                        {"You":"Oh there's a closet? What's it like in there?"},
+                        {"Anime Kid #1":"Don't even think about going in there!"},
+                        {"You":"Oh, alright then."},
+                        {"You":"Hey, what's on that picture frame over th-"},
+                        {"Spencer":"Don't worry about that!"},
+                        {"Anime Kid #2":"So, do you know what we usually do at meetings?"},
+                        {"You":"Uhh.. No"},
+                        {"Anime Kid #2":"Well sometimes we watch Anime together."},
+                        {"Spencer":"Oh maybe we should watch some Anime, can you think of a show?"},
+                        {"You":"Uhh... Lemme think about this"}
+                    ],
+                    "choice": ["Dragon Ball Z","My Hero Academia","One Piece","Naruto","Death Note","Kaguya-sama: Love is War"],
+                    "choiceoutcome": ["anime_choose_dbz","anime_choose_mha","anime_choose_op","anime_choose_naruto","anime_choose_deathnote","anime_choose_loveiswar"]
+                },
+                {
+                    "sceneid": "anime_choose_dbz",
+                    "background": "anime",
+                    "actors": [
+                        {"downleft":"Goku"},
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "How about Dragon Ball Z" },
+                        { "Anime Kid #1":"Yeah, I can pull that up on the projector" },
+                        {"":"You and Spencer start watching the Anime together"},
+                        {"Spencer":"Wow, this anime low key sucks"},
+                        {"You":"I totally agree, how could something be so boring?"},
+                        {"Weird Kid":"SILENCE IMBECILE! WHAT WORDS HAVE THOU SPOKEN THUS FAR!"},
+                        {"You":"We said Dragon Ball Z is absolute garbage"},
+                        {"Weird Kid":"Well you both hold an objectively false opinion if neither <of you respect the brilliance of Dragon Ball Z"},
+                        {"Weird Kid":"But alas, I do not waste time arguing with such feeble-minded, lesser beings"},
+                        {"Spencer":"Uh ok?"},
+                        {"Weird Kid":"Say u wanna hop on valorant"},
+                        {"Spencer":"Uh what's valorant?"},
+                        {"You":"I think its a game?"},
+                        {"Weird Kid":"Hop on val bro"},
+                        {"Spencer":"I'm confused, what should I do in this situation?"}
+                    ],
+                    "choice": ["You should hop on","He's weird"],
+                    "choiceoutcome": ["anime_val","anime_weird"]
+
+                },
+                {
+                    "sceneid": "anime_val",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downleft":"Goku"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        { "You": "Dude, just hop on bro" },
+                        { "Spencer": "Hold on! I'm still installing it" },
+                        {"Spencer":"Alright now it's finished"},
+                        {"":"Spencer starts playing and absolutely loses"},
+                        {"Spencer":"OMG THIS GAME SUCKS!"},
+                        {"Spencer":"I QUIT, I LITERALLY QUIT, I HATE EVERYONE HERE, THIS IS THE WORST"},
+                        {"Spencer":"I'M DONE. EVERYTHING LITERALLY SUCKS. I HOPE EVERYONE IN THIS ROOM DIES IN A CAR CRASH"},
+                        {"Spencer":"I HOPE EVERY SINGLE PERSON HERE DIES A VIOLENT, SLOW AND PAINFUL DEATH. I HATE EVERYONE!!!"},
+                        {"Spencer":"NEVER IN MY LIFE HAVE I PLAYED SOMETHING SO BAD, THIS GAME IS ABSOLUTE GARBAGE"},
+                        {"Weird Kid":"SILENCE IMBECILE! WHAT WORDS HAVE THOU SPOKEN THUS FAR!"},
+                        {"Spencer":"..."},
+                        {"You":"..."},
+                        {"You":"he just said that again..."},
+                        {"Spencer":"Yeah, we need to get rid of him"},
+                        {"You":"Yeah we really do"},
+                        {"You": "Yo, Weird Kid! Have you heard about the anime convention going on across the street?"},
+                        {"Weird Kid":"Wait, there is a convention happening right now?"},
+                        {"Spencer":"Yeah, you're totally missing out right now"},
+                        {"Weird Kid":"Oh, I gotta get running!!!"},
+                        {"":"*The Weird Kid starts running with his hands behind his back"}
+                    ],
+                    "choice": ["You should hop on"],
+                    "choiceoutcome": ["anime_val2"]
+                },
+                {
+                    "sceneid":"anime_val2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Good riddance!"},
+                        {"You":"About time, I hated that kid"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid": "anime_weird",
+                    "background": "anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"downleft":"Goku"},
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "You": "Nah he's weird" },
+                        { "Spencer": "You're right, we should just get rid of him"},
+                        {"Spencer":"Hey Weird Kid! Have you heard about the manga sale going on down the street?"},
+                        {"Weird Kid":"Wait a MANGA SALE!!11!1! OMG!!! I need to get leaving right now"},
+                        {"Weird Kid":"I still need to finish the Goku vs Ryan Reynolds arc!!< I heard that it's about to finish in the manga" },
+                        {"Weird Kid":"Cheap manga here I come !!!!"},
+                        {"Spencer":"..."},
+                        {"":"*The Weird Kid starts running with his hands behind his back"}
+                    ],
+                    "choice": ["You should hop on"],
+                    "choiceoutcome": ["anime_weird2"]
+                },
+                {
+                    "sceneid":"anime_weird2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"He finally left!"},
+                        {"You":"I'm so glad that he's gone now!"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_mha",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"I want to watch My Hero Academia"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer watch it together"},
+                        {"Spencer":"Wow, this show is actually terrible"},
+                        {"You":"How can something be this bad?"},
+                        {"Anime Kid #1":"It actually gets better after episode 52"},
+                        {"You":"Yeah, I'm not gonna get that far in"},
+                        {"Anime Kid #2":"I might as well turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_op",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch One Piece?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"Never in my life have I seen something so bad"},
+                        {"You":"It's a miracle that people could create such a boring show"},
+                        {"Anime Kid #1":"Well, it begins getting really good after season 26"},
+                        {"You":"I'm not gotta watch another 25 seasons of this"},
+                        {"Anime Kid #2":"Oh well then, I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_deathnote",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Death Note?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"This kinda sucks but I could take some notes from it"},
+                        {"You":"I guess having a book that kills anyone you want if you write their name in it is kinda cool"},
+                        {"Anime Kid #1":"Yeah, I'd really love to have that sort of power"},
+                        {"":"*You and Spencer continue watching"},
+                        {"You":"Yeah, now it's getting kind of boring"},
+                        {"Spencer":"Hey, what's your full name?"},
+                        {"You":"Why do you ask?"},
+                        {"Spencer":"Uh reasons... *he pulls out a black leather notebook"},
+                    ],
+                    "choice":["I'll tell him","This seems strange"],
+                    "choiceoutcome":["anime_choose_tell","anime_choose_secret"]
+                },
+                {
+                    "sceneid":"anime_choose_tell",
+                    "background":"anime",
+                    "newvars": [
+                        {"deathnote":"true"}
+                    ],
+
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"My full name is *imagine your name here*"},
+                        {"Spencer":"Oh, that's nice to know"},
+                        {"Spencer":"*starts writing in a notebook furiously"},
+                        {"You":"Uhh... Spencer? What are you doing?"},
+                        {"Spencer":"Don't worry about it"},
+                        {"":"*You and Spencer continue watching for a bit"},
+                        {"You":"Oh hey, it's over"},
+                        {"Anime Kid #2":"Oh yeah, guess I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+
+                },
+                {
+                    "sceneid":"anime_dead",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Hey, do you feel any discomfort in your chest?"},
+                        {"You":"Are you trying to ask if I have symptoms of a heart attack?"},
+                        {"Spencer":"Uh.. perhaps"},
+                        {"You":"Uhh... Spencer? Do you have a death note or something? Is that what you were writing in?"},
+                        {"Spencer":"Uhh... he.. he.. maybe?"},
+                        {"Spencer":"Hurry up only ten more seconds until you die"},
+                        {"Anime Kid #2":"I should've known! When that short kid asked for your name, it was only <for him to be able to write it down in his death note to< cause your demise!"},
+                        {"You":"AAGGGHHHH!!!!! I FEEL LIKE I HAVE A HEART ATTACK!!!!"}
+
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["ending_deathnote"]
+
+                },
+                {
+                    "sceneid":"ending_deathnote",
+                    "background":"ending_bad",
+                    "endingtext":"Spencer killed you with<br>a magic book"
+                },
+                {
+                    "sceneid":"anime_choose_secret",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"I'm not gonna tell"},
+                        {"Spencer":"Oh, darn it *he puts away the notebook"},
+                        {"":"*You and Spencer continue watching for a bit"},
+                        {"You":"Oh hey, it's over"},
+                        {"Anime Kid #2":"Oh yeah, guess I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+
+                },
+                {
+                    "sceneid":"anime_choose_naruto",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Naruto?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"Spencer":"OMG this show absolutely sucks"},
+                        {"You":"How could they make the main character so annoying?"},
+                        {"Anime Kid #1":"Well, it gets much better after the second episode"},
+                        {"You":"I can't bare to listen to this kid's voice for another minute!"},
+                        {"Anime Kid #2":"Oh well then, I'll just turn this off"},
+                        {"":"*the projector goes dark"}
+                    ],
+                    "choice":[""],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_choose_loveiswar",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Hey, can we watch Kaguya sama: Love is War?"},
+                        {"Anime Kid #2":"Yeah, we have that, I can put that up on the projector"},
+                        {"":"*You and Spencer start watching the show together"},
+                        {"You":"This show is absolute garbage"},
+                        {"Spencer":"Seriously, if you ever had an ex who actually enjoyed this show. You seriously need >to reconsider your life decisions."},
+                        {"Anime Kid #1":"Yeah, I feel like that message needs to go out to a certain Mexican"},
+                        {"Spencer":"I'm just gonna watch this out of spite"},
+                        {"":"*You and Spencer continue watching"},
+                        {"You":"Uh.. this is kinda getting boring now"},
+                        {"Spencer":"Yeah, lets stop watching this"},
+                        {"Anime #1":"I'll just turn the projector off now"},
+                        {"":"*the projector goes dark"},
+                    ],
+                    "choice":["I'll tell him"],
+                    "choiceoutcome":["anime_hobby"]
+                },
+                {
+                    "sceneid":"anime_hobby",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"Can I ask you something?"},
+                        {"You":"Yeah sure, what is it?"},
+                        {"Spencer":"Do you have any hobbies?"},
+                        {"You":"Uhh... lemme think"}
+                    ],
+                    "choice":["I like watching anime","Committing murder","Watching crime documentaries","Reading books","Baking bread"],
+                    "choiceoutcome":["anime_hobby_anime","anime_hobby_murder","anime_hobby_crime","anime_hobby_reading","anime_hobby_bread"]
+                },
+                {
+                    "sceneid":"anime_hobby_bread",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I like to bake bread in my free time"},
+                        {"Spencer":"Oh, that's cool!"},
+                        {"Spencer":"Do you know how to bake Pumpernickel?"},
+                        {"You":"Yeah, I can do that"},
+                        {"Spencer":"Oh sweet, that's sick"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_reading",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I like to read in my free time"},
+                        {"Spencer":"Oh, that's cool!"},
+                        {"You":"It's a lot of fun reading about new things or strange and fantastic worlds"},
+                        {"Spencer":"Maybe I should more..."}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_crime",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"You":"I enjoy watching crime documentaries in my free time"},
+                        {"Spencer":"Oh really?"},
+                        {"You":"Yeah, it's nice since I can now quote a bunch of crime statistics"},
+                        {"Spencer":"Really? Can you quote some right now?"},
+                        {"You":"Sure, why not!"},
+                        {"You":"They make up an eighth of the population, yet they make up a quarter of all arrests?"},
+                        {"Spencer":"Okay dude"},
+                        {"You":"A majority of crime in Israel is committed by jews"},
+                        {"You":"Being named Daxton makes you more likely to become a criminal"},
+                        {"You":"In the state of Arizona, it is still legal to be executed by gas chamber. Though the <last time one has been used was in 1999"},
+                        {"You":"40% of all murders are left unsolved, that's a pretty solid chance you have there"},
+                        {"Spencer":"That's all pretty interesting, but I'm kind of scared now"},
+                        {"You":"It's fine, until you realize Viktor Bout, a Russian arms dealer made an estimated <$50 million off of selling weapons<to the Taliban in the 1990s"},
+                        {"You":"That's nearly 8-fold the amount of income a doctor will make in his lifetime"},
+                        {"Spencer":"You're not helping"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_murder",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-1"}
+                    ],
+                    "message": [
+                        {"You":"I like committing murder in my free time"},
+                        {"Spencer":"Like killing people?"},
+                        {"You":"Precisely so"},
+                        {"Spencer":"Are you going to kill me too?"},
+                        {"You":"Maybe?"},
+                        {"Spencer":"There's something strange about you"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_hobby_anime",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"I like watching anime a lot in my free time"},
+                        {"Spencer":"A lot? That's your idea of fun?"},
+                        {"You":"Yeah it is"},
+                        {"Spencer":"You're definitely weird, is there something wrong with you?"}
+                    ],
+                    "choice":["I like watching anime"],
+                    "choiceoutcome":["anime_boardgame"]
+                },
+                {
+                    "sceneid":"anime_boardgame",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "overrideVar": "deathnote",
+                    "overrideRequirement": "true",
+                    "overrideRedirect": "anime_dead",
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"Anime Kid #2":"Hey, if you guys want to play some board games, you can check out the closet."},
+                        {"Spencer":"Oh, we could play board games I guess?"}
+                    ],
+                    "choice":["Let's go get them","I don't want to get Spencer bored with board games"],
+                    "choiceoutcome":["anime_boardgame_yes","anime_boardgame_no"]
+                },
+                {
+                    "sceneid":"anime_boardgame_no",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-3"}
+                    ],
+                    "message": [
+                        {"You":"That just sounds super boring"},
+                        {"Spencer":"Oh..."},
+                        {"Spencer":"I guess I didn't want to either way"},
+                        {"You":"..."},
+                        {"Spencer":"..."},
+                        {"You":"Yeah this is getting awkward"},
+                        {"Spencer":"This is getting boring"},
+                        {"You":"..."},
+                        {"Spencer":"uhhh..."},
+                        {"Spencer":"What's your favorite flavor of ice cream?"}
+                    ],
+                    "choice":["Spicy Pistachio","Asphalt","Cookies and Cream with Cookie Dough","Vanilla"],
+                    "choiceoutcome":["anime_icecream_spicy","anime_icecream_asphalt","anime_icecream_cookie","anime_icecream_vanilla"]
+                },
+                {
+                    "sceneid":"anime_icecream_spicy",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is Spicy Pistachio"},
+                        {"Spencer":"What..."},
+                        {"Spencer":"THE HELL IS WRONG WITH YOU!??! YOU'RE DISGUSTING!"},
+                        {"You":"..."},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_asphalt",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is the Asphalt flavor"},
+                        {"Spencer":"What..."},
+                        {"Spencer":"Is that a weird name for a type of poison?"},
+                        {"You":"..."},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_cookie",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+6"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is Cookies and Cream with chunks of Cookie Dough"},
+                        {"Spencer":"Wait really?"},
+                        {"You":"Yeah!"},
+                        {"Spencer":"That's my favorite flavor too!"},
+                        {"You":"That's awesome"},
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid":"anime_icecream_vanilla",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+2"}
+                    ],
+                    "message": [
+                        {"You":"My favorite flavor is just Vanilla"},
+                        {"Spencer":"That's really basic, but Vanilla is pretty good"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["anime_endings"]
+                },
+                {
+                    "sceneid": "anime_endings",
+                    "background": "anime",
+                    "ending": [
+                        { "NormalBad": "ending_anime_bad_pretext" },
+                        { "NormalNeutral": "ending_anime_neutral_pretext" },
+                        { "NormalGood": "ending_anime_good_pretext" }
+                    ],
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        { "Spencer": "You find this fun?" }
+                    ],
+                    "choice": ["For fun"],
+                    "choiceoutcome": ["mcdonalds_ending"]
+                },
+                {
+                    "sceneid":"ending_anime_bad_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"You know what, today's been really boring. And I'm getting really tired"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I'm gonna leave now"},
+                        {"Spencer":"Also never talk to me again, you're actually so annoying"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["ending_anime_bad"]
+                },
+                {
+                    "sceneid":"ending_anime_bad",
+                    "background":"ending_bad",
+                    "endingtext":"Spencer hates you"
+                },
+                {
+                    "sceneid":"ending_anime_neutral_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"You know what, today's been really boring. And I'm getting really tired"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I'm gonna leave now"},
+                        {"Spencer":"By the way, do you wanna go on another date?"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["ending_anime_neutral"]
+                },
+                {
+                    "sceneid":"ending_anime_neutral",
+                    "background":"ending",
+                    "endingtext":"You and Spencer are dating now"
+                },
+                {
+                    "sceneid":"ending_anime_good_pretext",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"You know what, today has helped me realize something"},
+                        {"You":"Yeah?"},
+                        {"Spencer":"I need to ask you something"},
+                        {"Spencer":"Will you marry me?"},
+                        {"You":"ABSOLUTELY"}
+                    ],
+                    "choice":["Spicy Pistachio"],
+                    "choiceoutcome":["ending_anime_good"]
+                },
+                {
+                    "sceneid":"ending_anime_good",
+                    "background":"ending",
+                    "endingtext":"You got married to Spency"
+                },
+                {
+                    "sceneid":"anime_boardgame_yes",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "newvars":[
+                        {"points":"+2"}
+                    ],
+                    "message": [
+                        {"You":"Oh sure, I'm down to play some board games"},
+                        {"Spencer":"Well lets go find them in the closet then"}
+                    ],
+                    "choice":["Let's go get them"],
+                    "choiceoutcome":["anime_boardgame_yes2"]
+                },
+                {
+                    "sceneid":"anime_boardgame_yes2",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"Spencer":"WHAT THE HELL"},
+                        {"Spencer":"WHAT WERE THEY DOING HERE?!?!?"},
+                        {"You":"Uhhh... This place looks a bit strange"}
+                    ],
+                    "choice":["This is perfectly normal activity","We need to tell someone"],
+                    "choiceoutcome":["anime_cult_join","anime_cult_report"]
+                },
+                {
+                    "sceneid":"anime_cult_join",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"You":"I don't really see anything wrong with this?"},
+                        {"Spencer":"Seriously? You think this is perfectly normal?"},
+                        {"You":"Yeah, this all looks fine"},
+                        {"Spencer":"Maybe you're, I guess this is just something anime kids do"},
+                        {"You":"Let's just go back inside and say we didn't find any board games"}
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_join2"]
+                },
+                {
+                    "sceneid":"anime_cult_join2",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Spencer":"We weren't able to find any board games"},
+                        {"Anime Kid #1":"Wait, うずまき ナルト, did you remember to clean the closet up from the last ritual?"},
+                        {"Anime Kid #2":"No..."},
+                        {"Anime Kid #2":"..."},
+                        {"Anime Kid #2":"Oh wait, that means the short kid and his friend saw the ritual!"},
+                        {"Anime Kid #1":"Why are you always like this?"},
+                        {"Spencer":"Uhhh. idk what you weird kids do, so like, please don't sacrifice us to your anime gods"},
+                        {"Anime Kid #1":"Alright, look here. We don't you to cause us any trouble, so if you join us, we won't<cause both of you any trouble either."}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!","We're gonna report you all"],
+                    "choiceoutcome":["anime_cult_join3","anime_cult_join_report"]
+                },
+                {
+                    "sceneid":"anime_cult_join3",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"Sure! I'd love to join a cult"},
+                        {"Spencer":"I guess I might as well join too"},
+                        {"Anime Kid #1":"That's good news! We need to prepare the initiation ritual soon then"},
+                        {"Anime Kid #2":"Alright, I'll get everything set up in the closet"},
+                        {"Anime Kid #1":"You both can go inside while we prepare"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join4"]
+                },
+                {
+                    "sceneid":"anime_cult_join4",
+                    "background":"anime_closet",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        {"center": "avatar"},
+                        {"downright":"Sasuke"},
+                        {"downleft":"Ladybug"}
+                    ],
+                    "message": [
+                        {"Anime Kid #2":"Oh look, everything we need is the corner"},
+                        {"Anime Kid #1":"Oh hey, I guess we can just start the ritual now"},
+                        {"Spencer":"So how do we begin?"},
+                        {"Anime Kid #1":"Just sit right there and we'll tell you what to say"},
+                        {"":"*one of the kids lifts up a plushie and holds a knife to its throat"},
+                        {"":"*he then slices the plushie with the knife letting stuffing spill out everywhere"},
+                        {"Anime Kid #2":"ARGGHGHGHGHGHGHGHGH!!!!!!!!!!!!!"},
+                        {"Spencer":"Uh... I'm a bit concerned"},
+                        {"":"*the other kid pulls out a giant scroll"},
+                        {"Anime Kid #1":"Now read this!"},
+                        {"You":"I swear I will love Naruto very, very much and fully believe in his awesome <Shinobi Ninja Powers."},
+                        {"Spencer":"I vow to embrace the Animeness which flows through me and which isn't slightly< abnormal in the slightest"},
+                        {"You":"By this oath I swear that I shall watch every single episode of Naruto when I have <the chance, all 1013 of them"},
+                        {"Spencer":"And also by this oath I swear I shall watch all the new episodes when they come out<on sundays at 7pm GMT"},
+                        {"Anime Kid #1":"Good, now welcome to the cult!"},
+                        {"Spencer":"I feel like I just made the biggest mistake of my life"},
+                        {"You":"It can't really be that big a mistake"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join5"]
+                },
+                {
+                    "sceneid":"anime_cult_join5",
+                    "background":"timeskip",
+                    "message": [
+                        {"":"sometime in the future"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join6"]
+                },
+                {
+                    "sceneid":"anime_cult_join5",
+                    "background":"timeskip",
+                    "message": [
+                        {"":"sometime in the future"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_join6"]
+                },
+                {
+                    "sceneid":"anime_cult_join6",
+                    "background":"anime_wedding",
+                    "message": [
+                        {"You":"Wow, no one showed up to our wedding"},
+                        {"Spencer":"Do you think it's because everyone we used to know hates us because of our<obsession with Naruto?"},
+                        {"You":"That couldn't possibly be the case"},
+                        {"You":"I don't know why anyone wouldn't love to attend a wedding themed around Naruto"},
+                        {"Spencer":"Maybe some people are crazy? But that doesn't matter, because ..."},
+                        {"Spencer":"I love you more than Naruto!"}
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["ending_anime_wedding"]
+                },
+                {
+                    "sceneid":"ending_anime_wedding",
+                    "background":"ending_red",
+                    "endingtext":"You and Spencer had the best ever<br>anime themed wedding"
+                },
+                {
+                    "sceneid":"anime_cult_join_report",
+                    "background":"anime",
+                    "actors": [
+                        {"upleft":"Spencer"},
+                        { "center": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"There's no way we're gonna join your cult. You're all going to get in huge trouble!"},
+                        {"Anime Kid #1":"What! There's no way we're going to let you reveal the club's secret!"},
+                        {"Anime Kid #2":"Exactly! Do you know what this means?"},
+                        {"Spencer":"Is he about to do something weird?"},
+                        {"Anime Kid #2":"Desperate times call for desperate measures!"},
+                        {"Anime Kid#2":"It's time to summon our lord!"},
+                        {"Anime Kid #2":"SUMMONING JUTSU"},
+                        {"":"*the kid bites his finger and smears blood on the floor and concentrates"},
+                    ],
+                    "choice":["Joining a cult? That sounds fun!"],
+                    "choiceoutcome":["anime_cult_report3"]
+                },
+                {
+                    "sceneid":"anime_cult_report",
+                    "background":"anime_closet",
+                    "actors": [
+                        { "center": "Spencer" },
+                        {"upright":"avatar"}
+                    ],
+                    "message": [
+                        {"You":"I get that kids who watch anime are weird, but this is just too much"},
+                        {"Spencer":"We need to tell someone about this"},
+                        {"You":"Definitely!"}
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_report2"]
+                },
+                {
+                    "sceneid":"anime_cult_report2",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"}
+                    ],
+                    "message": [
+                        {"You":"WHAT THE HELL WAS IN THAT CLOSET?"},
+                        {"Anime Kid #2":"The board games?"},
+                        {"Spencer":"We saw more than just board games!"},
+                        {"Anime Kid #1":"They're talking about the Naruto cult ritual there, うずまき ナルト, we< forgot to clean it up, remember?"},
+                        {"Anime Kid #2":"Oh shoot, THEY SAW IT?!?!?!?!"},
+                        {"Spencer":"Oh yeah we did, and we're gonna let the principal find out about it"},
+                        {"Anime Kid #1":"Oh hell no, there's no way we're gonna let that happen"},
+                        {"Anime Kid #2":"Oh, you know what that means? "},
+                        {"You":"You're gonna do something weird?"},
+                        {"Anime Kid#2":"It's time to summon our lord!"},
+                        {"Anime Kid #2":"SUMMONING JUTSU"},
+                        {"":"*the kid bites his finger and smears blood on the floor and concentrates"},
+                    ],
+                    "choice":["This is perfectly normal activity"],
+                    "choiceoutcome":["anime_cult_report3"]
+                },
+                {
+                    "sceneid":"anime_cult_report3",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Naruto":"Hah, who called me!"},
+                        {"Anime Kid #1":"Lord Uzumaki Sir! This kid and his friend is going to reveal our cult!"},
+                        {"Naruto":"Oh, we can't let that happen, can we?"},
+                        {"Naruto":"I'm going to give you guys a challenge, if you can answer all 3 of my anime Trivia <questions right. I'll let you both go free."},
+                        {"Naruto":"If you fail however, you'll suffer eternal damnation."},
+                        {"Spencer":"Answer anime trivia? *gulp* I don't think I can do this!"},
+                        {"You":"Don't worry Spencer, I can try my best to solve these"},
+                        {"Naruto":"Hah! My first question is who is the main character of the show Naruto!"},
+                        {"Spencer":"Oh no! I can't possibly think of this answer"}
+                    ],
+                    "choice":["Kushimaru Kuriarare","Jefferson Davis","Naruto Uzumaki","David Duke!"],
+                    "choiceoutcome":["anime_cult_question1_kid","anime_cult_question1_davis","anime_cult_question1_naruto","anime_cult_question1_duke"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_naruto",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"The answer is simple, the main character is Naruto Uzumaki!"},
+                        {"Naruto":"Quite impressive, I simply didn't expect you to solve that"},
+                        {"Anime Kid #2":"何何何! They weren't supposed to get that right!"},
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_question2"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_kid",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"I belive that the answer is Kushimaru Kuriarare!"},
+                        {"Naruto":"You're an idiot, you have made a foolish choice!"},
+                        {"Anime Kid #2":"How did you even get that wrong! Who even is that character!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_davis",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the main character's name Jefferson Davis?"},
+                        {"Naruto":"Quite a foolish mistake, you're wrong!"},
+                        {"Anime Kid #2":"Hah they're an idiot!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question1_duke",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the main character named David Duke?"},
+                        {"Naruto":"Quite a foolish mistake, you're wrong!"},
+                        {"Anime Kid #2":"How did you even get that wrong! Naruto isn't a show about racists!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_wrong",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Spencer":"Oh no! What's going to happen now"},
+                        {"Naruto":"You're going to suffer the ultimate fate"},
+                        {"Spencer":"..."},
+                        {"Naruto":"You will both be locked into the anime closet with Rohit for the rest of eternity!"},
+                        {"Spencer":"NOOOO!11!11!1"},
+                        {"You":"Isn't that bit too cruel?"},
+                        {"Naruto":"Precisely so, which is why you're so deserving of it"},
+                        {"Naruto":"Now begone!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_rohit"]
+                },
+                {
+                    "sceneid":"anime_rohit",
+                    "background":"anime_closet",
+                    "actors": [
+                        {"upright":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"center":"Rohit"}
+                    ],
+                    "message": [
+                        {"Spencer":"OH GOD AM I IN HELL!!"},
+                        {"You":"WHAT IS THAT HIDEOUS THING"},
+                        {"Spencer":"I THINK I'M ABOUT TO HAVE A HEART ATTACK!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["ending_rohit"]
+                },
+                {
+                    "sceneid":"ending_rohit",
+                    "background": "ending_bad",
+                    "endingtext": "you suffer worst <br> fate imaginable"
+
+                },
+                {
+                    "sceneid":"anime_cult_question2",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"Naruto":"Well then your next question is!"},
+                        {"Naruto":"..."},
+                        {"Naruto":"What is the name of the technique that Kimimaro uses to manipulate his bones and< attack his enemies?"},
+                        {"Spencer":"WHAT!!!! DO YOU EXPECT US TO FAIL?!?"}
+                    ],
+                    "choice":["Shikotsumyaku","Sharingan","Ketsuryūgan","Kotoamatsukami"],
+                    "choiceoutcome":["anime_cult_question2_right","anime_cult_question2_sharingan","anime_cult_question2_ketsuryugan","anime_cult_question2_kotoamatsukami"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_right",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"The answer is clearly his Shikotsumyaku"},
+                        {"Spencer":"His what?"},
+                        {"Naruto":"Hah! That is correct! Maybe you're not as foolish as I thought"},
+                        {"Anime Kid #1":"How did they get that one right?"},
+                        {"Naruto":"But this next one will be harder!"},
+                        {"Naruto":"What is Naruto Uzumaki's main goal in life?"},
+                        {"Spencer":"This one might be tough"}
+                    ],
+                    "choice":["To become the Hokage, leader of the Hidden Leaf Vilalge","Become the best Chess grandmaster!","Get a ramen eating world record!","Take a shower!"],
+                    "choiceoutcome":["anime_cult_question3_hokage","anime_cult_question3_chess","anime_cult_question3_ramen","anime_cult_question3_shower"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_sharingan",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"If I'm not mistaken, then his technique is named the Sharingan!"},
+                        {"Naruto":"Wise words son! But you're wrong"},
+                        {"Anime Kid #1":"Hah, that's what I expected from you"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_kotoamatsukami",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is the answer the Kotoamatsukami!"},
+                        {"Naruto":"Good guess, but you're still wrong!"},
+                        {"Anime Kid #2":"Hah, they're not as much of a master of ancient Naruto knowledge, as Imperial Grand Wizard Patel is!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question2_ketsuryugan",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"To my knowledge, the technique is called the Ketsuryūgan!"},
+                        {"Naruto":"Good guess, but you're still wrong!"},
+                        {"Anime Kid #2":"Hah, they're not as much of a master of ancient Naruto knowledge, as Imperial Grand Wizard Patel is!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_hokage",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Naruto's main goal is to become the Hokage!"},
+                        {"Naruto":"HAH! You're not as bad as I thought!"},
+                        {"Spencer":"OMG WE DID IT!!!!"},
+                        {"Anime Kid #1":"But... they weren't supposed to do that!"},
+                        {"Naruto":"Well, since you got all 3 questions right, I'll keep my promise. <You're both free to leave"},
+                        {"You":"Good, now lets get out of here quick!"},
+                        {"Spencer":"We really need to find these kids better hobbies than having a cult revolving around <Naruto from the hit show Naruto"},
+                        {"You":"I can't agree more"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["ending_cult_escape"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_chess",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is his main goal to become the greatest chess grandmaster of all time?"},
+                        {"Naruto":"Nope. Not even close"},
+                        {"Anime Kid #2":"That's the worst guess I've ever heard!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_ramen",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Does he strive to break a ramen eating world record?"},
+                        {"Naruto":"Not quite! But you're still wrong :("},
+                        {"Anime Kid #2":"He has bigger priorities than that!"}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"anime_cult_question3_shower",
+                    "background":"anime",
+                    "actors": [
+                        {"downleft":"Spencer"},
+                        { "upleft": "avatar" },
+                        {"upright":"Sasuke"},
+                        {"downright":"Ladybug"},
+                        {"center":"Naruto"}
+                    ],
+                    "message": [
+                        {"You":"Is his goal to actually take a shower for once?"},
+                        {"Naruto":"Nope"},
+                        {"Anime Kid #2":"Ok! Now that just hits where it hurts the most :("}
+                    ],
+                    "choice":["To become Hokage"],
+                    "choiceoutcome":["anime_cult_wrong"]
+                },
+                {
+                    "sceneid":"ending_cult_escape",
+                    "background":"ending",
+                    "endingtext":"You later convince the<br>anime club kids that<br>there's more to life<br>than just anime"
+                },
+                {
+                    "sceneid": "mcdonalds_outside",
+                    "background": "mcdonalds_outside",
+                    "actors": [
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Wow this is such a fancy restaurant" },
+                        { "You": "I wonder what it looks like on the side" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_inside_start"]
+                },
+                {
+                    "sceneid": "mcdonalds_inside_start",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "You're late :(" },
+                        { "You": "Well at least I showed up" },
+                        { "Spencer": "Anyways, what do you want to order?" },
+                        { "Spencer": "And because I feel like it, I'll get the same order as you" }
+                    ],
+                    "choice": ["Big Mac", "Chocolate Shake", "Happy Meal", "McRib", "Spicy Deluxe Crispy Chicken Sandwich without Pickles and Tomatoes plus Extra Cheese"],
+                    "choiceoutcome": ["mcdonalds_food_bigmac", "mcdonalds_food_shake", "mcdonalds_food_happymeal", "mcdonalds_food_mcrib", "mcdonalds_food_sandwich"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_bigmac",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "bigmacs": "+1" }
+                    ],
+                    "message": [
+                        { "Spencer": "A big mac?" },
+                        { "Spencer": "That might be a bit difficult for me to handle" },
+                        { "You": "I'm sure you'll be fine" },
+                        { "Spencer": "Our order is here already?" },
+                        { "Spencer": "It's even bigger than I thought!" },
+                        { "Spencer": "Well I guess i have to finish it" },
+                        { "": "Spencer attempts to shove the entire burger down his mouth in one large bite" },
+                        { "": "He then swallows the whole big mac in one large gulp" },
+                        { "You": "please don't do that again" },
+                        { "Spencer": "sorry" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_shake",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+3" }
+                    ],
+                    "message": [
+                        { "Spencer": "Oooh! I love chocolate, and milkshakes too" },
+                        { "Spencer": "Oh, hey! Our order is already here" },
+                        { "You": "This shake is amazing" },
+                        { "Spencer": "I've never had anything better!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_happymeal",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+7" }
+                    ],
+                    "message": [
+                        { "Spencer": "A happy meal? That's uhh" },
+                        { "Spencer": "..." },
+                        { "Spencer": "interesting? " },
+                        { "You": "Do you have a problem?" },
+                        { "Spencer": "Oh no, absolutely not!" },
+                        { "Spencer": "Huh, our order is ready already?" },
+                        { "": "Spencer takes a little bite" },
+                        { "Spencer": "It actually isn't too bad" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonald_minions"]
+                },
+                {
+                    "sceneid": "mcdonald_minions",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" },
+                        { "center": "Minion" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "newvars": [
+                        { "minions": "true" }
+                    ],
+                    "message": [
+                        { "": "Suddenly a large horde of minions enter the building" },
+                        { "Spencer": "Hey what are those minions doing here?" },
+                        { "Minion #2": "i want banana pancake" },
+                        { "Minion #6": "Give banana" },
+                        { "Minion #1": "banana pancake! NOW!" },
+                        { "Spencer": "Just ignore them" },
+                        { "Minion #4": "we order banana pancake" },
+                        { "": "The horde gives up and leaves" },
+                        { "Spencer": "That was weird" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+
+                },
+                {
+                    "sceneid": "mcdonalds_food_mcrib",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "-5" }
+                    ],
+                    "message": [
+                        { "Spencer": "Sorry, you want what now?" },
+                        { "You": "I want a mcrib for us both" },
+                        { "Spencer": "Is this some sort of joke?" },
+                        { "You": "No, I'm serious" },
+                        { "Spencer": "You're actually crazy" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_food_sandwich",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "-3" }
+                    ],
+                    "message": [
+                        { "Spencer": "That's a very complicated order" },
+                        { "You": "Its my favorite, trust me it'll taste amazing" },
+                        { "Spencer": "Oh hey, our order is here!" },
+                        { "Spencer": "Oh wait..." },
+                        { "Spencer": "..." },
+                        { "Spencer": "They messed up our order" },
+                        { "Spencer": "How though? This isn't even close. We ordered a sandwich not a salad!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_favcolor"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Anyways, do you think you can guess my favorite color? " },
+                        { "You": "I think I might know this one" },
+                        { "You": "Let me think" }
+                    ],
+                    "choice": ["Blue", "Red", "Green", "Black"],
+                    "choiceoutcome": ["mcdonalds_favcolor_blue", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong", "mcdonalds_favcolor_wrong"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor_blue",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+4" }
+                    ],
+                    "message": [
+                        { "You": "Is it blue?" },
+                        { "Spencer": "Wow! You actually got it right" },
+                        { "Spencer": "That's kind of impressive!" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_trivia"]
+                },
+                {
+                    "sceneid": "mcdonalds_favcolor_wrong",
+                    "background": "mcdonalds_inside",
+                    "newvars": [
+                        { "points": "-2" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm actually disappointed@@" },
+                        { "Spencer": "That's not even @close" },
+                        { "Spencer": "You've made me unbelievably upset right now" },
+                        { "Spencer": "I am so dissatisfied with you" },
+                        { "Spencer": "Seriously, you've made me aggrieved like I've never been before" },
+                        { "Spencer": "I am incredibly displeased with your stupidity" },
+                        { "Spencer": "Your total idiocy" },
+                        { "Spencer": "Is it actually that hard to answer a question right?" },
+                        { "Spencer": "I am disconsolate all because of you now!" }
+
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_trivia"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "*maybe i should tell spencer a trivia fact about himself" },
+                        { "You": "*what would be a good idea" }
+                    ],
+                    "overrideVar": "minions",
+                    "overrideRequirement": "true",
+                    "overrideRedirect": "mcdonalds_playplace",
+                    "choice": ["You're 5 feet tall", "You were born 2/26/2009", "You own 27 pairs of socks", "You're naturally blonde"],
+                    "choiceoutcome": ["mcdonalds_trivia_height", "mcdonalds_trivia_birthday", "mcdonalds_trivia_socks", "mcdonalds_trivia_blonde"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_height",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You're exactly 5 feet tall or 60 inches" },
+                        { "Spencer": "WOW@" },
+                        { "Spencer": "OF COURSE YOU PUT THAT UP" },
+                        { "Spencer": "I HATE YOU" }
+                    ],
+                    "newvars": [
+                        { "points": "-20" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_birthday",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You were born on Febuary 26th, 2009" },
+                        { "Spencer": "Wow, you know a lot about me" }
+                    ],
+                    "newvars": [
+                        { "points": "+2" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_socks",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You own exactly 27 pairs of socks@" },
+                        { "Spencer": "Wow, you really do know a lot about me" }
+                    ],
+                    "newvars": [
+                        { "points": "+5" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_trivia_blonde",
+                    "background": "mcdonalds_inside",
+                    "message": [
+                        { "You": "You're naturally blonde, arent' you" },
+                        { "Spencer": "Wow, you know a lot about me" }
+                    ],
+                    "newvars": [
+                        { "points": "+2" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "choice": ["auto"],
+                    "choiceoutcome": ["mcdonalds_reorder"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Say, do you think we should order something else" },
+                        { "You": "Sure, why not!" },
+                        { "Spencer": "lets see whats on the menu" }
+                    ],
+                    "choice": ["Big Mac", "Fries", "Soda"],
+                    "choiceoutcome": ["mcdonalds_reorder_bigmac", "mcdonalds_reorder_fries", "mcdonalds_reorder_soda"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_bigmac",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "@A big mac! I think I'll be able to handle this" },
+                        { "": "You can see the worry on Spencer's face as the order arrives" },
+                        { "Spencer": "Here goes nothing!" },
+                        { "": "Spencer's face is more worried than it was before the burger" },
+                        { "Spencer": "Oh god" }
+                    ],
+                    "choice": ["We should order another big mac", "I think Spencer has had enough"],
+                    "choiceoutcome": ["mcdonalds_bigmac2", "mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_fries",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm fine with that" },
+                        { "You": "Hey, they're already here" },
+                        { "": "Both of you take small bites out of the fries" },
+                        { "Spencer": "They aren't too bad!" }
+                    ],
+                    "newvars": [
+                        { "points": "+2" }
+                    ],
+                    "choice": ["We should order another big mac"],
+                    "choiceoutcome": ["mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_reorder_soda",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "I'm fine with that" },
+                        { "You": "Hey, the soda is already here" },
+                        { "Spencer": "Huh! It tastes sugary" }
+                    ],
+                    "newvars": [
+                        { "points": "+2" }
+                    ],
+                    "choice": ["We should order another big mac"],
+                    "choiceoutcome": ["mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_purpose",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Wait ..." },
+                        { "Spencer": "Why are we even in a McDonalds?" }
+                    ],
+                    "choice": ["For fun", "We're on a budget", "To checkout the restrooms"],
+                    "choiceoutcome": ["mcdonalds_purpose_fun", "mcdonalds_purpose_budget", "mcdonalds_purpose_restrooms"]
+                },
+                {
+                    "sceneid": "mcdonalds_bigmac2",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Another?@" },
+                        { "Spencer": "@I don't know about this one" },
+                        { "You": "Too late now, the burger is already here" },
+                        { "": "Spencer struggles to eat the big mac" },
+                        { "Spencer": "I don't feel that well anymore" }
+                    ],
+                    "newvars": [
+                        { "points": "-2" }
+                    ],
+                    "choice": ["How about another?", "Maybe that's a bit too much"],
+                    "choiceoutcome": ["mcdonalds_bigmac3", "mcdonalds_purpose"]
+                },
+                {
+                    "sceneid": "mcdonalds_bigmac3",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Are you trying to kill me or something?@" },
+                        { "": "You can start to see tears form from Spencer's eyes" },
+                        { "You": "Guess what's already arriving" },
+                        { "": "Spencer can barely manage to swallow more than a few bites" },
+                        { "Spencer": "I'm not sure if I can finish this" },
+                        { "You": "Don't worry about it" },
+                        { "Spencer": "..." },
+                        { "Spencer": "....." },
+                        { "Spencer": "........." },
+                        { "": "Spencer's body drops dead on the floor" },
+                        { "": "Eating such an absurd amount of big macs lead to cardiac arrest" }
+                    ],
+                    "choice": ["How about another?"],
+                    "choiceoutcome": ["ending_bigmac"]
+                },
+                {
+                    "sceneid": "mcdonalds_playplace",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "minions": "true" }
+                    ],
+                    "message": [
+                        { "Spencer": "Say, should we head to the play place?" },
+                        { "You": "You want to head to the what?" },
+                        { "Spencer": "They have a play place, so we could go check it out" }
+                    ],
+                    "choice": ["That sounds like fun", "That for little kids"],
+                    "choiceoutcome": ["playplace_start", "mcdonalds_trivia"]
+                },
+                {
+                    "sceneid": "playplace_start",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Spencer": "Wait, what's going on here?" },
+                        { "Gru": "Minions! What are you doing, we need to steal the moon" },
+                        { "Minion #25": "We need the banana pancakes!" },
+                        { "Gru": "You all will get the pancakes eventually" },
+                        { "Minion #2": "We will not work until we get the banana pancakes" },
+                        { "Gru": "Hey short kid, and short's friend over there!" },
+                        { "Gru": "I need you to help me get these minions bananas" }
+                    ],
+                    "choice": ["We can help", "Not happening"],
+                    "choiceoutcome": ["playplace_banana", "playplace_prison_trapped0"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_trapped0",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Gru": "If you're not going to help, you're better off in my prison!" }
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["playplace_prison_trapped"]
+
+                },
+                {
+                    "sceneid": "playplace_banana",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Gru": "You two need to find me a large supply of bananas" },
+                        { "Gru": "Enough to feed this entire room!" },
+                        { "Spencer": "What, how are we supposed to do that" },
+                        { "You": "I think I might have an idea" }
+                    ],
+                    "choice": ["Lets threaten the staff!", "We can make a banana farm", "Start a war in Central America"],
+                    "choiceoutcome": ["playplace_staff", "playplace_farm", "playplace_war"]
+
+                },
+                {
+                    "sceneid": "playplace_staff",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "newvars": [
+                        { "points": "+3" }
+                    ],
+                    "message": [
+                        { "You": "We can go threaten the staff" },
+                        { "Spencer": "That sounds like fun to me!" },
+                        { "Spencer": "Lets go find them" }
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_staff2"]
+
+                },
+
+                {
+                    "sceneid": "playplace_staff2",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar" },
+                    ],
+                    "message": [
+                        { "Employee": "Welcome to McDonalds, what can we do for you!" },
+                        { "Spencer": "Hey Billy, how are the kids doing?" },
+                        { "Spencer": "Sarah and Micheal?" },
+                        { "Spencer": "Wouldn't it be shame if something happened to them" },
+                        { "Spencer": "And what about your house? 18 New Dawn place?" },
+                        { "Spencer": "It would be a shame if it went up in flames, wouldn't it?" },
+                        { "Employee": "Sir, you don't have to do this" },
+                        { "Spencer": "Oh and you keep your house keys underneath the door mat" },
+                        { "Employee": "Sir, please don't" },
+                        { "Spencer": "127.244.29.109" },
+                        { "Spencer": "Your social security number is 251-52-5821" },
+                        { "Spencer": "Everytime you eat cereal, you pour the milk first" },
+                        { "Spencer": "Also, I what you've done on the night March 21st, 1989" },
+                        { "Spencer": "Should your boss find out about this, you would be fired" },
+                        { "Employee": "Look, I'll do anything, just don't tell my boss" },
+                        { "Spencer": "Well then I expect 50 banana pancakes from you" },
+                        { "": "Spencer watches as the employee cooks all 50 pancakes, with sweat dripping from his face" },
+                        { "Spencer": "Great, now lets get back to Gru with these pancakes" },
+                        { "Spencer": "You know? That was actually pretty fun!" }
+
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_bananas"]
+
+                },
+                {
+                    "sceneid": "playplace_farm",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "-4" }
+                    ],
+                    "message": [
+                        { "You": "We should go start a farm" },
+                        { "Spencer": "That sounds interesting" },
+                        { "Spencer": "Well, I guess we need to get started" }
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_farm2"]
+
+                },
+                {
+                    "sceneid": "playplace_farm2",
+                    "background": "timeskip",
+                    "message": [
+                        { "": "It takes a long time to start a farm" },
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_farm3"]
+
+                },
+                {
+                    "sceneid": "playplace_farm3",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Spencer": "That took a while" },
+                        { "Spencer": "Like several months" },
+                        { "Spencer": "That was so boring" },
+                        { "Gru": "About time you two get those bananas, finally my minions can get fed" },
+                        { "Gru": "Anyways now you need to find out where the Shrink Ray is" }
+
+                    ],
+                    "choice": ["Use secret CIA info", "One of the stage managers has it"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
+
+                },
+                {
+                    "sceneid": "playplace_war",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" }
+                    ],
+                    "newvars": [
+                        { "points": "+5" }
+                    ],
+                    "message": [
+                        { "You": "We should go start a war in central america" },
+                        { "Spencer": "I like that idea" },
+                        { "Spencer": "Where do we start?" }
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_war2"]
+
+                },
+                {
+                    "sceneid": "playplace_war2",
+                    "background": "timeskip",
+                    "message": [
+                        { "": "Starting a war is kind of slow" },
+
+                    ],
+                    "choice": ["Lets threaten the staff!"],
+                    "choiceoutcome": ["playplace_war3"]
+
+                },
+                {
+                    "sceneid": "playplace_war3",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Spencer": "Who would've thought starting a war would be so fun " },
+                        { "Spencer": "Now we have a lifetime supply of bananas" },
+                        { "Spencer": "That was so boring" },
+                        { "Gru": "Great, now that my minions are fed, you can help me with something else" },
+                        { "Gru": "I need you to find where the Shrink Ray is" }
+
+                    ],
+                    "choice": ["Use secret CIA info", "It has to be with a stage manager"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
+
+                },
+                {
+                    "sceneid": "playplace_bananas",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Gru": "Very impressive" },
+                        { "Gru": "Now that my minions are fed, I need your help with something else" },
+                        { "Gru": "We need to find out who has the shrink ray" },
+                        { "You": "I have an idea on what to do" }
+                    ],
+                    "choice": ["Use secret CIA info", "I think a stage manager has it"],
+                    "choiceoutcome": ["playplace_cia", "playplace_guess"]
+
+                },
+                {
+                    "sceneid": "playplace_cia",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "You": "I have access to secret CIA databases" },
+                        { "Gru": "That is great news, now who has the Shrink ray" },
+                        { "Spencer": "Oh let me check this out" },
+                        { "": "Spencer searches through the files to find out where the shrink ray is" },
+                        { "Spencer": "The Shrink Ray is located in a high security prison" },
+                        { "Gru": "Well that sounds like a job for you" },
+                        { "Gru": "I'll be getting you to that prison as soon as possible " }
+                    ],
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["playplace_prison_mission"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_mission",
+                    "background": "keycard",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Wow! We got here fast" },
+                        { "Spencer": "Lets get going quick!" },
+                        { "": "You and Spencer start walking around for a bit" },
+                        { "You": "Hey, let's go through this door" },
+                        {"Spencer":"Alright then"},
+                        {"Spencer":"Wait, is that what I think it is?"}
+                    ],
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["prison_shrinkray"]
+
+                },
+                {
+                    "sceneid": "playplace_guess",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "You": "It has to be one of the stage managers" },
+                        { "Gru": "What kind of guess is that? You're just saying random things?" },
+                        { "Spencer": "It has to be stage manager though" },
+                        { "Gru": "I'm sending you to prison for being such an idiot" }
+                    ],
+                    "choice": ["Use secret CIA info"],
+                    "choiceoutcome": ["playplace_prison_trapped"]
+
+                },
+                {
+                    "sceneid": "playplace_prison_trapped",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "They sent us here fast" },
+                        { "Spencer": "Great, now we're going to rot here for the rest of our lives" },
+                        { "Spencer": "It even smells terrible here" },
+                        { "You": "..." },
+                        { "You": "Hey, is that a knife?" },
+                        { "Spencer": "Huh, that is a knife" },
+                        { "Spencer": "What should we do with it" }
+                    ],
+                    "choice": ["Stab Spencer", "Stab yourself", "Stab a guard"],
+                    "choiceoutcome": ["prison_stab_spencer", "prison_stab_self", "prison_stab_guard"]
+
+                },
+                {
+                    "sceneid": "prison_stab_guard",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You grab the knife and hide it" },
+                        { "You": "Hey, I have an idea" },
+                        { "You": "Let's call the guard and then stab him" },
+                        { "Spencer": "I like that idea" },
+                        { "Spencer": "GUARD HELP!!!!" }
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_stab_guard2"]
+
+                },
+                {
+                    "sceneid": "prison_stab_guard2",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" },
+                        { "upright": "Guard" }
+                    ],
+                    "message": [
+                        { "Guard": "What is it?" },
+                        { "You": "I hope you enjoy hell!" },
+                        { "": "You violently stab him in the chest 5 times" },
+                        { "Guard": "AHH!" },
+                        { "Spencer": "Lets go check his corpse!" },
+                        { "": "You both check all of his pockets" },
+                        { "Spencer": "I found a key card, no clue what door it opens though" }
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_outage"]
+                },
+                {
+                    "sceneid": "prison_doors",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Oh, hey three doors" },
+                        { "Mysterious Voice": "Door A opens to a room filled with lava" },
+                        { "Mysterious Voice": "Door B opens to a room that will shock you with electricity" },
+                        { "Mysterious Voice": "Door C opens to a room with a shark that hasn't eaten in 100 years"},
+                        { "Spencer": "I wonder which one we should open?"}
+                    ],
+                    "choice": ["Door A", "Door B", "Door C"],
+                    "choiceoutcome": ["prison_doors_a","prison_doors_b","prison_doors_c"]
+                },
+                {
+                    "sceneid": "prison_outage",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+
+                    ],
+                    "message": [
+                        { "": "The lights turn off" },
+                        { "You": "This must be a power outage!" },
+                        { "Spencer": "Huh, so the power's out?"},
+                        {"":"You and Spencer start walking outside your cell"}
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["prison_doors"]
+                },
+                {
+                    "sceneid": "prison_doors_a",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "Lava rushes out of the door and kills both you and Spencer" },
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["ending_door_a"]
+                },
+                {
+                    "sceneid": "ending_door_a",
+                    "background": "ending_bad",
+                    "endingtext": "you and spencer died :("
+                },
+                {
+                    "sceneid": "prison_doors_b",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "Since the power is already out, there's nothing harmful here"},
+                        {"You":"Quick Spencer! Lets go through before the power turns back on!"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_doors_b2"]
+                },
+                {
+                    "sceneid": "prison_doors_b2",
+                    "background": "keycard",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Look, it's a keycard scanner!<Maybe we can use that guard's keycard"},
+                        {"":"Spencer scans it, but its the wrong keycard"},
+                        {"You":"Oh well, looks like we'll just turn back"},
+                        {"":"The power immediately turns back on"},
+                        {"You":"I stand corrected"},
+                        {"Spencer":"What are we going to do?"},
+                        {"You":"I have no clue"},
+                        {"":"Hours pass by, which turns into days"},
+                        {"":"Soon, it's been weeks since you've last had food"},
+                        {"":"It isn't much later until both you and Spencer die"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["ending_door_b"]
+                },
+                {
+                    "sceneid": "ending_door_b",
+                    "background": "ending_bad",
+                    "endingtext": "You and Spencer starve to death"
+                },
+                {
+                    "sceneid": "prison_stab_spencer",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You pick up the knife and stab Spencer with it" },
+                        { "Spencer": "AAAGGGHGGHHHH!!!!!!" },
+                        { "": "Spencer slowly bleeds out on the floor@" },
+                        { "": "You check to see his pulse, nothing" },
+                        { "": "Spencer's body lays on the ground, lifeless"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome": ["ending_stab_spencer"]
+                },
+                {
+                    "sceneid": "prison_doors_c",
+                    "background": "jail_doors",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Mysterious Voice": "If the shark hasn't eaten in 100 years, then it's clearly dead"},
+                        {"Spencer":"Oh look! There's a keycard door on the other side!"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_doors_c2"]
+                },
+                {
+                    "sceneid": "prison_doors_c2",
+                    "background": "keycard",
+                    "actors": [
+                        { "center": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Lets try using the keycard!"},
+                        {"":"The door opens up revealing the next room!"},
+                        {"Spencer":"WAIT WHAT!!!! DO YOU SEE THAT?"}
+                    ],
+                    "choice": ["Door A"],
+                    "choiceoutcome": ["prison_shrinkray"]
+                },
+                {
+                    "sceneid": "prison_shrinkray",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "That's the shrink ray! Can you believe it?"},
+                        {"Spencer":"The shrink ray is ours now!"},
+                        {"You":"Wait what do you mean? Shouldn't we give it to Gru? I'm sure he'd<give us a lot if we gave it to him."},
+                        {"Spencer":"But it could be ours, what do we owe to that disgruntled piece of string cheese"}
+                    ],
+                    "choice": ["It can be ours now!","We should just give it to Gru"],
+                    "choiceoutcome": ["prison_shrinkray_keep","prison_shrinkray_give"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "Think about it Spencer!"},
+                        {"Spencer":"You're right, lets just give it to Gru"},
+                        {"Spencer":"Wait do you hear that?"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_give2"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give2",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        {"downright":"Minion"},
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"},
+                        {"downleft":"Minion"}
+                    ],
+                    "message": [
+                        { "Minion #2": "You guys got the shrink ray?"},
+                        {"Minion #16":"We can air drop both of you back to Gru"},
+                        {"Spencer":"Well here's the Shrink ray"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_give3"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_give3",
+                    "background": "playplace",
+                    "actors": [
+                        { "center": "Gru" },
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" },
+                        { "upright": "Minion" },
+                        { "downright": "Minion" }
+                    ],
+                    "message": [
+                        { "Spencer": "Sir Gru, we have got your Shrink Ray"},
+                        { "Gru": "Why, that's good news, we can now shrink the moon!" },
+                        { "Minion #25":"Good work short kid!" },
+                        { "Gru": "Now minions! We must get going!" }
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["prison_shrinkray_give4"]
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_give4",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        { "You": "Wow! We're finally done with that ordeal!"}
+                    ],
+                    "choice": ["We can help"],
+                    "choiceoutcome": ["prison_shrinkray_give5"]
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_give5",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Dr. Nefario": "Greetings.. Would you be interested in becoming my test subject<short one?"},
+                        {"Spencer":"I'm conflicted, should I or should I not"}
+                    ],
+                    "choice": ["You should trust him","He seems strange"],
+                    "choiceoutcome": ["nefario_yes","nefario_no"]
+                },
+                {
+                    "sceneid": "nefario_yes",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"You":"You can probably trust him"},
+                        {"Spencer":"Fine, i'll do it"},
+                        { "Dr. Nefario": "Oh, that's good news, get ready for your experiments"},
+                        {"Spencer":"I'm ready"},
+                        {"":"Dr. Nefario reveals a laser gun and shoots Spencer with it"},
+                        {"Spencer":"AGGHHHH"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["nefario_yes2"]
+                },
+                {
+                    "sceneid": "nefario_yes2",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Gru" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"Spencer":"Wait, what happened?"},
+                        {"You":"Gru? What are you doing here?"},
+                        {"Spencer": "What? I'm not Gru!"},
+                        {"Spencer":"WAIT WHAT! DO I LOOK LIKE GRU?"},
+                        {"Dr. Nefario":"Hah! So it seems that the test is successful"},
+                        {"Spencer":"NOOOOOO!!!!! It can't be so!!!!"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["ending_nefario"]
+                },
+                {
+                    "sceneid": "ending_nefario",
+                    "background": "ending",
+                    "endingtext_red": "Spencer is gru now"
+
+                },
+                {
+                    "sceneid": "nefario_no",
+                    "background": "playplace",
+                    "actors": [
+                        { "upleft": "Gru" },
+                        {"center":"Nefario"},
+                        { "downleft": "avatar" }
+                    ],
+                    "message": [
+                        {"You":"I don't think we can trust him"},
+                        {"Spencer":"Yeah you're totally right"},
+                        {"Dr. Nefario": "Darn it! Of course you had to make a wise decision"},
+                        {"Spencer":"Anyways, lets get out of this place"},
+                        {"You":"I agree, I've had enough here"}
+                    ],
+                    "choice": ["nefario_yes2"],
+                    "choiceoutcome": ["ending_nefario_good"]
+                },
+                {
+                    "sceneid": "ending_nefario_good",
+                    "background": "ending",
+                    "endingtext": "You and spencer get<br>married and live<br> happily ever after"
+
+                },
+                {
+                    "sceneid": "prison_shrinkray_keep",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"}
+                    ],
+                    "message": [
+                        { "You": "You're right, we should keep it for ourselves"},
+                        {"Spencer":"That's what I'm talking about"},
+                        {"Spencer":"Wait do you hear that?"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["prison_shrinkray_keep2"]
+                },
+                {
+                    "sceneid": "prison_shrinkray_keep2",
+                    "background": "jail_shrinkray",
+                    "actors": [
+                        {"downright":"Minion"},
+                        { "upright": "Spencer" },
+                        { "upleft": "avatar"},
+                        {"downleft":"Minion"}
+                    ],
+                    "message": [
+                        { "Minion #2": "You don't really plan on betraying Gru like that, don't you"},
+                        {"Minion #16":"If so, you're gonna suffer. There's about 15 more of us coming"},
+                        {"Spencer":"Well guess what. We won't go down without a fight"}
+                    ],
+                    "choice": ["It can be ours now!"],
+                    "choiceoutcome": ["ending_shrinkray_keep"]
+                },
+                {
+                    "sceneid": "ending_shrinkray_keep",
+                    "background": "ending_bad",
+                    "endingtext": "you can't betray gru like that"
+
+                },
+                {
+                    "sceneid": "ending_stab_spencer",
+                    "background": "ending_red",
+                    "endingtext": "you killed spencer"
+
+                },
+                {
+                    "sceneid": "prison_stab_self",
+                    "background": "jail",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "": "You pick up the knife and start to slit your wrists" },
+                        { "Spencer": "WAIT WHAT!!!!" },
+                        { "": "Spencer watches you in horor" },
+                        { "": "..." },
+                        { "Spencer": "You're?!??" },
+                        { "Spencer": "EMO!!?!?!!!"}
+                    ],
+                    "choice": ["Stab Spencer"],
+                    "choiceoutcome": ["ending_stab_self"]
+
+                },
+                {
+                    "sceneid": "ending_stab_self",
+                    "background": "ending_bad",
+                    "endingtext": "spencer thinks you're emo"
+
+                },
+                {
+                    "sceneid": "mcdonalds_purpose_fun",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "For fun?" },
+                        { "You": "Yes, for fun" },
+                        { "Spencer": "You find this fun?" },
+                        { "You": "Yes, I do" },
+                        { "Spencer": "..." },
+                        { "Spencer": "Well, ok" }
+                    ],
+                    "choice": ["For fun"],
+                    "choiceoutcome": ["mcdonalds_ending"]
+                },
+                {
+                    "sceneid": "mcdonalds_purpose_budget",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Are you that short on cash?" },
+                        { "You": "I mean after this meal I have uhhh ..." },
+                        { "": "You check to open your wallet" },
+                        { "You": "About 12 dollars, total" },
+                        { "Spencer": "..." },
+                        { "You": "My net worth is about 200 dollars or so" },
+                        { "You": "Maybe a bit less" },
+                        { "Spencer": "..." }
+                    ],
+                    "choice": ["For fun"],
+                    "choiceoutcome": ["mcdonalds_ending"]
+                },
+                {
+                    "sceneid": "mcdonalds_ending",
+                    "background": "mcdonalds_inside",
+                    "ending": [
+                        { "NormalBad": "ending_mcdonalds_bad_pretext" },
+                        { "NormalNeutral": "ending_mcdonalds_neutral_pretext" },
+                        { "NormalGood": "ending_mcdonalds_good_pretext" }
+                    ],
+                    "actors": [
+                        { "downleft": "Spencer" },
+                        { "upleft": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "You find this fun?" }
+                    ],
+                    "choice": ["For fun"],
+                    "choiceoutcome": ["mcdonalds_ending"]
+                },
+                {
+                    "sceneid": "ending_mcdonalds_bad_pretext",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Well this date has been fun, I guess?" },
+                        { "Spencer": "But I've made up my mind" },
+                        { "Spencer": "Never talk to me again!" }
+                    ],
+                    "choice": [""],
+                    "choiceoutcome" : ["ending_mcdonalds_bad"],
+                },
+                {
+                    "sceneid": "ending_mcdonalds_bad",
+                    "background": "ending_bad",
+                    "endingtext":"Spencer hates you :(",
+                },
+                {
+                    "sceneid": "ending_mcdonalds_neutral_pretext",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Well this date has been fun" },
+                        { "Spencer": "You've been quite an interesting person" },
+                        { "Spencer": "Say, wanna go on a date again?" }
+                    ],
+                    "choice": [""],
+                    "choiceoutcome" : ["ending_mcdonalds_neutral"],
+                },
+                {
+                    "sceneid": "ending_mcdonalds_neutral",
+                    "background": "ending",
+                    "endingtext":"You got with Spencer!",
+                },
+                {
+                    "sceneid": "ending_mcdonalds_good_pretext",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "Spencer": "Well this date has been fun, I guess?" },
+                        { "Spencer": "But can I ask you something?" },
+                        { "Spencer": "Will you marry me?" },
+                        { "You" : "OMG YES!!!"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome" : ["ending_mcdonalds_good"],
+                },
+                {
+                    "sceneid": "ending_mcdonalds_good",
+                    "background": "ending",
+                    "endingtext":"You married to Spencer!",
+                },
+
+                {
+                    "sceneid": "mcdonalds_purpose_restrooms",
+                    "background": "mcdonalds_inside",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center" : "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "You want to check out the restrooms?" },
+                        { "You": "Yep!" },
+                        { "Spencer": "Well, ok?" },
+                        { "Spencer": "I guess we can check them out" },
+                        { "You" : "The restroom is over in that direction, we can go there together"}
+                    ],
+                    "choice": ["Jump down immediately "],
+                    "choiceoutcome" : ["mcdonalds_restrooms"]
+                },
+                {
+                    "sceneid": "mcdonalds_restrooms",
+                    "background": "restroom",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center" : "avatar"}
+                    ],
+                    "message": [
+                        { "Spencer": "Wow, this isn't very clean for a McDonald's restroom" },
+                        { "You": "What did you expect?" },
+                        { "" : "You suddenly feel the urge to jump down on the floor"}
+                    ],
+                    "choice": ["Jump down immediately ", "Spencer will think I'm weird"],
+                    "choiceoutcome" : ["mcdonalds_restrooms_drop","mcdonalds_restrooms_stand"]
+                },
+                {
+                    "sceneid": "mcdonalds_restrooms_drop",
+                    "background": "restroom_explosion",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center" : "avatar"}
+                    ],
+                    "message": [
+                        { "": "You immediately drop down on the floor, knocking down Spencer with you" },
+                        { "": "Suddenly an explosion happens " },
+                        { "": "KABLAAAM!!!!!!!" },
+                        { "Spencer": "@Wow" },
+                        { "Spencer": "I can't believe that we survived that explosion" },
+                        { "Spencer": "You really did save me back there" },
+                        { "": "After surviving such a traumatic experience, you and Spencer get married" }
+                    ],
+                    "choice": ["Jump down immediately "],
+                    "choiceoutcome" : ["ending_restroom_survive"]
+
+                },
+                {
+                    "sceneid": "mcdonalds_restrooms_stand",
+                    "background": "restroom_explosion",
+                    "actors": [
+                        { "upleft": "Spencer" },
+                        { "center": "avatar" }
+                    ],
+                    "message": [
+                        { "": "A sudden explosion appears from out of nowhere" },
+                        { "": "KABLAAAM!!!!!!!" }
+
+                    ],
+                    "choice": ["Jump down immediately "],
+                    "choiceoutcome" : ["ending_restroom_die"]
+
+                },
+                {
+                    "sceneid": "ending_restroom_survive",
+                    "background": "ending",
+                    "endingtext": "You managed to survive a sudden explosion"
+                },
+                {
+                    "sceneid": "ending_restroom_die",
+                    "background": "ending_bad",
+                    "endingtext": "You died in an explosion"
+                },
+                {
+                    "sceneid": "ending_bigmac",
+                    "background": "ending_red",
+                    "endingtext": "Spencer suffered a heart attack"
+                }
+
+
+
+
+
+
+
+
+
+            ]
+        };
+        var typeWriterID = undefined;
+
+        function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
+            if (repetition === undefined) {
+                repetition = -1;
+            }
+            /*if (message == undefined) {
+                message = String(message);
+            }*/
+            if (repetition < message.length) { //check if the message has characters left
+                if (message.charAt(repetition) === '<' || message.charAt(repetition) === '>') {
+                    document.getElementById("output").innerHTML += "<br>";
+                } else if (message.charAt(repetition) ==='@') {
+                    document.getElementById("remember").style.opacity = "1";
+                } else {
+
+                    document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                }
+                repetition++;
+                typeWriterID = setTimeout(typeWriter, delay, message, 10 , repetition); //run the function again in a few milliseconds
+            } else {
+                typewriterFinished = message; // if characters are not left update typewriterFinished,
+                document.getElementById("nextLine").style.display = 'inherit';
+
+            }
+        }
+
+
+
+
+
+        jQuery(function () { //runs at the very beginning of the game to start everything
+            newScene("start");
+            setTimeout(rememberDecay,100)
+
+            function rememberDecay() {
+                document.getElementById('remember').style.opacity = document.getElementById('remember').style.opacity - .05;
+                setTimeout(rememberDecay,100)
+            }
+
+        });
+        var continueButton = false;
+        var dialogueLocation = 0;
+
+        function nextLine() { //function that runs to contine to the next line of dialogue
+
+            if (document.getElementById('nextLine').style.display === 'inherit') {
+                document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
+                if (dialogueLocation === -1) { //if dialogue is finished then show buttons
+                    continueButton = true; //when continueButton is set to true, the buttons will then procede to load
+                }
+                continueLine = typewriterFinished; //variable signals that the game can show the next line
+
+                // when continueLine is equal to the previous message shown, the game will start showing the next line
+                // and typewriterFinished is equal to said previous message
+            }
+        }
+
+        function newScene(nextScene) { //code for starting new scenes
+            var typewriterFinished;
+            if (nextScene === undefined) { //if called from button, get the scene name
+                nextScene = event.target.id;
+            }
+            //document.getElementById("output").innerHTML = nextScene; actually useless code i think
+            var f = "";
+            jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
+                if (output.sceneid === nextScene) {
+                    f = output;
+                }
+            });
+
+            jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
+                //loops for each entry in a list
+                jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
+                    if (newVal[0] === '+') { //if the first char is '0'
+                        newValDifference = newVal.slice(1); //get the number to change
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points + newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs + newValDifference;
+                                break;
+                        }
+                    }
+                    if (newVal[0] === '-') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points - newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs - newValDifference;
+                                break;
+                        }
+                    }
+
+
+                    switch (newVar) {
+                        case "avatar":
+                            avatar = newVal;
+                            break;
+                        case "points":
+                            points = newVal;
+                            console.log("points: " + points);
+
+                            break;
+                        case "bigmacs":
+                            bigmacs = newVal;
+                            break;
+                        case "deathnote":
+                            deathnote = newVal;
+                            break;
+                        case "minions":
+                            minions = newVal;
+                            break;
+                    }
+                });
+
+
+            });
+
+
+            var lastMessage = "";
+            dialogueLocation = 0;
+            typewriterFinished = undefined; //code for displaying dialogue
+            jQuery.each(f.message, function (i, chatPair) { //loop
+                    jQuery.each(chatPair, function (actor, message) {
+                        function waitForTypewriter() {
+                            if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
+                                dialogueLocation++;
+
+                                typewriterFinished = "";
+                                clearTimeout(typeWriterID);
+                                newMessage = message;
+                                document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
+                                document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
+                                if (actor == "" || actor == " ") {
+                                    document.getElementById('textbox').innerHTML = '<img src="assets/textboxempty.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                                } else {
+                                    document.getElementById("textbox").innerHTML = '<img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>';
+                                }
+                                typeWriter(newMessage, 0); //run the function for the typewriter effect
+                                if (dialogueLocation === f.message.length ) { //if it's the last line in scene
+                                    dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
+                                }
+                                lastMessage = message;
+                            }
+                            else {
+                                setTimeout(waitForTypewriter, 250);
+                            }
+                        }
+                        waitForTypewriter();
+                    });
+
+                }
+
+            );
+            if (f.ending != null) { //code for dealing with ending redirects
+                jQuery.each(f.ending, function (i, newValue) { //loop for each pair in the list
+                    jQuery.each(newValue, function (endingType, endingResult) { //loop for the pair and its values
+                        switch (endingType) {
+                            case "NormalNeutral":
+                                if (points >= -2 && points <= 3) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalGood":
+                                if (points > 4) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalBad":
+                                if (points < -2) {
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                        }
+
+                    });
+                });
+            }
+            if (f.endingtext != null) {
+                document.getElementById("endingtext").innerHTML = f.endingtext;
+                const output = document.getElementById("output").remove;
+                output.remove;
+            }
+
+            if (f.overrideVar != null) { //handles the override stuff
+                switch (f.overrideVar) {
+                    case "bigmacs":
+                        if (bigmacs == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                    case "minions":
+                        if (minions == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                    case "deathnote":
+                        if (deathnote == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                }
+            }
+
+
+            document.getElementById("upleft").innerHTML = ""; //reset current actors
+            document.getElementById("downleft").innerHTML = "";
+            document.getElementById("center").innerHTML = "";
+            document.getElementById("upright").innerHTML = "";
+            document.getElementById("downright").innerHTML = "";
+
+
+            jQuery.each(f.actors, function (i, actorPair) { //code for updating for new actors
+                jQuery.each(actorPair, function (actorLocation, actorName) {
+                    var actorImage;
+                    if (actorName == "avatar") {
+                        actorName = avatar;
+                    }
+                    switch (actorName) {
+                        case "Spencer":
+                            actorImage = '<img src="assets/characters/spencer.png" alt="image" width="120">';
+                            break;
+                        case "Stickman":
+                            actorImage = '<img src="assets/characters/stickman.png" alt="you" width="100">';
+                            break;
+                        case "Stickwoman":
+                            actorImage = '<img src="assets/characters/stickwoman.png" alt="you" width="100">';
+                            break;
+                        case "Gorbachev":
+                            actorImage = '<img src="assets/characters/gorbachev.png" alt="you" width="100">';
+                            break;
+                        case "Minion":
+                            actorImage = '<img src="assets/characters/minion.png" alt="you" width="100">';
+                            break;
+                        case "SpencerInverted":
+                            actorImage = '<img src="assets/characters/spencerinverted.png" alt="image" width="120">';
+                            break;
+                        case "Jake":
+                            actorImage = '<img src="assets/characters/jake.png" alt="image" width="100">';
+                            break;
+                        case "Gru":
+                            actorImage = '<img src="assets/characters/gru.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Guard":
+                            actorImage = '<img src="assets/characters/prison-guard.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Nefario":
+                            actorImage = '<img src="assets/characters/nefario.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Sasuke":
+                            actorImage = '<img src="assets/characters/sasuke.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Ladybug":
+                            actorImage = '<img src="assets/characters/ladybug.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Goku":
+                            actorImage = '<img src="assets/characters/goku.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Naruto":
+                            actorImage = '<img src="assets/characters/naruto.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Jesus Christ":
+                            actorImage = '<img src="assets/characters/jesus.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Fishing Dude":
+                            actorImage = '<img src="assets/characters/kurt-cobain.png" alt="image" width="100" height="200">';
+                            break;
+                        case "Bearded Fishing Dude":
+                            actorImage = '<img src="assets/characters/hagrid.png" alt="image" width="100" height="200">';
+                            break;
+                        default:
+                            actorImage = '<img src="assets/characters/spencer.png" alt="default" width="100">';
+                    }
+                    document.getElementById(actorLocation).innerHTML = actorImage;
+                });
+
+            });
+
+            var background = f.background;
+            switch (background) { //code for changing backgrounds
+                case "bedroom":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/bedroom.png" alt="image" width="750">'
+                    break;
+                case "mcdonalds_outside":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/mcdonalds_outside.png" alt="image" width="750" height="562.5">'
+                    break;
+                case "mcdonalds_inside":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/mcdonalds_inside.png" alt="image" width="750" height="562.5">'
+                    break;
+                case "ending":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending.png" alt="image" width="750">'
+                    break;
+                case "ending_red":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending_red.png" alt="image" width="750">'
+                    break;
+                case "ending_bad":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/ending_bad.png" alt="image" width="750">'
+                    break;
+
+                case "restroom":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/restrooms.png" alt="image" width="750" height="562.5">'
+                    break;
+                case "restroom_explosion":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/restrooms_explosion.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "playplace":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/playplace.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "timeskip":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/timeskip.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "jail":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/jail.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "jail_doors":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/prison_doors.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "keycard":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/keycard.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "jail_shrinkray":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/prison_shrinkray.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "anime":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "anime_closet":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime_closet.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "daw":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/daw.png" alt="image" width="750" height="562.5">';
+                    break;
+                case "anime_wedding":
+                    document.getElementById("background").innerHTML = '<img src="assets/backgrounds/anime_wedding.png" alt="image" width="750" height="562.5">';
+                    break;
+
+            }
+            var newChoice = f.choice;
+            document.getElementById("output").innerHTML = "";
+
+            var buttonList = ""; //creates buttons
+
+            function showButtons() {
+                document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+
+                if (continueButton) {
+                    continueButton = false;
+                    if (f.choice != null) {
+                        if (f.choice.length > 1) {
+                            var repetition = 0;
+                            function displayButtons() {
+                                if (repetition < f.choice.length) {
+                                    console.log(repetition);
+                                    console.log(f.choiceoutcome);
+                                    console.log(f.choiceoutcome[repetition]);
+
+                                    buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                    document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                    repetition++;
+                                    setTimeout(displayButtons, 250);
+                                }
+                            }
+                            displayButtons();
+                        } else {
+                            newScene(f.choiceoutcome[0]);
+                        }
+                    }
+
+
+                } else {
+                    setTimeout(showButtons, 250);
+                }
+            }
+            showButtons();
+
+        }
+
+    </script>
+    <title>Howell I Get With Spencer</title>
+</head>
+<body>
+<div id="body">
+    <div id="background"></div>
+    <div class="textbox">
+        <div id="textbox">
+            <img src="assets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>
+        </div>
+        <div onclick=nextLine() id="output">
+            <p>test</p>
+        </div>
+        <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
+        <div id="speakerName"></div>
+        <div id="remember"><p>Spencer will remember that</p></div>
+
+    </div>
+    <div class="buttonOutput">
+    </div>
+    <div id="actors">
+        <div id="upleft"> </div>
+        <div id="upright"></div>
+        <div id="center"></div>
+        <div id="downright"></div>
+        <div id="downleft"></div>
+
+    </div>
+    <div id="endingtext"> </div>
+
+
+</div>
+</body>
+</html>
